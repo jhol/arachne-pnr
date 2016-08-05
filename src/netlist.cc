@@ -23,40 +23,6 @@
 #include <iomanip>
 #include <iostream>
 
-static void
-write_string_escaped(std::ostream &s, const std::string &str)
-{
-  s << '"';
-  for (char ch : str)
-    {
-      if (ch == '"'
-          || ch == '\\')
-        s << '\\' << ch;
-      else if (isprint(ch))
-        s << ch;
-      else if (ch == '\n')
-        s << "\n";
-      else if (ch == '\t')
-        s << "\t";
-      else
-        s << fmt(std::oct << std::setw(3) << std::setfill('0') << (int)ch);
-    }
-  s << '"';
-}
-
-std::ostream &
-operator<<(std::ostream &s, const Const &c)
-{
-  if (c.m_is_bits)
-    {
-      for (int i = c.m_bitval.size() - 1; i >= 0; --i)
-        s << (c.m_bitval[i] ? '1' : '0');
-    }
-  else
-    write_string_escaped(s, c.m_strval);
-  return s;
-}
-
 Direction
 opposite_direction(Direction d)
 {
@@ -72,22 +38,6 @@ opposite_direction(Direction d)
       abort();
       return Direction::IN;
     }
-}
-
-int Identified::id_counter = 0;
-
-void
-Const::write_verilog(std::ostream &s) const
-{
-  if (m_is_bits)
-    {
-      s << m_bitval.size()
-        << "'b";
-      for (int i = m_bitval.size() - 1; i >= 0; --i)
-        s << (m_bitval[i] ? '1' : '0');
-    }
-  else
-    write_string_escaped(s, m_strval);
 }
 
 void
