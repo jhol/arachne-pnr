@@ -24,36 +24,6 @@
 #include <iostream>
 
 std::ostream &
-operator<<(std::ostream &s, const CBit &cbit)
-{
-  return s << cbit.tile << " B" << cbit.row << "[" << cbit.col << "]";
-}
-
-bool
-CBit::operator==(const CBit &rhs) const
-{
-  return tile == rhs.tile
-    && row == rhs.row
-    && col == rhs.col;
-}
-
-bool
-CBit::operator<(const CBit &rhs) const
-{
-  if (tile < rhs.tile)
-    return true;
-  if (tile > rhs.tile)
-    return false;
-
-  if (row < rhs.row)
-    return true;
-  if (row > rhs.row)
-    return false;
-  
-  return col < rhs.col;
-}
-
-std::ostream &
 operator<<(std::ostream &s, const CBitVal &cv)
 {
   for (const auto &p : cv.cbit_val)

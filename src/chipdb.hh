@@ -16,8 +16,7 @@
 #ifndef PNR_CHIPDB_HH
 #define PNR_CHIPDB_HH
 
-#include "bstream.hh"
-#include "hashmap.hh"
+#include "cbit.hh"
 #include "location.hh"
 #include "vector.hh"
 
@@ -27,61 +26,6 @@
 #include <set>
 #include <string>
 #include <vector>
-
-class CBit
-{
-public:
-  friend std::ostream &operator<<(std::ostream &s, const CBit &cbit);
-  friend obstream &operator<<(obstream &obs, const CBit &cbit);
-  friend ibstream &operator>>(ibstream &ibs, CBit &cbit);
-  template<typename T> friend struct std::hash;
-  
-  int tile;
-  int row;
-  int col;
-  
-public:
-  CBit()
-    : tile(0), row(0), col(0)
-  {}
-  CBit(int tile_, int r, int c)
-    : tile(tile_), row(r), col(c)
-  {}
-  
-  CBit with_tile(int new_t) const { return CBit(new_t, row, col); }
-  
-  bool operator==(const CBit &rhs) const;
-  bool operator!=(const CBit &rhs) const { return !operator==(rhs); }
-  
-  bool operator<(const CBit &rhs) const;
-};
-
-inline obstream &operator<<(obstream &obs, const CBit &cbit)
-{
-  return obs << cbit.tile << cbit.row << cbit.col;
-}
-
-inline ibstream &operator>>(ibstream &ibs, CBit &cbit)
-{
-  return ibs >> cbit.tile >> cbit.row >> cbit.col;
-}
-
-namespace std {
-
-template<>
-struct hash<CBit>
-{
-public:
-  size_t operator() (const CBit &cbit) const
-  {
-    std::hash<int> hasher;
-    size_t h = hasher(cbit.tile);
-    h = hash_combine(h, hasher(cbit.row));
-    return hash_combine(h, hasher(cbit.col));
-  }
-};
-
-}
 
 class CBitVal
 {
