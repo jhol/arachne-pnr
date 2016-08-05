@@ -17,6 +17,7 @@
 #define PNR_CHIPDB_HH
 
 #include "cbit.hh"
+#include "cbitval.hh"
 #include "location.hh"
 #include "vector.hh"
 
@@ -26,22 +27,6 @@
 #include <set>
 #include <string>
 #include <vector>
-
-class CBitVal
-{
-public:
-  friend std::ostream &operator<<(std::ostream &s, const CBitVal &cbits);
-  
-  std::map<CBit, bool> cbit_val;
-  
-public:
-  CBitVal() {}
-  CBitVal(const std::map<CBit, bool> &cbv)
-    : cbit_val(cbv)
-  {}
-  
-  std::set<CBit> cbits() const;
-};
 
 class Switch
 {

@@ -23,27 +23,6 @@
 #include <fstream>
 #include <iostream>
 
-std::ostream &
-operator<<(std::ostream &s, const CBitVal &cv)
-{
-  for (const auto &p : cv.cbit_val)
-    {
-      if (p.second)
-        s << "1";
-      else
-        s << "0";
-    }
-  for (const auto &p : cv.cbit_val)
-    s << " " << p.first;
-  return s;
-}
-
-std::set<CBit>
-CBitVal::cbits() const
-{
-  return keys(cbit_val);
-}
-
 std::string
 tile_type_name(TileType t)
 {
