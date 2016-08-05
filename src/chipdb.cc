@@ -43,39 +43,6 @@ tile_type_name(TileType t)
   return std::string();
 }
 
-obstream &operator<<(obstream &obs, const Switch &sw)
-{
-  obs << sw.bidir
-      << sw.tile
-      << sw.out
-      << sw.cbits.size();
-  for (const CBit &cbit : sw.cbits)
-    {
-      assert(cbit.tile == sw.tile);
-      obs << cbit.row << cbit.col;
-    }
-  obs << sw.in_val;
-  return obs;
-}
-
-ibstream &operator>>(ibstream &ibs, Switch &sw)
-{
-  size_t n_cbits;
-  ibs >> sw.bidir
-      >> sw.tile
-      >> sw.out
-      >> n_cbits;
-  sw.cbits.resize(n_cbits);
-  for (size_t i = 0; i < n_cbits; ++i)
-    {
-      int row, col;
-      ibs >> row >> col;
-      sw.cbits[i] = CBit(sw.tile, row, col);
-    }
-  ibs >> sw.in_val;
-  return ibs;
-}
-
 ChipDB::ChipDB()
   : width(0), height(0), n_tiles(0), n_nets(0), n_global_nets(8),
     n_cells(0),

@@ -18,6 +18,7 @@
 
 #include "cbit.hh"
 #include "cbitval.hh"
+#include "switch.hh"
 #include "location.hh"
 #include "vector.hh"
 
@@ -27,36 +28,6 @@
 #include <set>
 #include <string>
 #include <vector>
-
-class Switch
-{
-public:
-  friend obstream &operator<<(obstream &obs, const Switch &sw);
-  friend ibstream &operator>>(ibstream &ibs, Switch &sw);
-  
-  bool bidir; // routing
-  int tile;
-  int out;
-  std::map<int, unsigned> in_val;
-  std::vector<CBit> cbits;
-  
-public:
-  Switch() {}
-  Switch(bool bi,
-         int t,
-         int o,
-         const std::map<int, unsigned> &iv,
-         const std::vector<CBit> &cb)
-    : bidir(bi),
-      tile(t),
-      out(o),
-      in_val(iv),
-      cbits(cb)
-  {}
-};
-
-obstream &operator<<(obstream &obs, const Switch &sw);
-ibstream &operator>>(ibstream &ibs, Switch &sw);
 
 enum class TileType : int {
   EMPTY, IO, LOGIC, RAMB, RAMT,

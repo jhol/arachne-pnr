@@ -41,6 +41,7 @@ bin_arachne_pnr_SOURCES = \
 	src/pcf.cc \
 	src/place.cc \
 	src/route.cc \
+	src/switch.cc \
 	src/util.cc
 
 tests_test_bv_SOURCES = tests/test_bv.cc
