@@ -17,29 +17,6 @@
 
 #include "util.hh"
 
-std::ostream &
-operator<<(std::ostream &s, const LexicalPosition &lp)
-{
-  if (lp.internal)
-    s << "<internal>";
-  else
-    s << lp.file << ":" << lp.line;
-  return s;
-}
-
-void
-LexicalPosition::fatal(const std::string &msg) const
-{
-  std::cerr << *this << ": fatal error: " << msg << "\n";
-  exit(EXIT_FAILURE);
-}
-
-void
-LexicalPosition::warning(const std::string &msg) const
-{
-  std::cerr << *this << ": warning: " << msg << "\n";
-}
-
 void
 LineParser::split_line()
 {

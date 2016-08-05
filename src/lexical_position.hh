@@ -13,37 +13,36 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_LINE_PARSER_HH
-#define PNR_LINE_PARSER_HH
+#ifndef PNR_LEXICAL_POSITION_HH
+#define PNR_LEXICAL_POSITION_HH
 
-#include "lexical_position.hh"
-
-#include <iostream>
 #include <ostream>
 #include <string>
-#include <vector>
 
-class LineParser
+class LexicalPosition
 {
-  std::istream &s;
+public:
+  friend std::ostream &operator<<(std::ostream &s, const LexicalPosition &lp);
   
-protected:
-  LexicalPosition lp;
+  bool internal;
+  std::string file;
+  int line;
   
-  std::string line;
-  std::vector<std::string> words;
-  
-  void fatal(const std::string &msg) const { lp.fatal(msg); }
-  void warning(const std::string &msg) const { lp.warning(msg); }
-  
-  bool eof() { return s.eof(); }
-  
-  void split_line();
-  void read_line();
-  
-  LineParser(const std::string &f, std::istream &s_)
-    : s(s_), lp(f)
+public:
+  LexicalPosition()
+    : internal(true), line(0)
   {}
+  LexicalPosition(const std::string &f)
+    : internal(false), file(f), line(0)
+  {}
+  LexicalPosition(const std::string &f, int n)
+    : internal(false), file(f), line(n)
+  {}
+  
+  void next_line() { ++line; }
+  
+  void fatal(const std::string &msg) const;
+  void warning(const std::string &msg) const;
 };
 
 #endif

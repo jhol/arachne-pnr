@@ -35,6 +35,7 @@ bin_arachne_pnr_SOURCES = \
 	src/designstate.cc \
 	src/global.cc \
 	src/io.cc \
+	src/lexical_position.cc \
 	src/line_parser.cc \
 	src/location.cc \
 	src/netlist.cc \

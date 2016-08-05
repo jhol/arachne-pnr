@@ -17,7 +17,7 @@
 #define PNR_NETLIST_HH
 
 #include "bitvector.hh"
-#include "line_parser.hh"
+#include "lexical_position.hh"
 #include "util.hh"
 #include "vector.hh"
 
