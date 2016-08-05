@@ -19,6 +19,7 @@
 #include "const.hh"
 #include "direction.hh"
 #include "identified.hh"
+#include "net.hh"
 #include "value.hh"
 #include "vector.hh"
 
@@ -28,43 +29,8 @@
 #include <vector>
 
 class Port;
-class Node;
 class Model;
 class Design;
-
-class Net : public Identified
-{
-  friend class Port;
-  friend class Model;
-  
-  std::string m_name;
-  bool m_is_constant;
-  Value m_constant;
-  
-  std::set<Port *, IdLess> m_connections;
-  
-public:
-  const std::string &name() const { return m_name; }
-  
-  bool is_constant() const { return m_is_constant; }
-  void set_is_constant(bool c) { m_is_constant = c; }
-  Value constant() const { return m_constant; }
-  void set_constant(Value c) { m_constant = c; }
-  
-  const std::set<Port *, IdLess> &connections() const { return m_connections; }
-  
-  Net(const std::string &n)
-    : m_name(n), m_is_constant(false), m_constant(Value::X)
-  {
-  }
-  
-  ~Net()
-  {
-    assert(m_connections.empty());
-  }
-  
-  void replace(Net *new_n);
-};
 
 class Node : public Identified
 {

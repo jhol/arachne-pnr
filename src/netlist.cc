@@ -24,21 +24,6 @@
 #include <iomanip>
 #include <iostream>
 
-void
-Net::replace(Net *new_n)
-{
-  assert(new_n != this);
-  
-  for (auto i = m_connections.begin();
-       i != m_connections.end();)
-    {
-      Port *p = *i;
-      ++i;
-      p->connect(new_n);
-    }
-  assert(m_connections.empty());
-}
-
 Node::~Node()
 {
   for (Port *p : m_ordered_ports)
