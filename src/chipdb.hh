@@ -20,6 +20,7 @@
 #include "cbitval.hh"
 #include "switch.hh"
 #include "celltype.hh"
+#include "tiletype.hh"
 #include "location.hh"
 #include "vector.hh"
 
@@ -29,40 +30,6 @@
 #include <set>
 #include <string>
 #include <vector>
-
-enum class TileType : int {
-  EMPTY, IO, LOGIC, RAMB, RAMT,
-};
-
-inline obstream &operator<<(obstream &obs, TileType t)
-{
-  return obs << static_cast<int>(t);
-}
-
-inline ibstream &operator>>(ibstream &ibs, TileType &t)
-{
-  int x;
-  ibs >> x;
-  t = static_cast<TileType>(x);
-  return ibs;
-}
-
-namespace std {
-
-template<>
-struct hash<TileType>
-{
-public:
-  size_t operator() (TileType x) const
-  {
-    std::hash<int> hasher;
-    return hasher(static_cast<int>(x));
-  }
-};
-
-}
-
-std::string tile_type_name(TileType t);
 
 class Package
 {

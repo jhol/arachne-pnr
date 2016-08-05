@@ -42,6 +42,7 @@ bin_arachne_pnr_SOURCES = \
 	src/place.cc \
 	src/route.cc \
 	src/switch.cc \
+	src/tiletype.cc \
 	src/util.cc
 
 tests_test_bv_SOURCES = tests/test_bv.cc

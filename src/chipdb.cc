@@ -23,26 +23,6 @@
 #include <fstream>
 #include <iostream>
 
-std::string
-tile_type_name(TileType t)
-{
-  assert(t != TileType::EMPTY);
-  switch(t)
-    {
-    case TileType::IO:
-      return "io_tile";
-    case TileType::LOGIC:
-      return "logic_tile";
-    case TileType::RAMB:
-      return "ramb_tile";
-    case TileType::RAMT:
-      return "ramt_tile";
-    case TileType::EMPTY:
-      abort();
-    }    
-  return std::string();
-}
-
 ChipDB::ChipDB()
   : width(0), height(0), n_tiles(0), n_nets(0), n_global_nets(8),
     n_cells(0),
