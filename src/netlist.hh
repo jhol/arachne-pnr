@@ -17,6 +17,7 @@
 #define PNR_NETLIST_HH
 
 #include "bitvector.hh"
+#include "identified.hh"
 #include "lexical_position.hh"
 #include "util.hh"
 #include "vector.hh"
@@ -26,57 +27,10 @@
 #include <string>
 #include <vector>
 
-class Net;
 class Port;
 class Node;
-class Instance;
 class Model;
 class Design;
-
-class Identified
-{
-private:
-  template<typename T> friend struct std::hash;
-  friend class IdLess;
-  
-  static int id_counter;
-  int id;
-  
-public:
-  Identified()
-    : id(id_counter++)
-  {
-  }
-};
-
-class IdLess
-{
-public:
-  bool operator()(const Identified *lhs, const Identified *rhs) const
-  {
-    return lhs->id < rhs->id;
-  }
-};
-
-namespace std {
-  
-template<>
-struct hash<Identified *>
-{
-public:
-  size_t operator()(const Identified *x) const
-  {
-    std::hash<int> hasher;
-    return hasher(x->id);
-  }
-};
-
-template<> struct hash<Net *> : public std::hash<Identified *> {};
-template<> struct hash<Node *> : public std::hash<Identified *> {};
-template<> struct hash<Instance *> : public std::hash<Identified *> {};
-template<> struct hash<Model *> : public std::hash<Identified *> {};
-
-}
 
 enum class Direction
 {
