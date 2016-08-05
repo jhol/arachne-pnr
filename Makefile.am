@@ -41,6 +41,7 @@ bin_arachne_pnr_SOURCES = \
 	src/location.cc \
 	src/net.cc \
 	src/netlist.cc \
+	src/node.cc \
 	src/pack.cc \
 	src/pcf.cc \
 	src/place.cc \

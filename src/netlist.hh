@@ -17,10 +17,8 @@
 #define PNR_NETLIST_HH
 
 #include "const.hh"
-#include "direction.hh"
-#include "identified.hh"
 #include "net.hh"
-#include "value.hh"
+#include "node.hh"
 #include "vector.hh"
 
 #include <map>
@@ -28,40 +26,8 @@
 #include <string>
 #include <vector>
 
-class Port;
 class Model;
 class Design;
-
-class Node : public Identified
-{
-protected:
-  std::map<std::string, Port *> m_ports;
-  std::vector<Port *> m_ordered_ports;
-  
-public:
-  typedef Node Base;
-  enum class Kind
-  {
-    model,
-    instance,
-  };
-private:
-  Kind m_kind;
-  
-public:
-  const std::map<std::string, Port *> &ports() const { return m_ports; }
-  const std::vector<Port *> &ordered_ports() const { return m_ordered_ports; }
-  
-  Kind kind() const { return m_kind; }
-  
-  Node(Kind k) : m_kind(k) {}
-  ~Node();
-  
-  Port *add_port(Port *t);
-  Port *add_port(const std::string &n, Direction dir);
-  Port *add_port(const std::string &n, Direction dir, Value u);
-  Port *find_port(const std::string &n);
-};
 
 class Instance : public Node
 {
