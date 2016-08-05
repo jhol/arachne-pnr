@@ -19,6 +19,7 @@
 #include "const.hh"
 #include "direction.hh"
 #include "identified.hh"
+#include "value.hh"
 #include "vector.hh"
 
 #include <map>
@@ -30,11 +31,6 @@ class Port;
 class Node;
 class Model;
 class Design;
-
-enum class Value
-{
-  ZERO, ONE, X, Z,
-};
 
 class Net : public Identified
 {
