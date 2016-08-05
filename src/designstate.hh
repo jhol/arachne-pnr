@@ -18,9 +18,9 @@
 
 #include "netlist.hh"
 #include "chipdb.hh"
-#include "pcf.hh"
 #include "carry.hh"
 #include "configuration.hh"
+#include "constraints.hh"
 
 class DesignState
 {

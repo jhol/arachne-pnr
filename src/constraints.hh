@@ -13,13 +13,27 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_PCF_HH
-#define PNR_PCF_HH
+#ifndef PNR_CONSTRAINTS_HH
+#define PNR_CONSTRAINTS_HH
 
+#include <map>
 #include <string>
 
+class Design;
 class DesignState;
 
-void read_pcf(const std::string &filename, DesignState &ds);
+class Constraints
+{
+public:
+  std::map<std::string, Location> net_pin_loc;
+  
+public:
+  Constraints() {}
+  Constraints(const std::map<std::string, Location> &np)
+    : net_pin_loc(np)
+  {}
+};
+
+void place_constraints(DesignState &ds);
 
 #endif

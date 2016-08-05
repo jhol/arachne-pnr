@@ -19,6 +19,7 @@
 #include "casting.hh"
 #include "util.hh"
 #include "designstate.hh"
+#include "constraints.hh"
 
 #include <queue>
 #include <cassert>

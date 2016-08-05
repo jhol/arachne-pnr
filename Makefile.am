@@ -28,6 +28,7 @@ bin_arachne_pnr_SOURCES = \
 	src/chipdb.cc \
 	src/configuration.cc \
 	src/constant.cc \
+	src/constraints.cc \
 	src/designstate.cc \
 	src/global.cc \
 	src/io.cc \
