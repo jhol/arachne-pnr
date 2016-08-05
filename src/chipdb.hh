@@ -19,6 +19,7 @@
 #include "cbit.hh"
 #include "cbitval.hh"
 #include "switch.hh"
+#include "celltype.hh"
 #include "location.hh"
 #include "vector.hh"
 
@@ -33,12 +34,6 @@ enum class TileType : int {
   EMPTY, IO, LOGIC, RAMB, RAMT,
 };
 
-enum class CellType : int {
-  LOGIC, IO, GB, RAM, WARMBOOT, PLL,
-};
-
-std::string cell_type_name(CellType ct);
-
 inline obstream &operator<<(obstream &obs, TileType t)
 {
   return obs << static_cast<int>(t);
@@ -49,26 +44,6 @@ inline ibstream &operator>>(ibstream &ibs, TileType &t)
   int x;
   ibs >> x;
   t = static_cast<TileType>(x);
-  return ibs;
-}
-
-constexpr int cell_type_idx(CellType type)
-{
-  return static_cast<int>(type);
-}
-
-static const int n_cell_types = cell_type_idx(CellType::PLL) + 1;
-
-inline obstream &operator<<(obstream &obs, CellType t)
-{
-  return obs << static_cast<int>(t);
-}
-
-inline ibstream &operator>>(ibstream &ibs, CellType &t)
-{
-  int x;
-  ibs >> x;
-  t = static_cast<CellType>(x);
   return ibs;
 }
 
