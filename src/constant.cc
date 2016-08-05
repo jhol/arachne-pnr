@@ -17,6 +17,7 @@
 
 #include "chipdb.hh"
 #include "netlist.hh"
+#include "port.hh"
 #include "value.hh"
 
 #include <cassert>

@@ -16,6 +16,7 @@
 #include "netlist.hh"
 
 #include "casting.hh"
+#include "port.hh"
 #include "util.hh"
 
 #include <cassert>
@@ -36,64 +37,6 @@ Net::replace(Net *new_n)
       p->connect(new_n);
     }
   assert(m_connections.empty());
-}
-
-void
-Port::disconnect()
-{
-  if (m_connection)
-    {
-      m_connection->m_connections.erase(this);
-      m_connection = nullptr;
-    }
-}
-
-void
-Port::connect(Net *n)
-{
-  if (m_connection)
-    disconnect();
-  
-  assert(!m_connection);
-  m_connection = n;
-  if (n)
-    n->m_connections.insert(this);
-}
-
-Port *
-Port::connection_other_port() const
-{
-  Net *n = connection();
-  if (!n
-      || n->connections().size() != 2)
-    return nullptr;
-  
-  auto i = n->connections().begin();
-  if (*i == this)
-    ++i;
-  return *i;
-}
-
-bool
-Port::is_output() const
-{
-  assert(m_node
-         && (isa<Model>(m_node)
-             || isa<Instance>(m_node)));
-  return (isa<Instance>(m_node)
-          ? m_dir == Direction::OUT
-          : m_dir == Direction::IN); // model
-}
-
-bool
-Port::is_input() const
-{
-  assert(m_node
-         && (isa<Model>(m_node)
-             || isa<Instance>(m_node)));
-  return (isa<Instance>(m_node)
-          ? m_dir == Direction::IN
-          : m_dir == Direction::OUT); // model
 }
 
 Node::~Node()

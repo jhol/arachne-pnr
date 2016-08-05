@@ -20,6 +20,7 @@
 #include "designstate.hh"
 #include "location.hh"
 #include "netlist.hh"
+#include "port.hh"
 #include "priorityq.hh"
 #include "ullmanset.hh"
 #include "util.hh"

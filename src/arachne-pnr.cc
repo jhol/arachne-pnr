@@ -26,6 +26,7 @@
 #include "pack.hh"
 #include "pcf.hh"
 #include "place.hh"
+#include "port.hh"
 #include "route.hh"
 #include "util.hh"
 

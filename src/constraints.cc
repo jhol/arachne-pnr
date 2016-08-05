@@ -15,6 +15,7 @@
 
 #include "casting.hh"
 #include "designstate.hh"
+#include "port.hh"
 
 class ConstraintsPlacer
 {

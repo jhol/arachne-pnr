@@ -43,6 +43,7 @@ bin_arachne_pnr_SOURCES = \
 	src/pack.cc \
 	src/pcf.cc \
 	src/place.cc \
+	src/port.cc \
 	src/route.cc \
 	src/switch.cc \
 	src/tiletype.cc \

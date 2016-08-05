@@ -24,6 +24,7 @@
 #include "location.hh"
 #include "netlist.hh"
 #include "place.hh"
+#include "port.hh"
 #include "ullmanset.hh"
 #include "util.hh"
 

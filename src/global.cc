@@ -20,6 +20,7 @@
 #include "constraints.hh"
 #include "designstate.hh"
 #include "netlist.hh"
+#include "port.hh"
 #include "util.hh"
 
 #include <cassert>

@@ -17,6 +17,7 @@
 
 #include "casting.hh"
 #include "netlist.hh"
+#include "port.hh"
 
 #include <cassert>
 
