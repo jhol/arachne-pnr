@@ -21,6 +21,7 @@
 #include "switch.hh"
 #include "celltype.hh"
 #include "tiletype.hh"
+#include "package.hh"
 #include "location.hh"
 #include "vector.hh"
 
@@ -30,31 +31,6 @@
 #include <set>
 #include <string>
 #include <vector>
-
-class Package
-{
-  friend obstream &operator<<(obstream &obs, const Package &pkg);
-  friend ibstream &operator>>(ibstream &ibs, Package &pkg);
-  
-public:
-  std::string name;
-  
-  std::map<std::string, Location> pin_loc;
-  std::map<Location, std::string> loc_pin;
-};
-
-inline obstream &operator<<(obstream &obs, const Package &pkg)
-{
-  return obs << pkg.name << pkg.pin_loc;
-}
-
-inline ibstream &operator>>(ibstream &ibs, Package &pkg)
-{
-  ibs >> pkg.name >> pkg.pin_loc;
-  for (const auto &p : pkg.pin_loc)
-    extend(pkg.loc_pin, p.second, p.first);
-  return ibs;
-}
 
 class ChipDB
 {
