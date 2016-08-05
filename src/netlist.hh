@@ -17,6 +17,7 @@
 #define PNR_NETLIST_HH
 
 #include "const.hh"
+#include "direction.hh"
 #include "identified.hh"
 #include "vector.hh"
 
@@ -29,13 +30,6 @@ class Port;
 class Node;
 class Model;
 class Design;
-
-enum class Direction
-{
-  IN, OUT, INOUT,
-};
-
-Direction opposite_direction(Direction d);
 
 enum class Value
 {

@@ -23,23 +23,6 @@
 #include <iomanip>
 #include <iostream>
 
-Direction
-opposite_direction(Direction d)
-{
-  switch(d)
-    {
-    case Direction::IN:
-      return Direction::OUT;
-    case Direction::OUT:
-      return Direction::IN;
-    case Direction::INOUT:
-      return Direction::INOUT;
-    default:
-      abort();
-      return Direction::IN;
-    }
-}
-
 void
 Net::replace(Net *new_n)
 {
