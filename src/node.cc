@@ -61,3 +61,24 @@ Node::find_port(const std::string &n)
 {
   return lookup_or_default(m_ports, n, nullptr);
 }
+
+void
+Node::write_verilog_name(std::ostream &s, const std::string &name)
+{
+  bool quote = false;
+  for (char ch : name)
+    {
+      if (! (isalnum(ch)
+             || ch == '_'
+             || ch == '$'))
+        {
+          quote = true;
+          break;
+        }
+    }
+  if (quote)
+    s << '\\';
+  s << name;
+  if (quote)
+    s << ' ';
+}

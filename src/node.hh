@@ -55,6 +55,9 @@ public:
   Port *add_port(const std::string &n, Direction dir);
   Port *add_port(const std::string &n, Direction dir, Value u);
   Port *find_port(const std::string &n);
+
+protected:
+  static void write_verilog_name(std::ostream &s, const std::string &name);
 };
 
 #endif

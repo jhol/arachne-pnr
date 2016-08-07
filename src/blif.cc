@@ -15,6 +15,7 @@
 
 #include "bitvector.hh"
 #include "casting.hh"
+#include "instance.hh"
 #include "line_parser.hh"
 #include "netlist.hh"
 #include "port.hh"
