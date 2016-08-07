@@ -13,12 +13,12 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#include "util.hh"
-#include "casting.hh"
-#include "netlist.hh"
-#include "chipdb.hh"
 #include "carry.hh"
+#include "casting.hh"
+#include "chipdb.hh"
 #include "designstate.hh"
+#include "netlist.hh"
+#include "util.hh"
 
 #include <cstring>
 

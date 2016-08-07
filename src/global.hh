@@ -16,6 +16,9 @@
 #ifndef PNR_GLOBAL_HH
 #define PNR_GLOBAL_HH
 
+#include <cstdint>
+#include <vector>
+
 class DesignState;
 
 static const uint8_t gc_clk = 0xff;

@@ -17,15 +17,14 @@
 #define PNR_BSTREAM_HH
 
 #include "util.hh"
+
+#include <cassert>
+#include <climits>
+#include <cstring>
 #include <iostream>
-#include <vector>
 #include <string>
 #include <tuple>
-#include <cstring>
-#include <cassert>
-
-#include <cstring>
-#include <climits>
+#include <vector>
 
 class obstream
 {

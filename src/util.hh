@@ -16,21 +16,20 @@
 #ifndef PNR_UTIL_HH
 #define PNR_UTIL_HH
 
+#include <algorithm>
+#include <cassert>
 #include <functional>
 #include <iterator>
-#include <algorithm>
-#include <sstream>
-#include <ostream>
-#include <string>
-#include <set>
-#include <unordered_set>
-#include <unordered_map>
 #include <map>
-#include <vector>
+#include <ostream>
 #include <random>
+#include <set>
+#include <sstream>
+#include <string>
 #include <type_traits>
-
-#include <cassert>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
 
 class random_generator
 {

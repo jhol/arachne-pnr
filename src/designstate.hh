@@ -16,11 +16,11 @@
 #ifndef PNR_DESIGNSTATE_HH
 #define PNR_DESIGNSTATE_HH
 
-#include "netlist.hh"
-#include "chipdb.hh"
 #include "carry.hh"
+#include "chipdb.hh"
 #include "configuration.hh"
 #include "constraints.hh"
+#include "netlist.hh"
 
 class DesignState
 {

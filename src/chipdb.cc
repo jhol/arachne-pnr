@@ -13,14 +13,15 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#include "util.hh"
 #include "chipdb.hh"
+
 #include "line_parser.hh"
+#include "util.hh"
 
 #include <cassert>
 #include <cstring>
-#include <iostream>
 #include <fstream>
+#include <iostream>
 
 std::ostream &
 operator<<(std::ostream &s, const CBit &cbit)

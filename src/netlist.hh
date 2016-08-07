@@ -18,12 +18,13 @@
 
 #include "bitvector.hh"
 #include "line_parser.hh"
+#include "util.hh"
 #include "vector.hh"
 
+#include <map>
+#include <set>
 #include <string>
 #include <vector>
-#include <set>
-#include <map>
 
 class Net;
 class Port;

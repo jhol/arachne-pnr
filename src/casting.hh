@@ -16,6 +16,8 @@
 #ifndef PNR_CASTING_HH
 #define PNR_CASTING_HH
 
+#include <cassert>
+
 template<class T> bool
 isa(const typename T::Base *v)
 {

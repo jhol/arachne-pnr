@@ -16,17 +16,17 @@
 #ifndef PNR_CHIPDB_HH
 #define PNR_CHIPDB_HH
 
-#include "location.hh"
-#include "hashmap.hh"
 #include "bstream.hh"
+#include "hashmap.hh"
+#include "location.hh"
 #include "vector.hh"
 
+#include <cassert>
+#include <map>
 #include <ostream>
+#include <set>
 #include <string>
 #include <vector>
-#include <map>
-#include <set>
-#include <cassert>
 
 class CBit
 {

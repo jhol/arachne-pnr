@@ -16,10 +16,10 @@
 #ifndef PNR_LINE_PARSER_HH
 #define PNR_LINE_PARSER_HH
 
-#include <ostream>
 #include <iostream>
-#include <vector>
+#include <ostream>
 #include <string>
+#include <vector>
 
 class LexicalPosition
 {

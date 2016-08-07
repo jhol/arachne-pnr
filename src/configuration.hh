@@ -17,6 +17,7 @@
 #define PNR_CONFIGURATION_HH
 
 #include "chipdb.hh"
+
 #include <ostream>
 
 class Design;

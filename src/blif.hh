@@ -16,8 +16,8 @@
 #ifndef PNR_BLIF_HH
 #define PNR_BLIF_HH
 
-#include <string>
 #include <istream>
+#include <string>
 
 class Design;
 

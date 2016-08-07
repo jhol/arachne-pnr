@@ -13,28 +13,28 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#include "netlist.hh"
-#include "chipdb.hh"
 #include "blif.hh"
-#include "pack.hh"
-#include "io.hh"
-#include "place.hh"
-#include "route.hh"
-#include "configuration.hh"
-#include "pcf.hh"
-#include "casting.hh"
-#include "global.hh"
 #include "carry.hh"
+#include "casting.hh"
+#include "chipdb.hh"
+#include "configuration.hh"
 #include "constant.hh"
 #include "designstate.hh"
+#include "global.hh"
+#include "io.hh"
+#include "netlist.hh"
+#include "pack.hh"
+#include "pcf.hh"
+#include "place.hh"
+#include "route.hh"
 #include "util.hh"
 
 #include "config.h"
 
-#include <iostream>
-#include <fstream>
-#include <cstring>
 #include <cstdlib>
+#include <cstring>
+#include <fstream>
+#include <iostream>
 
 const char *program_name;
 

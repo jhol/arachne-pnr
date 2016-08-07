@@ -13,17 +13,17 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#include "util.hh"
-#include "netlist.hh"
-#include "line_parser.hh"
 #include "bitvector.hh"
 #include "casting.hh"
+#include "line_parser.hh"
+#include "netlist.hh"
+#include "util.hh"
 
 #include <cctype>
 #include <cstring>
-#include <istream>
 #include <fstream>
 #include <iostream>
+#include <istream>
 #include <string>
 
 class BlifParser : public LineParser

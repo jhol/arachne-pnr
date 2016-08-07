@@ -13,16 +13,17 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#include "netlist.hh"
 #include "global.hh"
-#include "chipdb.hh"
-#include "casting.hh"
-#include "util.hh"
-#include "designstate.hh"
-#include "constraints.hh"
 
-#include <queue>
+#include "casting.hh"
+#include "chipdb.hh"
+#include "constraints.hh"
+#include "designstate.hh"
+#include "netlist.hh"
+#include "util.hh"
+
 #include <cassert>
+#include <queue>
 #include <set>
 
 class Promoter

@@ -18,8 +18,8 @@
 
 #include "vector.hh"
 
-#include <cstddef>
 #include <cassert>
+#include <cstddef>
 
 template<unsigned B>
 class BasedUllmanSet

@@ -13,26 +13,26 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#include "util.hh"
+#include "bitvector.hh"
 #include "casting.hh"
-#include "netlist.hh"
-#include "location.hh"
 #include "chipdb.hh"
 #include "configuration.hh"
-#include "bitvector.hh"
-#include "ullmanset.hh"
-#include "priorityq.hh"
 #include "designstate.hh"
+#include "location.hh"
+#include "netlist.hh"
+#include "priorityq.hh"
+#include "ullmanset.hh"
+#include "util.hh"
 
 #include <cassert>
-#include <ostream>
-#include <iostream>
-#include <iomanip>
-#include <fstream>
-#include <set>
-#include <map>
-#include <vector>
 #include <ctime>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <map>
+#include <ostream>
+#include <set>
+#include <vector>
 
 class Router;
 

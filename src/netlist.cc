@@ -13,14 +13,15 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#include "util.hh"
 #include "netlist.hh"
+
 #include "casting.hh"
+#include "util.hh"
 
 #include <cassert>
 #include <cstring>
-#include <iostream>
 #include <iomanip>
+#include <iostream>
 
 static void
 write_string_escaped(std::ostream &s, const std::string &str)

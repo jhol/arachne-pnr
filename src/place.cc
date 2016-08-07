@@ -13,29 +13,29 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#include "util.hh"
-#include "casting.hh"
-#include "place.hh"
-#include "netlist.hh"
-#include "chipdb.hh"
-#include "location.hh"
-#include "configuration.hh"
-#include "carry.hh"
 #include "bitvector.hh"
-#include "ullmanset.hh"
-#include "hashmap.hh"
+#include "carry.hh"
+#include "casting.hh"
+#include "chipdb.hh"
+#include "configuration.hh"
 #include "designstate.hh"
 #include "global.hh"
+#include "hashmap.hh"
+#include "location.hh"
+#include "netlist.hh"
+#include "place.hh"
+#include "ullmanset.hh"
+#include "util.hh"
 
-#include <iomanip>
-#include <vector>
-#include <set>
-#include <random>
 #include <algorithm>
-#include <iostream>
 #include <cassert>
 #include <cmath>
 #include <ctime>
+#include <iomanip>
+#include <iostream>
+#include <random>
+#include <set>
+#include <vector>
 
 class Placer
 {

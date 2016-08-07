@@ -16,11 +16,10 @@
 #ifndef PNR_BITVECTOR_HH
 #define PNR_BITVECTOR_HH
 
-#include <vector>
-
+#include <cassert>
 #include <cstddef>
 #include <cstdint>
-#include <cassert>
+#include <vector>
 
 template<size_t B>
 class BasedBitVector

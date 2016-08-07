@@ -13,10 +13,11 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#include "chipdb.hh"
 #include "configuration.hh"
-#include "util.hh"
+
+#include "chipdb.hh"
 #include "netlist.hh"
+#include "util.hh"
 
 #include "config.h"
 
