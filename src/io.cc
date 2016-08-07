@@ -17,7 +17,7 @@
 
 #include "casting.hh"
 #include "design.hh"
-#include "netlist.hh"
+#include "models.hh"
 #include "port.hh"
 
 #include <cassert>

@@ -42,8 +42,8 @@ bin_arachne_pnr_SOURCES = \
 	src/line_parser.cc \
 	src/location.cc \
 	src/model.cc \
+	src/models.cc \
 	src/net.cc \
-	src/netlist.cc \
 	src/node.cc \
 	src/pack.cc \
 	src/pcf.cc \

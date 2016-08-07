@@ -22,7 +22,7 @@
 #include "global.hh"
 #include "hashmap.hh"
 #include "location.hh"
-#include "netlist.hh"
+#include "models.hh"
 #include "place.hh"
 #include "port.hh"
 #include "ullmanset.hh"

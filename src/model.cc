@@ -18,7 +18,7 @@
 #include "casting.hh"
 #include "design.hh"
 #include "instance.hh"
-#include "netlist.hh"
+#include "models.hh"
 #include "port.hh"
 
 int Model::counter = 0;

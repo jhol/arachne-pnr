@@ -35,6 +35,7 @@
 #include <set>
 #include <vector>
 
+class Models;
 class Router;
 
 class Comp

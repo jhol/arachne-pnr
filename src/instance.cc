@@ -14,7 +14,7 @@
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
 #include "instance.hh"
-#include "netlist.hh"
+#include "model.hh"
 
 Instance::Instance(Model *parent_, Model *inst_of)
   : Node(Node::Kind::instance),

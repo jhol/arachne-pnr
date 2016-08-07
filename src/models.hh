@@ -13,8 +13,8 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_NETLIST_HH
-#define PNR_NETLIST_HH
+#ifndef PNR_MODELS_HH
+#define PNR_MODELS_HH
 
 #include "instance.hh"
 #include "model.hh"

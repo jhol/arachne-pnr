@@ -17,8 +17,8 @@
 
 #include "chipdb.hh"
 #include "design.hh"
+#include "models.hh"
 #include "net.hh"
-#include "netlist.hh"
 #include "port.hh"
 #include "value.hh"
 

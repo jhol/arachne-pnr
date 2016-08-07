@@ -16,7 +16,7 @@
 #include "configuration.hh"
 
 #include "chipdb.hh"
-#include "netlist.hh"
+#include "models.hh"
 #include "util.hh"
 
 #include "config.h"

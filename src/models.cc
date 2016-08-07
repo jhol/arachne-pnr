@@ -13,17 +13,9 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#include "netlist.hh"
+#include "models.hh"
 
-#include "casting.hh"
 #include "design.hh"
-#include "port.hh"
-#include "util.hh"
-
-#include <cassert>
-#include <cstring>
-#include <iomanip>
-#include <iostream>
 
 Models::Models(const Design *d)
 {

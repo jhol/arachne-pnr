@@ -23,6 +23,8 @@
 
 #include <cstring>
 
+class Models;
+
 class Packer
 {
   const ChipDB *chipdb;

@@ -20,7 +20,7 @@
 #include "chipdb.hh"
 #include "configuration.hh"
 #include "constraints.hh"
-#include "netlist.hh"
+#include "models.hh"
 
 class DesignState
 {
