@@ -15,6 +15,8 @@
 
 #include "cbitval.hh"
 
+namespace pnr {
+
 std::ostream &
 operator<<(std::ostream &s, const CBitVal &cv)
 {
@@ -34,4 +36,6 @@ std::set<CBit>
 CBitVal::cbits() const
 {
   return keys(cbit_val);
+}
+
 }

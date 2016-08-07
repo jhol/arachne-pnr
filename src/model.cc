@@ -21,6 +21,8 @@
 #include "models.hh"
 #include "port.hh"
 
+namespace pnr {
+
 int Model::counter = 0;
 
 Model::Model(Design *d, const std::string &n)
@@ -507,4 +509,6 @@ Model::write_verilog(std::ostream &s) const
     }
   
   s << "endmodule\n";
+}
+
 }

@@ -21,6 +21,8 @@
 #include <cstdint>
 #include <vector>
 
+namespace pnr {
+
 template<size_t B>
 class BasedBitVector
 {
@@ -102,5 +104,7 @@ public:
 
 using BitVector = BasedBitVector<0>;
 using BitVector1 = BasedBitVector<1>;
+
+}
 
 #endif

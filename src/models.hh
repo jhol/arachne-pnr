@@ -19,6 +19,8 @@
 #include "instance.hh"
 #include "model.hh"
 
+namespace pnr {
+
 class Design;
 
 class Models
@@ -82,5 +84,6 @@ public:
   }
 };
 
+}
 
 #endif

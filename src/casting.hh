@@ -18,6 +18,8 @@
 
 #include <cassert>
 
+namespace pnr {
+
 template<class T> bool
 isa(const typename T::Base *v)
 {
@@ -54,6 +56,8 @@ dyn_cast(typename T::Base *v)
     return static_cast<T *>(v);
   else
     return 0;
+}
+
 }
 
 #endif

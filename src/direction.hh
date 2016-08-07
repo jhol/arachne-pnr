@@ -16,11 +16,15 @@
 #ifndef PNR_DIRECTION_HH
 #define PNR_DIRECTION_HH
 
+namespace pnr {
+
 enum class Direction
 {
   IN, OUT, INOUT,
 };
 
 Direction opposite_direction(Direction d);
+
+}
 
 #endif

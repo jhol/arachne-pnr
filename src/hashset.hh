@@ -19,6 +19,8 @@
 #include <functional>
 #include <unordered_set>
 
+namespace pnr {
+
 template<typename T> struct Hash;
 
 template<typename T,
@@ -118,5 +120,7 @@ public:
   underlying_t &underlying() { return s; }
   const underlying_t &underlying() const { return s; }
 };
+
+}
 
 #endif

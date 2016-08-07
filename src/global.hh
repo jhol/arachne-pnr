@@ -19,6 +19,8 @@
 #include <cstdint>
 #include <vector>
 
+namespace pnr {
+
 class DesignState;
 
 static const uint8_t gc_clk = 0xff;
@@ -36,5 +38,7 @@ extern std::vector<uint8_t> global_classes;
 
 void
 promote_globals(DesignState &ds, bool do_promote);
+
+}
 
 #endif

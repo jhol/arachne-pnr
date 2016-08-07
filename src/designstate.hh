@@ -22,6 +22,8 @@
 #include "constraints.hh"
 #include "models.hh"
 
+namespace pnr {
+
 class DesignState
 {
 public:
@@ -44,5 +46,7 @@ public:
   bool is_dual_pll(Instance *inst) const;
   std::vector<int> pll_out_io_cells(Instance *inst, int cell) const;
 };
+
+}
 
 #endif

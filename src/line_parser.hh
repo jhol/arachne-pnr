@@ -23,6 +23,8 @@
 #include <string>
 #include <vector>
 
+namespace pnr {
+
 class LineParser
 {
   std::istream &s;
@@ -45,5 +47,7 @@ protected:
     : s(s_), lp(f)
   {}
 };
+
+}
 
 #endif

@@ -29,6 +29,8 @@
 #include <istream>
 #include <string>
 
+namespace pnr {
+
 class BlifParser : public LineParser
 {
   BitVector stobv(const std::string &s_);
@@ -410,4 +412,6 @@ read_blif(const std::string &filename, std::istream &s)
 {
   BlifParser parser(filename, s);
   return parser.parse();
+}
+
 }

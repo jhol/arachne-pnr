@@ -22,6 +22,8 @@
 #include <map>
 #include <set>
 
+namespace pnr {
+
 class CBitVal
 {
 public:
@@ -37,5 +39,7 @@ public:
   
   std::set<CBit> cbits() const;
 };
+
+}
 
 #endif

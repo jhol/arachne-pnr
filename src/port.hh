@@ -23,6 +23,8 @@
 #include <cassert>
 #include <string>
 
+namespace pnr {
+
 class Net;
 class Node;
 
@@ -68,5 +70,7 @@ public:
   
   Port *connection_other_port() const;
 };
+
+}
 
 #endif

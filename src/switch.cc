@@ -16,6 +16,8 @@
 #include "switch.hh"
 #include "bstream.hh"
 
+namespace pnr {
+
 obstream &operator<<(obstream &obs, const Switch &sw)
 {
   obs << sw.bidir
@@ -47,4 +49,6 @@ ibstream &operator>>(ibstream &ibs, Switch &sw)
     }
   ibs >> sw.in_val;
   return ibs;
+}
+
 }

@@ -19,6 +19,8 @@
 #include "instance.hh"
 #include "model.hh"
 
+namespace pnr {
+
 void
 Port::disconnect()
 {
@@ -75,4 +77,6 @@ Port::is_input() const
   return (isa<Instance>(m_node)
           ? m_dir == Direction::IN
           : m_dir == Direction::OUT); // model
+}
+
 }

@@ -21,6 +21,8 @@
 
 #include <ostream>
 
+namespace pnr {
+
 class Location
 {
   friend std::ostream &operator<<(std::ostream &s, const Location &loc);
@@ -70,13 +72,15 @@ inline ibstream &operator>>(ibstream &ibs, Location &loc)
   return ibs >> loc.m_tile >> loc.m_pos;
 }
 
+}
+
 namespace std {
 
 template<>
-struct hash<Location>
+struct hash<pnr::Location>
 {
 public:
-  size_t operator()(const Location &loc) const
+  size_t operator()(const pnr::Location &loc) const
   {
     std::hash<int> hasher;
     size_t h = hasher(loc.m_tile);

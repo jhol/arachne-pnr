@@ -24,6 +24,8 @@
 #include <vector>
 #include <map>
 
+namespace pnr {
+
 class Port;
 
 class Node : public Identified
@@ -59,5 +61,7 @@ public:
 protected:
   static void write_verilog_name(std::ostream &s, const std::string &name);
 };
+
+}
 
 #endif

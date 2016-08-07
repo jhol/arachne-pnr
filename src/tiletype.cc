@@ -15,6 +15,8 @@
 
 #include "tiletype.hh"
 
+namespace pnr {
+
 std::string
 tile_type_name(TileType t)
 {
@@ -33,4 +35,6 @@ tile_type_name(TileType t)
       abort();
     }    
   return std::string();
+}
+
 }

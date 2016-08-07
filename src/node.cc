@@ -18,6 +18,8 @@
 #include "port.hh"
 #include "ullmanset.hh"
 
+namespace pnr {
+
 Node::~Node()
 {
   for (Port *p : m_ordered_ports)
@@ -81,4 +83,6 @@ Node::write_verilog_name(std::ostream &s, const std::string &name)
   s << name;
   if (quote)
     s << ' ';
+}
+
 }

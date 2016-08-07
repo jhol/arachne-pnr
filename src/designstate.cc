@@ -17,6 +17,8 @@
 
 #include "design.hh"
 
+namespace pnr {
+
 DesignState::DesignState(const ChipDB *chipdb_, const Package &package_, Design *d_)
   : chipdb(chipdb_),
     package(package_),
@@ -66,4 +68,6 @@ DesignState::pll_out_io_cells(Instance *inst, int cell) const
     }
   
   return r;
+}
+
 }

@@ -23,6 +23,8 @@
 #include <map>
 #include <string>
 
+namespace pnr {
+
 class Model;
 
 class Instance : public Node
@@ -78,5 +80,7 @@ public:
                      const std::map<Net *, std::string, IdLess> &net_name,
                      const std::string &inst_name) const;
 };
+
+}
 
 #endif

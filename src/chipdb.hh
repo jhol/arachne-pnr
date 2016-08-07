@@ -32,6 +32,8 @@
 #include <string>
 #include <vector>
 
+namespace pnr {
+
 class ChipDB
 {
 public:
@@ -139,5 +141,7 @@ public:
 };
 
 ChipDB *read_chipdb(const std::string &filename);
+
+}
 
 #endif

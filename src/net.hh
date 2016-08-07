@@ -23,6 +23,8 @@
 #include <string>
 #include <set>
 
+namespace pnr {
+
 class Port;
 
 class Net : public Identified
@@ -58,5 +60,7 @@ public:
   
   void replace(Net *new_n);
 };
+
+}
 
 #endif

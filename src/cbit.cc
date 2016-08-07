@@ -15,6 +15,8 @@
 
 #include "cbit.hh"
 
+namespace pnr {
+
 std::ostream &
 operator<<(std::ostream &s, const CBit &cbit)
 {
@@ -43,4 +45,6 @@ CBit::operator<(const CBit &rhs) const
     return false;
   
   return col < rhs.col;
+}
+
 }

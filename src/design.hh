@@ -19,6 +19,8 @@
 #include <map>
 #include <string>
 
+namespace pnr {
+
 class Model;
 
 class Design
@@ -45,5 +47,7 @@ public:
   void check() const;
 #endif
 };
+
+}
 
 #endif

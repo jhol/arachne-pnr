@@ -20,6 +20,8 @@
 
 #include <functional>
 
+namespace pnr {
+
 enum class TileType : int {
   EMPTY, IO, LOGIC, RAMB, RAMT,
 };
@@ -37,13 +39,17 @@ inline ibstream &operator>>(ibstream &ibs, TileType &t)
   return ibs;
 }
 
+std::string tile_type_name(TileType t);
+
+}
+
 namespace std {
 
 template<>
-struct hash<TileType>
+struct hash<pnr::TileType>
 {
 public:
-  size_t operator() (TileType x) const
+  size_t operator() (pnr::TileType x) const
   {
     std::hash<int> hasher;
     return hasher(static_cast<int>(x));
@@ -51,7 +57,5 @@ public:
 };
 
 }
-
-std::string tile_type_name(TileType t);
 
 #endif

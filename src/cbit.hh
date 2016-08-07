@@ -20,6 +20,8 @@
 
 #include <ostream>
 
+namespace pnr {
+
 class CBit
 {
 public:
@@ -58,13 +60,15 @@ inline ibstream &operator>>(ibstream &ibs, CBit &cbit)
   return ibs >> cbit.tile >> cbit.row >> cbit.col;
 }
 
+}
+
 namespace std {
 
 template<>
-struct hash<CBit>
+struct hash<pnr::CBit>
 {
 public:
-  size_t operator() (const CBit &cbit) const
+  size_t operator() (const pnr::CBit &cbit) const
   {
     std::hash<int> hasher;
     size_t h = hasher(cbit.tile);

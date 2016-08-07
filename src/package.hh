@@ -26,6 +26,8 @@
 #include <set>
 #include <cassert>
 
+namespace pnr {
+
 class Package
 {
   friend obstream &operator<<(obstream &obs, const Package &pkg);
@@ -49,6 +51,8 @@ inline ibstream &operator>>(ibstream &ibs, Package &pkg)
   for (const auto &p : pkg.pin_loc)
     extend(pkg.loc_pin, p.second, p.first);
   return ibs;
+}
+
 }
 
 #endif

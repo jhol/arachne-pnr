@@ -21,6 +21,8 @@
 #include <cassert>
 #include <cstring>
 
+namespace pnr {
+
 CBit
 ChipDBParser::parse_cbit(int t, const std::string &s_)
 {
@@ -517,4 +519,6 @@ ChipDBParser::parse()
   
   chipdb->finalize();
   return chipdb;
+}
+
 }

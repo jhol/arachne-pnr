@@ -17,6 +17,8 @@
 #include "designstate.hh"
 #include "port.hh"
 
+namespace pnr {
+
 class ConstraintsPlacer
 {
   DesignState &ds;
@@ -234,4 +236,6 @@ place_constraints(DesignState &ds)
 {
   ConstraintsPlacer placer(ds);
   placer.place();
+}
+
 }

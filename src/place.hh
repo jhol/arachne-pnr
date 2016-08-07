@@ -17,8 +17,13 @@
 #define PNR_PLACE_HH
 
 class random_generator;
+
+namespace pnr {
+
 class DesignState;
 
 void place(random_generator &rg, DesignState &ds);
+
+}
 
 #endif

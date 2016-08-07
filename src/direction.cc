@@ -15,6 +15,8 @@
 
 #include "direction.hh"
 
+namespace pnr {
+
 Direction
 opposite_direction(Direction d)
 {
@@ -32,3 +34,4 @@ opposite_direction(Direction d)
     }
 }
 
+}

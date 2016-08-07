@@ -23,6 +23,8 @@
 
 #include <cstring>
 
+namespace pnr {
+
 class Models;
 
 class Packer
@@ -682,4 +684,6 @@ pack(DesignState &ds)
 {
   Packer packer(ds);
   packer.pack();
+}
+
 }

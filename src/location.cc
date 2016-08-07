@@ -15,8 +15,12 @@
 
 #include "location.hh"
 
+namespace pnr {
+
 std::ostream &
 operator<<(std::ostream &s, const Location &loc)
 {
   return s << loc.m_tile << "/" << loc.m_pos;
+}
+
 }

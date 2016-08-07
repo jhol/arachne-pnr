@@ -16,9 +16,13 @@
 #ifndef PNR_CONSTANT_HH
 #define PNR_CONSTANT_HH
 
+namespace pnr {
+
 class Design;
 class ChipDB;
 
 void realize_constants(const ChipDB *chipdb, Design *d);
+
+}
 
 #endif

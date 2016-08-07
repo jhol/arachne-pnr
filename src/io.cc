@@ -22,6 +22,8 @@
 
 #include <cassert>
 
+namespace pnr {
+
 void
 instantiate_io(Design *d)
 {
@@ -126,4 +128,6 @@ instantiate_io(Design *d)
     }
   
   d->prune();
+}
+
 }

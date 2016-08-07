@@ -24,6 +24,8 @@
 
 #include <cassert>
 
+namespace pnr {
+
 void
 realize_constants(const ChipDB *chipdb, Design *d)
 {
@@ -128,4 +130,6 @@ realize_constants(const ChipDB *chipdb, Design *d)
     }
   else if (actual_const1)
         *logs << "  realized 1\n";
+}
+
 }

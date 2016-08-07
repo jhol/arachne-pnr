@@ -16,9 +16,13 @@
 #ifndef PNR_VALUE_HH
 #define PNR_VALUE_HH
 
+namespace pnr {
+
 enum class Value
 {
   ZERO, ONE, X, Z,
 };
+
+}
 
 #endif

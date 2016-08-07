@@ -26,6 +26,8 @@
 #include <tuple>
 #include <vector>
 
+namespace pnr {
+
 class obstream
 {
 private:
@@ -383,5 +385,7 @@ operator>>(ibstream &ibs, std::tuple<F, S, T> &t)
              >> std::get<2>(t);
 }
 
+
+}
 
 #endif

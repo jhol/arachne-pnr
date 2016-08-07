@@ -17,6 +17,8 @@
 
 #include "util.hh"
 
+namespace pnr {
+
 void
 LineParser::split_line()
 {
@@ -101,4 +103,6 @@ LineParser::read_line()
     
     split_line();
   } while (words.empty());
+}
+
 }

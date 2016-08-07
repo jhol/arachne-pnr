@@ -17,6 +17,8 @@
 
 #include <iostream>
 
+namespace pnr {
+
 std::ostream &
 operator<<(std::ostream &s, const LexicalPosition &lp)
 {
@@ -38,4 +40,6 @@ void
 LexicalPosition::warning(const std::string &msg) const
 {
   std::cerr << *this << ": warning: " << msg << "\n";
+}
+
 }

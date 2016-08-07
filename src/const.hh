@@ -23,6 +23,8 @@
 #include <ostream>
 #include <string>
 
+namespace pnr {
+
 // for parameters, attributes
 class Const
 {
@@ -78,5 +80,7 @@ public:
   
   void write_verilog(std::ostream &s) const;
 };
+
+}
 
 #endif

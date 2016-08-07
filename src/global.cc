@@ -27,6 +27,8 @@
 #include <queue>
 #include <set>
 
+namespace pnr {
+
 class Promoter
 {
   std::vector<uint8_t> global_classes;
@@ -475,4 +477,6 @@ promote_globals(DesignState &ds, bool do_promote)
 {
   Promoter promoter(ds);
   promoter.promote(do_promote);
+}
+
 }

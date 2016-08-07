@@ -16,6 +16,8 @@
 #include "instance.hh"
 #include "model.hh"
 
+namespace pnr {
+
 Instance::Instance(Model *parent_, Model *inst_of)
   : Node(Node::Kind::instance),
     m_parent(parent_),
@@ -165,4 +167,6 @@ Instance::write_verilog(std::ostream &s,
         }
     }
   s << "\n  );\n";
+}
+
 }

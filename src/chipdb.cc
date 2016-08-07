@@ -23,6 +23,8 @@
 #include <fstream>
 #include <iostream>
 
+namespace pnr {
+
 ChipDB::ChipDB()
   : width(0), height(0), n_tiles(0), n_nets(0), n_global_nets(8),
     n_cells(0),
@@ -401,4 +403,6 @@ ChipDB::extra_cell_cbit(int c, const std::string &name) const
   assert(cbits.size() == 1);
   const CBit &cbit0 = cbits[0];
   return cbit0.with_tile(p.first);
+}
+
 }

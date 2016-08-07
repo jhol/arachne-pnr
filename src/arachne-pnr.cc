@@ -39,6 +39,8 @@
 
 const char *program_name;
 
+namespace pnr {
+
 class null_streambuf : public std::streambuf
 {
 public:
@@ -126,9 +128,13 @@ struct null_ostream : public std::ostream
   null_ostream() : std::ostream(0) {}
 };
 
+}
+
 int
 main(int argc, const char **argv)
 {
+  using namespace pnr;
+	
   program_name = argv[0];
   
   bool help = false,

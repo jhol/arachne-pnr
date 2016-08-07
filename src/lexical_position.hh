@@ -19,6 +19,8 @@
 #include <ostream>
 #include <string>
 
+namespace pnr {
+
 class LexicalPosition
 {
 public:
@@ -44,5 +46,7 @@ public:
   void fatal(const std::string &msg) const;
   void warning(const std::string &msg) const;
 };
+
+}
 
 #endif

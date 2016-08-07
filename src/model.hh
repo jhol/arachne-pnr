@@ -26,6 +26,8 @@
 #include <set>
 #include <map>
 
+namespace pnr {
+
 class Design;
 
 class Model : public Node
@@ -101,5 +103,7 @@ public:
   void check(const Design *d) const;
 #endif
 };
+
+}
 
 #endif

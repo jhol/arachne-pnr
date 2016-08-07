@@ -35,6 +35,8 @@
 #include <set>
 #include <vector>
 
+namespace pnr {
+
 class Models;
 class Router;
 
@@ -913,4 +915,6 @@ route(DesignState &ds, int max_passes)
   *logs << "  route time "
         << std::fixed << std::setprecision(2)
         << (double)(end - start) / (double)CLOCKS_PER_SEC << "s\n";
+}
+
 }

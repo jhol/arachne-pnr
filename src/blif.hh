@@ -19,9 +19,13 @@
 #include <istream>
 #include <string>
 
+namespace pnr {
+
 class Design;
 
 Design *read_blif(const std::string &filename);
 Design *read_blif(const std::string &filename, std::istream &s);
+
+}
 
 #endif

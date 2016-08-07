@@ -22,6 +22,8 @@
 #include <iostream>
 #include <iomanip>
 
+namespace pnr {
+
 static void
 write_string_escaped(std::ostream &s, const std::string &str)
 {
@@ -70,4 +72,6 @@ Const::write_verilog(std::ostream &s) const
     }
   else
     write_string_escaped(s, m_strval);
+}
+
 }

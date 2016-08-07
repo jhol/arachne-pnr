@@ -20,6 +20,8 @@
 
 #include <vector>
 
+namespace pnr {
+
 template<typename T,
          typename std::vector<T>::size_type B>
 class BasedVector
@@ -117,5 +119,7 @@ using Vector = BasedVector<T, 0>;
 
 template<typename T>
 using Vector1 = BasedVector<T, 1>;
+
+}
 
 #endif

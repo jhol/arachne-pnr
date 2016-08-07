@@ -17,6 +17,8 @@
 
 #include "design.hh"
 
+namespace pnr {
+
 Models::Models(const Design *d)
 {
   lut4 = d->find_model("SB_LUT4");
@@ -31,4 +33,6 @@ Models::Models(const Design *d)
   ramnrnw = d->find_model("SB_RAM40_4KNRNW");
   warmboot = d->find_model("SB_WARMBOOT");
   tbuf = d->find_model("$_TBUF_");
+}
+
 }

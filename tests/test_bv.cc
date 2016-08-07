@@ -6,6 +6,8 @@
 #include <vector>
 #include <cassert>
 
+using namespace pnr;
+
 void
 test(int n, random_generator &rg)
 {

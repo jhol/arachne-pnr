@@ -17,6 +17,8 @@
 
 #include "port.hh"
 
+namespace pnr {
+
 void
 Net::replace(Net *new_n)
 {
@@ -30,4 +32,6 @@ Net::replace(Net *new_n)
       p->connect(new_n);
     }
   assert(m_connections.empty());
+}
+
 }

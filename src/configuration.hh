@@ -20,6 +20,8 @@
 
 #include <ostream>
 
+namespace pnr {
+
 class Design;
 class Instance;
 class Net;
@@ -45,5 +47,7 @@ public:
                  const std::map<Instance *, int, IdLess> &placement,
                  const std::vector<Net *> &cnet_net);
 };
+
+}
 
 #endif

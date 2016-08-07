@@ -16,8 +16,12 @@
 #ifndef PNR_PACK_HH
 #define PNR_PACK_HH
 
+namespace pnr {
+
 class DesignState;
 
 void pack(DesignState &ds);
+
+}
 
 #endif

@@ -16,8 +16,12 @@
 #ifndef PNR_ROUTE_HH
 #define PNR_ROUTE_HH
 
+namespace pnr {
+
 class DesignState;
 
 void route(DesignState &ds, int max_passes);
+
+}
 
 #endif

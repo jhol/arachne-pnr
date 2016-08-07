@@ -19,6 +19,8 @@
 
 #include <cassert>
 
+namespace pnr {
+
 void
 Design::set_top(Model *t)
 {
@@ -448,4 +450,6 @@ void
 Design::dump() const
 {
   write_blif(*logs);
+}
+
 }

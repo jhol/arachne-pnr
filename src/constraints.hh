@@ -19,6 +19,8 @@
 #include <map>
 #include <string>
 
+namespace pnr {
+
 class DesignState;
 
 class Constraints
@@ -34,5 +36,7 @@ public:
 };
 
 void place_constraints(DesignState &ds);
+
+}
 
 #endif

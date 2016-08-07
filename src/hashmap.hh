@@ -19,6 +19,8 @@
 #include <functional>
 #include <unordered_map>
 
+namespace pnr {
+
 template<typename Key,
          typename T,
          typename Hash = std::hash<Key>,
@@ -139,6 +141,6 @@ public:
   const underlying_t &underlying() const { return m; }
 };
 
-
+}
 
 #endif

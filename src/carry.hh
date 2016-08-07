@@ -18,6 +18,8 @@
 
 #include <vector>
 
+namespace pnr {
+
 class Instance;
 
 class CarryChains
@@ -28,5 +30,7 @@ public:
 public:
   CarryChains() {}
 };
+
+}
 
 #endif

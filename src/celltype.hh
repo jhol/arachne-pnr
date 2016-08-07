@@ -16,6 +16,8 @@
 #ifndef PNR_CELLTYPE_HH
 #define PNR_CELLTYPE_HH
 
+namespace pnr {
+
 enum class CellType : int {
   LOGIC, IO, GB, RAM, WARMBOOT, PLL,
 };
@@ -40,6 +42,8 @@ inline ibstream &operator>>(ibstream &ibs, CellType &t)
   ibs >> x;
   t = static_cast<CellType>(x);
   return ibs;
+}
+
 }
 
 #endif

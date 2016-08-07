@@ -21,6 +21,8 @@
 
 #include <string>
 
+namespace pnr {
+
 class ChipDB;
 
 class ChipDBParser : public LineParser
@@ -50,5 +52,7 @@ public:
   
   ChipDB *parse();
 };
+
+}
 
 #endif

@@ -5,6 +5,8 @@
 #include <set>
 #include <iostream>
 
+using namespace pnr;
+
 void
 test(int n, random_generator &rg)
 {

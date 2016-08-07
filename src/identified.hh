@@ -18,6 +18,8 @@
 
 #include <functional>
 
+namespace pnr {
+
 class Net;
 class Node;
 class Instance;
@@ -48,23 +50,25 @@ public:
   }
 };
 
+}
+
 namespace std {
   
 template<>
-struct hash<Identified *>
+struct hash<pnr::Identified *>
 {
 public:
-  size_t operator()(const Identified *x) const
+  size_t operator()(const pnr::Identified *x) const
   {
     std::hash<int> hasher;
     return hasher(x->id);
   }
 };
 
-template<> struct hash<Net *> : public std::hash<Identified *> {};
-template<> struct hash<Node *> : public std::hash<Identified *> {};
-template<> struct hash<Instance *> : public std::hash<Identified *> {};
-template<> struct hash<Model *> : public std::hash<Identified *> {};
+template<> struct hash<pnr::Net *> : public std::hash<pnr::Identified *> {};
+template<> struct hash<pnr::Node *> : public std::hash<pnr::Identified *> {};
+template<> struct hash<pnr::Instance *> : public std::hash<pnr::Identified *> {};
+template<> struct hash<pnr::Model *> : public std::hash<pnr::Identified *> {};
 
 }
 

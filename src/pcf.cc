@@ -18,6 +18,8 @@
 
 #include <fstream>
 
+namespace pnr {
+
 class PCFParser : public LineParser
 {
   const Package &package;
@@ -126,4 +128,6 @@ read_pcf(const std::string &filename, DesignState &ds)
               << strerror(errno)));
   PCFParser parser(filename, fs, ds);
   return parser.parse();
+}
+
 }

@@ -19,6 +19,8 @@
 #include <functional>
 #include <vector>
 
+namespace pnr {
+
 template<typename T, typename Comp = std::less<T>>
 class PriorityQ
 {
@@ -58,5 +60,7 @@ public:
     return v[0];
   }
 };
+
+}
 
 #endif

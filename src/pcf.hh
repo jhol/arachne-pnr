@@ -18,8 +18,12 @@
 
 #include <string>
 
+namespace pnr {
+
 class DesignState;
 
 void read_pcf(const std::string &filename, DesignState &ds);
+
+}
 
 #endif

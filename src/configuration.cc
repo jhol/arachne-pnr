@@ -24,6 +24,8 @@
 #include <cassert>
 #include <iostream>
 
+namespace pnr {
+
 Configuration::Configuration()
 {
 }
@@ -138,4 +140,6 @@ Configuration::write_txt(std::ostream &s,
       if (n)
         s << ".sym " << i << " " << n->name() << "\n";
     }
+}
+
 }

@@ -16,8 +16,12 @@
 #ifndef PNR_IO_HH
 #define PNR_IO_HH
 
+namespace pnr {
+
 class Design;
 
 void instantiate_io(Design *d);
+
+}
 
 #endif

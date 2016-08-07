@@ -38,6 +38,8 @@
 #include <set>
 #include <vector>
 
+namespace pnr {
+
 class Placer
 {
 public:
@@ -2016,4 +2018,6 @@ place(random_generator &rg, DesignState &ds)
   *logs << "  place time "
         << std::fixed << std::setprecision(2)
         << (double)(end - start) / (double)CLOCKS_PER_SEC << "s\n";
+}
+
 }

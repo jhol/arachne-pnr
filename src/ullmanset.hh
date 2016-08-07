@@ -21,6 +21,8 @@
 #include <cassert>
 #include <cstddef>
 
+namespace pnr {
+
 template<unsigned B>
 class BasedUllmanSet
 {
@@ -97,5 +99,7 @@ public:
 
 using UllmanSet = BasedUllmanSet<0>;
 using UllmanSet1 = BasedUllmanSet<1>;
+
+}
 
 #endif

@@ -21,6 +21,8 @@
 #include <map>
 #include <vector>
 
+namespace pnr {
+
 class ibstream;
 class obstream;
 
@@ -54,5 +56,6 @@ public:
 obstream &operator<<(obstream &obs, const Switch &sw);
 ibstream &operator>>(ibstream &ibs, Switch &sw);
 
+}
 
 #endif
