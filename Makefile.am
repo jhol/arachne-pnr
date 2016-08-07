@@ -40,6 +40,7 @@ bin_arachne_pnr_SOURCES = \
 	src/lexical_position.cc \
 	src/line_parser.cc \
 	src/location.cc \
+	src/model.cc \
 	src/net.cc \
 	src/netlist.cc \
 	src/node.cc \

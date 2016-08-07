@@ -16,7 +16,8 @@
 #include "port.hh"
 
 #include "casting.hh"
-#include "netlist.hh"
+#include "instance.hh"
+#include "model.hh"
 
 void
 Port::disconnect()

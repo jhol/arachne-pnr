@@ -17,6 +17,7 @@
 #include "casting.hh"
 #include "instance.hh"
 #include "line_parser.hh"
+#include "model.hh"
 #include "netlist.hh"
 #include "port.hh"
 #include "util.hh"
