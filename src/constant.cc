@@ -16,6 +16,7 @@
 #include "constant.hh"
 
 #include "chipdb.hh"
+#include "design.hh"
 #include "net.hh"
 #include "netlist.hh"
 #include "port.hh"

@@ -16,6 +16,7 @@
 #include "io.hh"
 
 #include "casting.hh"
+#include "design.hh"
 #include "netlist.hh"
 #include "port.hh"
 

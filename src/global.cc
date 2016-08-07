@@ -18,8 +18,8 @@
 #include "casting.hh"
 #include "chipdb.hh"
 #include "constraints.hh"
+#include "design.hh"
 #include "designstate.hh"
-#include "netlist.hh"
 #include "port.hh"
 #include "util.hh"
 

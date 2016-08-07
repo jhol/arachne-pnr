@@ -33,6 +33,7 @@ bin_arachne_pnr_SOURCES = \
 	src/const.cc \
 	src/constant.cc \
 	src/constraints.cc \
+	src/design.cc \
 	src/designstate.cc \
 	src/global.cc \
 	src/instance.cc \

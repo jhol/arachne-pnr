@@ -16,8 +16,8 @@
 #include "carry.hh"
 #include "casting.hh"
 #include "chipdb.hh"
+#include "design.hh"
 #include "designstate.hh"
-#include "netlist.hh"
 #include "port.hh"
 #include "util.hh"
 

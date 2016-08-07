@@ -15,6 +15,8 @@
 
 #include "designstate.hh"
 
+#include "design.hh"
+
 DesignState::DesignState(const ChipDB *chipdb_, const Package &package_, Design *d_)
   : chipdb(chipdb_),
     package(package_),

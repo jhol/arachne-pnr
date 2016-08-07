@@ -19,33 +19,7 @@
 #include "instance.hh"
 #include "model.hh"
 
-#include <map>
-#include <string>
-
-class Design
-{
-  friend class Model;
-  
-  Model *m_top;
-  std::map<std::string, Model *> m_models;
-  
-public:
-  Model *top() const { return m_top; }
-  void set_top(Model *t);
-  
-  Design();
-  ~Design();
-  
-  void create_standard_models();
-  Model *find_model(const std::string &n) const;
-  void prune();
-  void write_verilog(std::ostream &s) const;
-  void write_blif(std::ostream &s) const;
-  void dump() const;
-#ifndef NDEBUG
-  void check() const;
-#endif
-};
+class Design;
 
 class Models
 {
