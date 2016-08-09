@@ -15,7 +15,7 @@
 
 #include "constant.hh"
 
-#include "chipdb.hh"
+#include "chipdb/chipdb.hh"
 #include "netlist/design.hh"
 #include "netlist/models.hh"
 #include "netlist/net.hh"
@@ -27,7 +27,7 @@
 namespace pnr {
 
 void
-realize_constants(const ChipDB *chipdb, netlist::Design *d)
+realize_constants(const chipdb::ChipDB *chipdb, netlist::Design *d)
 {
   using namespace netlist;
 

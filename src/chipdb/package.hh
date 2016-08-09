@@ -13,8 +13,8 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_PACKAGE_HH
-#define PNR_PACKAGE_HH
+#ifndef PNR_CHIPDB_PACKAGE_HH
+#define PNR_CHIPDB_PACKAGE_HH
 
 #include "bstream.hh"
 #include "location.hh"
@@ -27,11 +27,12 @@
 #include <cassert>
 
 namespace pnr {
+namespace chipdb {
 
 class Package
 {
-  friend obstream &operator<<(obstream &obs, const Package &pkg);
-  friend ibstream &operator>>(ibstream &ibs, Package &pkg);
+  friend pnr::obstream &operator<<(pnr::obstream &obs, const Package &pkg);
+  friend pnr::ibstream &operator>>(pnr::ibstream &ibs, Package &pkg);
   
 public:
   std::string name;
@@ -40,12 +41,12 @@ public:
   std::map<Location, std::string> loc_pin;
 };
 
-inline obstream &operator<<(obstream &obs, const Package &pkg)
+inline pnr::obstream &operator<<(pnr::obstream &obs, const Package &pkg)
 {
   return obs << pkg.name << pkg.pin_loc;
 }
 
-inline ibstream &operator>>(ibstream &ibs, Package &pkg)
+inline pnr::ibstream &operator>>(pnr::ibstream &ibs, Package &pkg)
 {
   ibs >> pkg.name >> pkg.pin_loc;
   for (const auto &p : pkg.pin_loc)
@@ -53,6 +54,7 @@ inline ibstream &operator>>(ibstream &ibs, Package &pkg)
   return ibs;
 }
 
+}
 }
 
 #endif

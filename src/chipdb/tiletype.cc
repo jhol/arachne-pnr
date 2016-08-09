@@ -13,21 +13,30 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_CONSTANT_HH
-#define PNR_CONSTANT_HH
+#include "tiletype.hh"
 
 namespace pnr {
-
 namespace chipdb {
-class ChipDB;
+
+std::string
+tile_type_name(TileType t)
+{
+  assert(t != TileType::EMPTY);
+  switch(t)
+    {
+    case TileType::IO:
+      return "io_tile";
+    case TileType::LOGIC:
+      return "logic_tile";
+    case TileType::RAMB:
+      return "ramb_tile";
+    case TileType::RAMT:
+      return "ramt_tile";
+    case TileType::EMPTY:
+      abort();
+    }    
+  return std::string();
 }
 
-namespace netlist {
-class Design;
 }
-
-void realize_constants(const chipdb::ChipDB *chipdb, netlist::Design *d);
-
 }
-
-#endif

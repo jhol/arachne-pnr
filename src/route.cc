@@ -15,8 +15,8 @@
 
 #include "bitvector.hh"
 #include "casting.hh"
-#include "chipdb.hh"
 #include "configuration/configuration.hh"
+#include "chipdb/chipdb.hh"
 #include "designstate.hh"
 #include "location.hh"
 #include "netlist/design.hh"
@@ -35,6 +35,7 @@
 #include <set>
 #include <vector>
 
+using namespace pnr::chipdb;
 using namespace pnr::netlist;
 
 namespace pnr {

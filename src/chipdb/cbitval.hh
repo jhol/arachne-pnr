@@ -13,28 +13,35 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#include "tiletype.hh"
+#ifndef PNR_CHIPDB_CBITVAL_HH
+#define PNR_CHIPDB_CBITVAL_HH
+
+#include "cbit.hh"
+
+#include <ostream>
+#include <map>
+#include <set>
 
 namespace pnr {
+namespace chipdb {
 
-std::string
-tile_type_name(TileType t)
+class CBitVal
 {
-  assert(t != TileType::EMPTY);
-  switch(t)
-    {
-    case TileType::IO:
-      return "io_tile";
-    case TileType::LOGIC:
-      return "logic_tile";
-    case TileType::RAMB:
-      return "ramb_tile";
-    case TileType::RAMT:
-      return "ramt_tile";
-    case TileType::EMPTY:
-      abort();
-    }    
-  return std::string();
-}
+public:
+  friend std::ostream &operator<<(std::ostream &s, const CBitVal &cbits);
+  
+  std::map<CBit, bool> cbit_val;
+  
+public:
+  CBitVal() {}
+  CBitVal(const std::map<CBit, bool> &cbv)
+    : cbit_val(cbv)
+  {}
+  
+  std::set<CBit> cbits() const;
+};
 
 }
+}
+
+#endif

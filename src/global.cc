@@ -16,7 +16,7 @@
 #include "global.hh"
 
 #include "casting.hh"
-#include "chipdb.hh"
+#include "chipdb/chipdb.hh"
 #include "constraints.hh"
 #include "designstate.hh"
 #include "netlist/design.hh"
@@ -37,7 +37,7 @@ class Promoter
   static const char *global_class_name(uint8_t gc);
   
   DesignState &ds;
-  const ChipDB *chipdb;
+  const chipdb::ChipDB *chipdb;
   Design *d;
   Model *top;
   const Models &models;

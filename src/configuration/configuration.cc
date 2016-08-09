@@ -15,7 +15,7 @@
 
 #include "configuration.hh"
 
-#include "chipdb.hh"
+#include "chipdb/chipdb.hh"
 #include "netlist/models.hh"
 #include "util.hh"
 
@@ -56,12 +56,14 @@ Configuration::set_extra_cbit(const std::tuple<int, int, int> &t)
 
 void
 Configuration::write_txt(std::ostream &s,
-                         const ChipDB *chipdb,
+                         const chipdb::ChipDB *chipdb,
                          netlist::Design *d,
                          const std::map<netlist::Instance *, int,
 			   netlist::IdLess> &placement,
                          const std::vector<netlist::Net *> &cnet_net)
 {
+  using chipdb::TileType;
+
   s << ".comment " << PACKAGE_NAME " " PNR_PACKAGE_VERSION_STRING << "\n";
   
   s << ".device " << chipdb->device << "\n";

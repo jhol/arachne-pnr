@@ -13,42 +13,32 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#include "switch.hh"
-#include "bstream.hh"
+#include "cbitval.hh"
 
 namespace pnr {
+namespace chipdb {
 
-obstream &operator<<(obstream &obs, const Switch &sw)
+std::set<CBit>
+CBitVal::cbits() const
 {
-  obs << sw.bidir
-      << sw.tile
-      << sw.out
-      << sw.cbits.size();
-  for (const configuration::Bit &cbit : sw.cbits)
-    {
-      assert(cbit.tile == sw.tile);
-      obs << cbit.row << cbit.col;
-    }
-  obs << sw.in_val;
-  return obs;
+  return keys(cbit_val);
 }
 
-ibstream &operator>>(ibstream &ibs, Switch &sw)
+}
+
+std::ostream &
+operator<<(std::ostream &s, const chipdb::CBitVal &cv)
 {
-  size_t n_cbits;
-  ibs >> sw.bidir
-      >> sw.tile
-      >> sw.out
-      >> n_cbits;
-  sw.cbits.resize(n_cbits);
-  for (size_t i = 0; i < n_cbits; ++i)
+  for (const auto &p : cv.cbit_val)
     {
-      int row, col;
-      ibs >> row >> col;
-      sw.cbits[i] = configuration::Bit(sw.tile, row, col);
+      if (p.second)
+        s << "1";
+      else
+        s << "0";
     }
-  ibs >> sw.in_val;
-  return ibs;
+  for (const auto &p : cv.cbit_val)
+    s << " " << p.first;
+  return s;
 }
 
 }

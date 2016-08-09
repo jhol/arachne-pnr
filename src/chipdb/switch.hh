@@ -13,8 +13,8 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_SWITCH_HH
-#define PNR_SWITCH_HH
+#ifndef PNR_CHIPDB_SWITCH_HH
+#define PNR_CHIPDB_SWITCH_HH
 
 #include "configuration/bit.hh"
 
@@ -26,11 +26,13 @@ namespace pnr {
 class ibstream;
 class obstream;
 
+namespace chipdb {
+
 class Switch
 {
 public:
-  friend obstream &operator<<(obstream &obs, const Switch &sw);
-  friend ibstream &operator>>(ibstream &ibs, Switch &sw);
+  friend pnr::obstream &operator<<(pnr::obstream &obs, const Switch &sw);
+  friend pnr::ibstream &operator>>(pnr::ibstream &ibs, Switch &sw);
   
   bool bidir; // routing
   int tile;
@@ -53,9 +55,10 @@ public:
   {}
 };
 
-obstream &operator<<(obstream &obs, const Switch &sw);
-ibstream &operator>>(ibstream &ibs, Switch &sw);
+pnr::obstream &operator<<(pnr::obstream &obs, const chipdb::Switch &sw);
+pnr::ibstream &operator>>(pnr::ibstream &ibs, chipdb::Switch &sw);
 
+}
 }
 
 #endif

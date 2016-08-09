@@ -13,21 +13,41 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_CONSTANT_HH
-#define PNR_CONSTANT_HH
+#include "cbit.hh"
 
 namespace pnr {
-
 namespace chipdb {
-class ChipDB;
+
+bool
+CBit::operator==(const CBit &rhs) const
+{
+  return tile == rhs.tile
+    && row == rhs.row
+    && col == rhs.col;
 }
 
-namespace netlist {
-class Design;
+bool
+CBit::operator<(const CBit &rhs) const
+{
+  if (tile < rhs.tile)
+    return true;
+  if (tile > rhs.tile)
+    return false;
+
+  if (row < rhs.row)
+    return true;
+  if (row > rhs.row)
+    return false;
+  
+  return col < rhs.col;
 }
 
-void realize_constants(const chipdb::ChipDB *chipdb, netlist::Design *d);
-
 }
 
-#endif
+std::ostream &
+operator<<(std::ostream &s, const chipdb::CBit &cbit)
+{
+  return s << cbit.tile << " B" << cbit.row << "[" << cbit.col << "]";
+}
+
+}

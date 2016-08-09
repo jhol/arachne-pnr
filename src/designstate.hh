@@ -17,8 +17,8 @@
 #define PNR_DESIGNSTATE_HH
 
 #include "carry.hh"
-#include "chipdb.hh"
 #include "configuration/configuration.hh"
+#include "chipdb/chipdb.hh"
 #include "constraints.hh"
 #include "netlist/models.hh"
 
@@ -27,8 +27,8 @@ namespace pnr {
 class DesignState
 {
 public:
-  const ChipDB *chipdb;
-  const Package &package;
+  const chipdb::ChipDB *chipdb;
+  const chipdb::Package &package;
   netlist::Design *d;
   netlist::Models models;
   netlist::Model *top;
@@ -41,7 +41,7 @@ public:
   configuration::Configuration conf;
   
 public:
-  DesignState(const ChipDB *chipdb_, const Package &package_,
+  DesignState(const chipdb::ChipDB *chipdb_, const chipdb::Package &package_,
               netlist::Design *d_);
   
   bool is_dual_pll(netlist::Instance *inst) const;

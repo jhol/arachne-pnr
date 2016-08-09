@@ -13,36 +13,50 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_CELLTYPE_HH
-#define PNR_CELLTYPE_HH
+#ifndef PNR_CHIPDB_TILETYPE_HH
+#define PNR_CHIPDB_TILETYPE_HH
+
+#include "bstream.hh"
+
+#include <functional>
 
 namespace pnr {
+namespace chipdb {
 
-enum class CellType : int {
-  LOGIC, IO, GB, RAM, WARMBOOT, PLL,
+enum class TileType : int {
+  EMPTY, IO, LOGIC, RAMB, RAMT,
 };
 
-std::string cell_type_name(CellType ct);
-
-constexpr int cell_type_idx(CellType type)
-{
-  return static_cast<int>(type);
-}
-
-static const int n_cell_types = cell_type_idx(CellType::PLL) + 1;
-
-inline obstream &operator<<(obstream &obs, CellType t)
+inline pnr::obstream &operator<<(pnr::obstream &obs, chipdb::TileType t)
 {
   return obs << static_cast<int>(t);
 }
 
-inline ibstream &operator>>(ibstream &ibs, CellType &t)
+inline pnr::ibstream &operator>>(pnr::ibstream &ibs, chipdb::TileType &t)
 {
   int x;
   ibs >> x;
-  t = static_cast<CellType>(x);
+  t = static_cast<chipdb::TileType>(x);
   return ibs;
 }
+
+std::string tile_type_name(TileType t);
+
+}
+}
+
+namespace std {
+
+template<>
+struct hash<pnr::chipdb::TileType>
+{
+public:
+  size_t operator() (pnr::chipdb::TileType x) const
+  {
+    std::hash<int> hasher;
+    return hasher(static_cast<int>(x));
+  }
+};
 
 }
 

@@ -13,15 +13,45 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#include "chipdbparser.hh"
-
 #include "chipdb.hh"
+
+#include "line_parser.hh"
 #include "util.hh"
 
 #include <cassert>
 #include <cstring>
+#include <iostream>
 
 namespace pnr {
+namespace chipdb {
+
+class ChipDBParser : public LineParser
+{
+  ChipDB *chipdb;
+  
+  configuration::Bit parse_cbit(int tile, const std::string &s);
+  
+  void parse_cmd_device();
+  void parse_cmd_pins();
+  void parse_cmd_gbufpin();
+  void parse_cmd_tile();
+  void parse_cmd_tile_bits();
+  void parse_cmd_net();
+  void parse_cmd_buffer_routing();
+  void parse_cmd_colbuf();
+  void parse_cmd_gbufin();
+  void parse_cmd_iolatch();
+  void parse_cmd_ieren();
+  void parse_cmd_extra_bits();
+  void parse_cmd_extra_cell();
+  
+public:
+  ChipDBParser(const std::string &f, std::istream &s_)
+    : LineParser(f, s_), chipdb(nullptr)
+  {}
+  
+  ChipDB *parse();
+};
 
 configuration::Bit
 ChipDBParser::parse_cbit(int t, const std::string &s_)
@@ -521,4 +551,5 @@ ChipDBParser::parse()
   return chipdb;
 }
 
+}
 }

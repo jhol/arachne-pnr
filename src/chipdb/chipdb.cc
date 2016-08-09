@@ -24,6 +24,7 @@
 #include <iostream>
 
 namespace pnr {
+namespace chipdb {
 
 ChipDB::ChipDB()
   : width(0), height(0), n_tiles(0), n_nets(0), n_global_nets(8),
@@ -257,7 +258,7 @@ ChipDB::find_switch(int in, int out) const
 }
 
 void
-ChipDB::bwrite(obstream &obs) const
+ChipDB::bwrite(pnr::obstream &obs) const
 {
   std::vector<std::string> net_names;
   std::map<std::string, int> net_name_idx;
@@ -311,7 +312,7 @@ ChipDB::bwrite(obstream &obs) const
 }
 
 void
-ChipDB::bread(ibstream &ibs)
+ChipDB::bread(pnr::ibstream &ibs)
 {
   std::vector<std::string> net_names;
   std::vector<std::map<int, int>> tile_nets_idx;
@@ -369,7 +370,7 @@ read_chipdb(const std::string &filename)
   if (is_suffix(expanded, ".bin"))
     {
       chipdb = new ChipDB;
-      ibstream ibs(ifs);
+      pnr::ibstream ibs(ifs);
       chipdb->bread(ibs);
     }
   else
@@ -405,4 +406,5 @@ ChipDB::extra_cell_cbit(int c, const std::string &name) const
   return cbit0.with_tile(p.first);
 }
 
+}
 }

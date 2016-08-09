@@ -16,7 +16,7 @@
 #include "blif.hh"
 #include "carry.hh"
 #include "casting.hh"
-#include "chipdb.hh"
+#include "chipdb/chipdb.hh"
 #include "configuration/configuration.hh"
 #include "constant.hh"
 #include "designstate.hh"
@@ -397,7 +397,7 @@ main(int argc, const char **argv)
                      + ".bin");
 #endif
   *logs << "read_chipdb " << chipdb_file_s << "...\n";
-  const ChipDB *chipdb = read_chipdb(chipdb_file_s);
+  const chipdb::ChipDB *chipdb = chipdb::read_chipdb(chipdb_file_s);
   
   if (binary_chipdb)
     {
@@ -442,7 +442,7 @@ main(int argc, const char **argv)
   auto package_i = chipdb->packages.find(package_name);
   if (package_i == chipdb->packages.end())
     fatal(fmt("unknown package `" << package_name << "'"));
-  const Package &package = package_i->second;
+  const chipdb::Package &package = package_i->second;
   
 #ifdef __AFL_HAVE_MANUAL_CONTROL
   __AFL_INIT();

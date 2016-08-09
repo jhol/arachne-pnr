@@ -13,49 +13,44 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_TILETYPE_HH
-#define PNR_TILETYPE_HH
-
+#include "switch.hh"
 #include "bstream.hh"
 
-#include <functional>
-
 namespace pnr {
+namespace chipdb {
 
-enum class TileType : int {
-  EMPTY, IO, LOGIC, RAMB, RAMT,
-};
-
-inline obstream &operator<<(obstream &obs, TileType t)
+pnr::obstream &operator<<(pnr::obstream &obs, const chipdb::Switch &sw)
 {
-  return obs << static_cast<int>(t);
+  obs << sw.bidir
+      << sw.tile
+      << sw.out
+      << sw.cbits.size();
+  for (const configuration::Bit &cbit : sw.cbits)
+    {
+      assert(cbit.tile == sw.tile);
+      obs << cbit.row << cbit.col;
+    }
+  obs << sw.in_val;
+  return obs;
 }
 
-inline ibstream &operator>>(ibstream &ibs, TileType &t)
+pnr::ibstream &operator>>(pnr::ibstream &ibs, chipdb::Switch &sw)
 {
-  int x;
-  ibs >> x;
-  t = static_cast<TileType>(x);
+  size_t n_cbits;
+  ibs >> sw.bidir
+      >> sw.tile
+      >> sw.out
+      >> n_cbits;
+  sw.cbits.resize(n_cbits);
+  for (size_t i = 0; i < n_cbits; ++i)
+    {
+      int row, col;
+      ibs >> row >> col;
+      sw.cbits[i] = configuration::Bit(sw.tile, row, col);
+    }
+  ibs >> sw.in_val;
   return ibs;
 }
 
-std::string tile_type_name(TileType t);
-
 }
-
-namespace std {
-
-template<>
-struct hash<pnr::TileType>
-{
-public:
-  size_t operator() (pnr::TileType x) const
-  {
-    std::hash<int> hasher;
-    return hasher(static_cast<int>(x));
-  }
-};
-
 }
-
-#endif

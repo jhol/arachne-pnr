@@ -17,7 +17,7 @@
 #define PNR_CONFIGURATION_CONFIGURATION_HH
 
 #include "bit.hh"
-#include "chipdb.hh"
+#include "chipdb/chipdb.hh"
 
 #include <ostream>
 
@@ -47,7 +47,7 @@ public:
   void set_extra_cbit(const std::tuple<int, int, int> &t);
   
   void write_txt(std::ostream &s,
-                 const ChipDB *chipdb,
+                 const chipdb::ChipDB *chipdb,
                  netlist::Design *d,
                  const std::map<netlist::Instance *, int, netlist::IdLess>
 		   &placement,

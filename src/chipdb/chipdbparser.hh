@@ -13,8 +13,8 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_CHIPDBPARSER_HH
-#define PNR_CHIPDBPARSER_HH
+#ifndef PNR_CHIPDB_CHIPDBPARSER_HH
+#define PNR_CHIPDB_CHIPDBPARSER_HH
 
 #include "configuration/bit.hh"
 #include "line_parser.hh"
@@ -22,6 +22,7 @@
 #include <string>
 
 namespace pnr {
+namespace chipdb {
 
 class ChipDB;
 
@@ -53,6 +54,7 @@ public:
   ChipDB *parse();
 };
 
+}
 }
 
 #endif

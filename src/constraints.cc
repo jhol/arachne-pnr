@@ -24,7 +24,7 @@ namespace pnr {
 class ConstraintsPlacer
 {
   DesignState &ds;
-  const ChipDB *chipdb;
+  const chipdb::ChipDB *chipdb;
   const Models &models;
   Model *top;
   const Constraints &constraints;
@@ -68,6 +68,9 @@ ConstraintsPlacer::ConstraintsPlacer(DesignState &ds_)
 void
 ConstraintsPlacer::place()
 {
+  using chipdb::CellType;
+  using chipdb::TileType;
+
   std::vector<Net *> bank_latch(4, nullptr);
   for (const auto &p : constraints.net_pin_loc)
     {

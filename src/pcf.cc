@@ -22,7 +22,7 @@ namespace pnr {
 
 class PCFParser : public LineParser
 {
-  const Package &package;
+  const chipdb::Package &package;
   netlist::Model *top;
   Constraints &constraints;
   

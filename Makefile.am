@@ -26,6 +26,10 @@ bin_arachne_pnr_SOURCES = \
 	src/configuration/configuration.cc \
 	src/configuration/bit.cc \
 	src/configuration/bitval.cc \
+	src/chipdb/chipdb.cc \
+	src/chipdb/chipdbparser.cc \
+	src/chipdb/switch.cc \
+	src/chipdb/tiletype.cc \
 	src/netlist/const.cc \
 	src/netlist/design.cc \
 	src/netlist/instance.cc \
@@ -36,8 +40,6 @@ bin_arachne_pnr_SOURCES = \
 	src/netlist/port.cc \
 	src/arachne-pnr.cc \
 	src/blif.cc \
-	src/chipdb.cc \
-	src/chipdbparser.cc \
 	src/constant.cc \
 	src/constraints.cc \
 	src/designstate.cc \
@@ -50,8 +52,6 @@ bin_arachne_pnr_SOURCES = \
 	src/pcf.cc \
 	src/place.cc \
 	src/route.cc \
-	src/switch.cc \
-	src/tiletype.cc \
 	src/util.cc
 
 tests_test_bv_SOURCES = tests/test_bv.cc

@@ -13,8 +13,8 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_CHIPDB_HH
-#define PNR_CHIPDB_HH
+#ifndef PNR_CHIPDB_CHIPDB_HH
+#define PNR_CHIPDB_CHIPDB_HH
 
 #include "configuration/bit.hh"
 #include "configuration/bitval.hh"
@@ -33,6 +33,7 @@
 #include <vector>
 
 namespace pnr {
+namespace chipdb {
 
 class ChipDB
 {
@@ -136,12 +137,13 @@ public:
   ChipDB();
   
   void dump(std::ostream &s) const;
-  void bwrite(obstream &obs) const;
-  void bread(ibstream &ibs);
+  void bwrite(pnr::obstream &obs) const;
+  void bread(pnr::ibstream &ibs);
 };
 
 ChipDB *read_chipdb(const std::string &filename);
 
+}
 }
 
 #endif

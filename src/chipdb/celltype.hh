@@ -13,21 +13,39 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_CONSTANT_HH
-#define PNR_CONSTANT_HH
+#ifndef PNR_CHIPDB_CELLTYPE_HH
+#define PNR_CHIPDB_CELLTYPE_HH
 
 namespace pnr {
-
 namespace chipdb {
-class ChipDB;
+
+enum class CellType : int {
+  LOGIC, IO, GB, RAM, WARMBOOT, PLL,
+};
+
+std::string cell_type_name(CellType ct);
+
+constexpr int cell_type_idx(CellType type)
+{
+  return static_cast<int>(type);
 }
 
-namespace netlist {
-class Design;
+static const int n_cell_types = cell_type_idx(CellType::PLL) + 1;
+
+inline pnr::obstream &operator<<(pnr::obstream &obs, CellType t)
+{
+  return obs << static_cast<int>(t);
 }
 
-void realize_constants(const chipdb::ChipDB *chipdb, netlist::Design *d);
+inline pnr::ibstream &operator>>(pnr::ibstream &ibs, CellType &t)
+{
+  int x;
+  ibs >> x;
+  t = static_cast<chipdb::CellType>(x);
+  return ibs;
+}
 
+}
 }
 
 #endif

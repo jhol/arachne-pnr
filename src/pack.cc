@@ -15,7 +15,7 @@
 
 #include "carry.hh"
 #include "casting.hh"
-#include "chipdb.hh"
+#include "chipdb/chipdb.hh"
 #include "designstate.hh"
 #include "netlist/design.hh"
 #include "netlist/port.hh"
@@ -34,8 +34,8 @@ class Models;
 
 class Packer
 {
-  const ChipDB *chipdb;
-  const Package &package;
+  const chipdb::ChipDB *chipdb;
+  const chipdb::Package &package;
   Design *d;
   Models &models;
   Model *top;
@@ -592,6 +592,9 @@ Packer::pack_carries()
 void
 Packer::pack()
 {
+  using chipdb::CellType;
+  using chipdb::TileType;
+
   pack_dffs();
   pack_luts();
   pack_carries();

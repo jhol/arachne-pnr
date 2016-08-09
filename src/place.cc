@@ -16,7 +16,7 @@
 #include "bitvector.hh"
 #include "carry.hh"
 #include "casting.hh"
-#include "chipdb.hh"
+#include "chipdb/chipdb.hh"
 #include "configuration/configuration.hh"
 #include "designstate.hh"
 #include "global.hh"
@@ -38,6 +38,7 @@
 #include <set>
 #include <vector>
 
+using namespace pnr::chipdb;
 using namespace pnr::netlist;
 namespace c = pnr::configuration;
 
@@ -1204,7 +1205,8 @@ Placer::configure_io(const Location &loc,
                      bool enable_input,
                      bool pullup)
 {
-  const auto &func_cbits = chipdb->tile_nonrouting_cbits.at(TileType::IO);
+  const auto &func_cbits =
+    chipdb->tile_nonrouting_cbits.at(TileType::IO);
   const c::Bit &ie_0 = func_cbits.at("IoCtrl.IE_0")[0],
     &ie_1 = func_cbits.at("IoCtrl.IE_1")[0],
     &ren_0 = func_cbits.at("IoCtrl.REN_0")[0],
@@ -1368,7 +1370,8 @@ Placer::configure()
           rm.resize(2);
           
           // powerup active low, don't set
-          const auto &ramb_func_cbits = chipdb->tile_nonrouting_cbits.at(TileType::RAMB);
+          const auto &ramb_func_cbits =
+            chipdb->tile_nonrouting_cbits.at(TileType::RAMB);
           const c::Bit &cbit0 = func_cbits.at("RamConfig.CBIT_0")[0],
             &cbit1 = func_cbits.at("RamConfig.CBIT_1")[0],
             &cbit2 = func_cbits.at("RamConfig.CBIT_2")[0],
