@@ -22,10 +22,12 @@
 
 namespace pnr {
 
+namespace netlist {
 class Design;
 class Instance;
 class Net;
 class IdLess;
+}
 
 class Configuration
 {
@@ -43,9 +45,10 @@ public:
   
   void write_txt(std::ostream &s,
                  const ChipDB *chipdb,
-                 Design *d,
-                 const std::map<Instance *, int, IdLess> &placement,
-                 const std::vector<Net *> &cnet_net);
+                 netlist::Design *d,
+                 const std::map<netlist::Instance *, int, netlist::IdLess>
+		   &placement,
+                 const std::vector<netlist::Net *> &cnet_net);
 };
 
 }

@@ -19,14 +19,14 @@
 #include "chipdb.hh"
 #include "configuration.hh"
 #include "constant.hh"
-#include "design.hh"
 #include "designstate.hh"
 #include "global.hh"
 #include "io.hh"
+#include "netlist/design.hh"
+#include "netlist/port.hh"
 #include "pack.hh"
 #include "pcf.hh"
 #include "place.hh"
-#include "port.hh"
 #include "route.hh"
 #include "util.hh"
 
@@ -452,7 +452,7 @@ main(int argc, const char **argv)
   while (__AFL_LOOP(1000)) {
   */
   
-  Design *d;
+  netlist::Design *d;
   if (input_file)
     {
       *logs << "read_blif " << input_file << "...\n";
@@ -477,7 +477,7 @@ main(int argc, const char **argv)
     
     if (route_only)
       {
-        for (Instance *inst : ds.top->instances())
+        for (netlist::Instance *inst : ds.top->instances())
           {
             const std::string &loc_attr = inst->get_attr("loc").as_string();
             int cell;
@@ -575,11 +575,10 @@ main(int argc, const char **argv)
                   {
                     const Location &loc = chipdb->cell_location[p.second];
                     std::string pin = package.loc_pin.at(loc);
-                    Port *top_port = (p.first
-                                      ->find_port("PACKAGE_PIN")
-                                      ->connection_other_port());
-                    assert(isa<Model>(top_port->node())
-                           && cast<Model>(top_port->node()) == ds.top);
+		    netlist::Port *top_port = p.first->find_port(
+                      "PACKAGE_PIN")->connection_other_port();
+                    assert(isa<netlist::Model>(top_port->node())
+                           && cast<netlist::Model>(top_port->node()) == ds.top);
                     
                     fs << "set_io " << top_port->name() << " " << pin << "\n";
                   }

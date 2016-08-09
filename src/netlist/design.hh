@@ -13,26 +13,43 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#include "models.hh"
+#ifndef PNR_NETLIST_DESIGN_HH
+#define PNR_NETLIST_DESIGN_HH
 
-#include "design.hh"
+#include <map>
+#include <string>
 
 namespace pnr {
+namespace netlist {
 
-Models::Models(const Design *d)
+class Model;
+
+class Design
 {
-  lut4 = d->find_model("SB_LUT4");
-  carry = d->find_model("SB_CARRY");
-  lc = d->find_model("ICESTORM_LC");
-  io = d->find_model("SB_IO");
-  gb = d->find_model("SB_GB");
-  gb_io = d->find_model("SB_GB_IO");
-  ram = d->find_model("SB_RAM40_4K");
-  ramnr = d->find_model("SB_RAM40_4KNR");
-  ramnw = d->find_model("SB_RAM40_4KNW");
-  ramnrnw = d->find_model("SB_RAM40_4KNRNW");
-  warmboot = d->find_model("SB_WARMBOOT");
-  tbuf = d->find_model("$_TBUF_");
-}
+  friend class Model;
+  
+  Model *m_top;
+  std::map<std::string, Model *> m_models;
+  
+public:
+  Model *top() const { return m_top; }
+  void set_top(Model *t);
+  
+  Design();
+  ~Design();
+  
+  void create_standard_models();
+  Model *find_model(const std::string &n) const;
+  void prune();
+  void write_verilog(std::ostream &s) const;
+  void write_blif(std::ostream &s) const;
+  void dump() const;
+#ifndef NDEBUG
+  void check() const;
+#endif
+};
 
 }
+}
+
+#endif

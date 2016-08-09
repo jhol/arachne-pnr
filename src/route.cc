@@ -17,10 +17,10 @@
 #include "casting.hh"
 #include "chipdb.hh"
 #include "configuration.hh"
-#include "design.hh"
 #include "designstate.hh"
 #include "location.hh"
-#include "port.hh"
+#include "netlist/design.hh"
+#include "netlist/port.hh"
 #include "priorityq.hh"
 #include "ullmanset.hh"
 #include "util.hh"
@@ -35,9 +35,14 @@
 #include <set>
 #include <vector>
 
+using namespace pnr::netlist;
+
 namespace pnr {
 
+namespace netlist {
 class Models;
+}
+
 class Router;
 
 class Comp

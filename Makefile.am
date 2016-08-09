@@ -23,6 +23,14 @@ bin_PROGRAMS = bin/arachne-pnr
 noinst_PROGRAMS = tests/test_bv tests/test_us
 
 bin_arachne_pnr_SOURCES = \
+	src/netlist/const.cc \
+	src/netlist/design.cc \
+	src/netlist/instance.cc \
+	src/netlist/model.cc \
+	src/netlist/models.cc \
+	src/netlist/net.cc \
+	src/netlist/node.cc \
+	src/netlist/port.cc \
 	src/arachne-pnr.cc \
 	src/blif.cc \
 	src/cbit.cc \
@@ -30,25 +38,17 @@ bin_arachne_pnr_SOURCES = \
 	src/chipdb.cc \
 	src/chipdbparser.cc \
 	src/configuration.cc \
-	src/const.cc \
 	src/constant.cc \
 	src/constraints.cc \
-	src/design.cc \
 	src/designstate.cc \
 	src/global.cc \
-	src/instance.cc \
 	src/io.cc \
 	src/lexical_position.cc \
 	src/line_parser.cc \
 	src/location.cc \
-	src/model.cc \
-	src/models.cc \
-	src/net.cc \
-	src/node.cc \
 	src/pack.cc \
 	src/pcf.cc \
 	src/place.cc \
-	src/port.cc \
 	src/route.cc \
 	src/switch.cc \
 	src/tiletype.cc \

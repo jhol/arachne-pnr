@@ -13,8 +13,8 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_NET_HH
-#define PNR_NET_HH
+#ifndef PNR_NETLIST_NET_HH
+#define PNR_NETLIST_NET_HH
 
 #include "identified.hh"
 #include "value.hh"
@@ -24,6 +24,7 @@
 #include <set>
 
 namespace pnr {
+namespace netlist {
 
 class Port;
 
@@ -61,6 +62,7 @@ public:
   void replace(Net *new_n);
 };
 
+}
 }
 
 #endif

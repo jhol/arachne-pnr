@@ -22,9 +22,9 @@
 #include "global.hh"
 #include "hashmap.hh"
 #include "location.hh"
-#include "models.hh"
+#include "netlist/models.hh"
+#include "netlist/port.hh"
 #include "place.hh"
-#include "port.hh"
 #include "ullmanset.hh"
 #include "util.hh"
 
@@ -37,6 +37,8 @@
 #include <random>
 #include <set>
 #include <vector>
+
+using namespace pnr::netlist;
 
 namespace pnr {
 

@@ -15,11 +15,11 @@
 
 #include "bitvector.hh"
 #include "casting.hh"
-#include "design.hh"
-#include "instance.hh"
 #include "line_parser.hh"
-#include "model.hh"
-#include "port.hh"
+#include "netlist/design.hh"
+#include "netlist/instance.hh"
+#include "netlist/model.hh"
+#include "netlist/port.hh"
 #include "util.hh"
 
 #include <cctype>
@@ -40,7 +40,7 @@ public:
     : LineParser(f, s_)
   {}
   
-  Design *parse();
+  netlist::Design *parse();
 };
 
 BitVector
@@ -64,9 +64,11 @@ BlifParser::stobv(const std::string &s_)
   return bv;
 }
 
-Design *
+netlist::Design *
 BlifParser::parse()
 {
+  using namespace netlist;
+
   Design *d = new Design;
   d->create_standard_models();
   
@@ -116,7 +118,7 @@ BlifParser::parse()
                     }
                   else
                     port = top->add_port(words[i], Direction::IN);
-                  Net *net = top->find_or_add_net(words[i]);
+		  Net *net = top->find_or_add_net(words[i]);
                   port->connect(net);
                 }
             }
@@ -127,7 +129,7 @@ BlifParser::parse()
 
               for (unsigned i = 1; i < words.size(); i ++)
                 {
-                  Port *port = top->find_port(words[i]);
+		  Port *port = top->find_port(words[i]);
                   if (port)
                     {
                       if (port->direction() == Direction::IN)
@@ -395,7 +397,7 @@ BlifParser::parse()
   return d;
 }
 
-Design *
+netlist::Design *
 read_blif(const std::string &filename)
 {
   std::string expanded = expand_filename(filename);
@@ -407,7 +409,7 @@ read_blif(const std::string &filename)
   return parser.parse();
 }
 
-Design *
+netlist::Design *
 read_blif(const std::string &filename, std::istream &s)
 {
   BlifParser parser(filename, s);

@@ -13,16 +13,20 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_VALUE_HH
-#define PNR_VALUE_HH
+#ifndef PNR_NETLIST_DIRECTION_HH
+#define PNR_NETLIST_DIRECTION_HH
 
 namespace pnr {
+namespace netlist {
 
-enum class Value
+enum class Direction
 {
-  ZERO, ONE, X, Z,
+  IN, OUT, INOUT,
 };
 
+Direction opposite_direction(Direction d);
+
+}
 }
 
 #endif

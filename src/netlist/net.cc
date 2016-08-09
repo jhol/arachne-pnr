@@ -13,25 +13,27 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#include "direction.hh"
+#include "net.hh"
+
+#include "port.hh"
 
 namespace pnr {
+namespace netlist {
 
-Direction
-opposite_direction(Direction d)
+void
+Net::replace(Net *new_n)
 {
-  switch(d)
+  assert(new_n != this);
+  
+  for (auto i = m_connections.begin();
+       i != m_connections.end();)
     {
-    case Direction::IN:
-      return Direction::OUT;
-    case Direction::OUT:
-      return Direction::IN;
-    case Direction::INOUT:
-      return Direction::INOUT;
-    default:
-      abort();
-      return Direction::IN;
+      Port *p = *i;
+      ++i;
+      p->connect(new_n);
     }
+  assert(m_connections.empty());
 }
 
+}
 }

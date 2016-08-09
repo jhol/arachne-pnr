@@ -22,6 +22,7 @@
 #include "port.hh"
 
 namespace pnr {
+namespace netlist {
 
 int Model::counter = 0;
 
@@ -511,4 +512,5 @@ Model::write_verilog(std::ostream &s) const
   s << "endmodule\n";
 }
 
+}
 }

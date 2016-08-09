@@ -16,17 +16,19 @@
 #include "io.hh"
 
 #include "casting.hh"
-#include "design.hh"
-#include "models.hh"
-#include "port.hh"
+#include "netlist/design.hh"
+#include "netlist/models.hh"
+#include "netlist/port.hh"
 
 #include <cassert>
 
 namespace pnr {
 
 void
-instantiate_io(Design *d)
+instantiate_io(netlist::Design *d)
 {
+  using namespace netlist;
+
   Models models(d);
   
   Model *top = d->top();

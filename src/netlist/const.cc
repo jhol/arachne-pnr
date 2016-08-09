@@ -23,6 +23,7 @@
 #include <iomanip>
 
 namespace pnr {
+namespace netlist {
 
 static void
 write_string_escaped(std::ostream &s, const std::string &str)
@@ -74,4 +75,5 @@ Const::write_verilog(std::ostream &s) const
     write_string_escaped(s, m_strval);
 }
 
+}
 }

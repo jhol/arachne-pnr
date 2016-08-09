@@ -13,12 +13,13 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_IDENTIFIED_HH
-#define PNR_IDENTIFIED_HH
+#ifndef PNR_NETLIST_IDENTIFIED_HH
+#define PNR_NETLIST_IDENTIFIED_HH
 
 #include <functional>
 
 namespace pnr {
+namespace netlist {
 
 class Net;
 class Node;
@@ -44,31 +45,37 @@ public:
 class IdLess
 {
 public:
-  bool operator()(const Identified *lhs, const Identified *rhs) const
+  bool operator()(const netlist::Identified *lhs,
+    const netlist::Identified *rhs) const
   {
     return lhs->id < rhs->id;
   }
 };
 
 }
+}
 
 namespace std {
   
 template<>
-struct hash<pnr::Identified *>
+struct hash<pnr::netlist::Identified *>
 {
 public:
-  size_t operator()(const pnr::Identified *x) const
+  size_t operator()(const pnr::netlist::Identified *x) const
   {
     std::hash<int> hasher;
     return hasher(x->id);
   }
 };
 
-template<> struct hash<pnr::Net *> : public std::hash<pnr::Identified *> {};
-template<> struct hash<pnr::Node *> : public std::hash<pnr::Identified *> {};
-template<> struct hash<pnr::Instance *> : public std::hash<pnr::Identified *> {};
-template<> struct hash<pnr::Model *> : public std::hash<pnr::Identified *> {};
+template<> struct hash<pnr::netlist::Net *> :
+  public std::hash<pnr::netlist::Identified *> {};
+template<> struct hash<pnr::netlist::Node *> :
+  public std::hash<pnr::netlist::Identified *> {};
+template<> struct hash<pnr::netlist::Instance *> :
+  public std::hash<pnr::netlist::Identified *> {};
+template<> struct hash<pnr::netlist::Model *> :
+  public std::hash<pnr::netlist::Identified *> {};
 
 }
 

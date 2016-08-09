@@ -15,7 +15,9 @@
 
 #include "casting.hh"
 #include "designstate.hh"
-#include "port.hh"
+#include "netlist/port.hh"
+
+using namespace pnr::netlist;
 
 namespace pnr {
 

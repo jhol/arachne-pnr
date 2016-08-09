@@ -13,25 +13,28 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#include "net.hh"
+#include "models.hh"
 
-#include "port.hh"
+#include "design.hh"
 
 namespace pnr {
+namespace netlist {
 
-void
-Net::replace(Net *new_n)
+Models::Models(const Design *d)
 {
-  assert(new_n != this);
-  
-  for (auto i = m_connections.begin();
-       i != m_connections.end();)
-    {
-      Port *p = *i;
-      ++i;
-      p->connect(new_n);
-    }
-  assert(m_connections.empty());
+  lut4 = d->find_model("SB_LUT4");
+  carry = d->find_model("SB_CARRY");
+  lc = d->find_model("ICESTORM_LC");
+  io = d->find_model("SB_IO");
+  gb = d->find_model("SB_GB");
+  gb_io = d->find_model("SB_GB_IO");
+  ram = d->find_model("SB_RAM40_4K");
+  ramnr = d->find_model("SB_RAM40_4KNR");
+  ramnw = d->find_model("SB_RAM40_4KNW");
+  ramnrnw = d->find_model("SB_RAM40_4KNRNW");
+  warmboot = d->find_model("SB_WARMBOOT");
+  tbuf = d->find_model("$_TBUF_");
 }
 
+}
 }

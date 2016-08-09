@@ -18,9 +18,11 @@
 
 namespace pnr {
 
+namespace netlist {
 class Design;
+}
 
-void instantiate_io(Design *d);
+void instantiate_io(netlist::Design *d);
 
 }
 

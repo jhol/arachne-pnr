@@ -13,8 +13,8 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_PORT_HH
-#define PNR_PORT_HH
+#ifndef PNR_NETLIST_PORT_HH
+#define PNR_NETLIST_PORT_HH
 
 #include "direction.hh"
 #include "identified.hh"
@@ -24,6 +24,7 @@
 #include <string>
 
 namespace pnr {
+namespace netlist {
 
 class Net;
 class Node;
@@ -71,6 +72,7 @@ public:
   Port *connection_other_port() const;
 };
 
+}
 }
 
 #endif

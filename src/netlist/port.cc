@@ -20,6 +20,7 @@
 #include "model.hh"
 
 namespace pnr {
+namespace netlist {
 
 void
 Port::disconnect()
@@ -79,4 +80,5 @@ Port::is_input() const
           : m_dir == Direction::OUT); // model
 }
 
+}
 }

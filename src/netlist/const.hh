@@ -13,8 +13,8 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_CONST_HH
-#define PNR_CONST_HH
+#ifndef PNR_NETLIST_CONST_HH
+#define PNR_NETLIST_CONST_HH
 
 #include "util.hh"
 #include "bitvector.hh"
@@ -24,6 +24,7 @@
 #include <string>
 
 namespace pnr {
+namespace netlist {
 
 // for parameters, attributes
 class Const
@@ -81,6 +82,7 @@ public:
   void write_verilog(std::ostream &s) const;
 };
 
+}
 }
 
 #endif

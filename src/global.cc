@@ -18,14 +18,16 @@
 #include "casting.hh"
 #include "chipdb.hh"
 #include "constraints.hh"
-#include "design.hh"
 #include "designstate.hh"
-#include "port.hh"
+#include "netlist/design.hh"
+#include "netlist/port.hh"
 #include "util.hh"
 
 #include <cassert>
 #include <queue>
 #include <set>
+
+using namespace pnr::netlist;
 
 namespace pnr {
 

@@ -16,7 +16,7 @@
 #include "configuration.hh"
 
 #include "chipdb.hh"
-#include "models.hh"
+#include "netlist/models.hh"
 #include "util.hh"
 
 #include "config.h"
@@ -56,9 +56,10 @@ Configuration::set_extra_cbit(const std::tuple<int, int, int> &t)
 void
 Configuration::write_txt(std::ostream &s,
                          const ChipDB *chipdb,
-                         Design *d,
-                         const std::map<Instance *, int, IdLess> &placement,
-                         const std::vector<Net *> &cnet_net)
+                         netlist::Design *d,
+                         const std::map<netlist::Instance *, int,
+			   netlist::IdLess> &placement,
+                         const std::vector<netlist::Net *> &cnet_net)
 {
   s << ".comment " << PACKAGE_NAME " " PNR_PACKAGE_VERSION_STRING << "\n";
   
@@ -102,7 +103,7 @@ Configuration::write_txt(std::ostream &s,
         << " " << std::get<2>(t) << "\n";
     }
   
-  Models models(d);
+  netlist::Models models(d);
   for (const auto &p : placement)
     {
       if (models.is_ramX(p.first))
@@ -136,7 +137,7 @@ Configuration::write_txt(std::ostream &s,
   
   for (int i = 0; i < chipdb->n_nets; ++i)
     {
-      Net *n = cnet_net[i];
+      netlist::Net *n = cnet_net[i];
       if (n)
         s << ".sym " << i << " " << n->name() << "\n";
     }

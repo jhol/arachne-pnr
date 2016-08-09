@@ -13,41 +13,27 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_DESIGN_HH
-#define PNR_DESIGN_HH
-
-#include <map>
-#include <string>
+#include "direction.hh"
 
 namespace pnr {
+namespace netlist {
 
-class Model;
-
-class Design
+Direction
+opposite_direction(Direction d)
 {
-  friend class Model;
-  
-  Model *m_top;
-  std::map<std::string, Model *> m_models;
-  
-public:
-  Model *top() const { return m_top; }
-  void set_top(Model *t);
-  
-  Design();
-  ~Design();
-  
-  void create_standard_models();
-  Model *find_model(const std::string &n) const;
-  void prune();
-  void write_verilog(std::ostream &s) const;
-  void write_blif(std::ostream &s) const;
-  void dump() const;
-#ifndef NDEBUG
-  void check() const;
-#endif
-};
-
+  switch(d)
+    {
+    case Direction::IN:
+      return Direction::OUT;
+    case Direction::OUT:
+      return Direction::IN;
+    case Direction::INOUT:
+      return Direction::INOUT;
+    default:
+      abort();
+      return Direction::IN;
+    }
 }
 
-#endif
+}
+}

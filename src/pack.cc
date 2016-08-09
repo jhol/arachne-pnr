@@ -16,16 +16,21 @@
 #include "carry.hh"
 #include "casting.hh"
 #include "chipdb.hh"
-#include "design.hh"
 #include "designstate.hh"
-#include "port.hh"
+#include "netlist/design.hh"
+#include "netlist/port.hh"
 #include "util.hh"
 
 #include <cstring>
 
+using namespace pnr::netlist;
+
 namespace pnr {
 
+namespace netlist {
 class Models;
+}
+
 
 class Packer
 {

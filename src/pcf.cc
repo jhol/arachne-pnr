@@ -23,7 +23,7 @@ namespace pnr {
 class PCFParser : public LineParser
 {
   const Package &package;
-  Model *top;
+  netlist::Model *top;
   Constraints &constraints;
   
 public:
@@ -82,7 +82,7 @@ PCFParser::parse()
           if (!net_name || !pin_name)
             fatal("set_io: too few arguments");
           
-          Port *p = top->find_port(net_name);
+          netlist::Port *p = top->find_port(net_name);
           if (!p)
             {
               if (err_no_port)

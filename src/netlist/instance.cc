@@ -17,6 +17,7 @@
 #include "model.hh"
 
 namespace pnr {
+namespace netlist {
 
 Instance::Instance(Model *parent_, Model *inst_of)
   : Node(Node::Kind::instance),
@@ -169,4 +170,5 @@ Instance::write_verilog(std::ostream &s,
   s << "\n  );\n";
 }
 
+}
 }

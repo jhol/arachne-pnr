@@ -15,11 +15,12 @@
 
 #include "designstate.hh"
 
-#include "design.hh"
+#include "netlist/design.hh"
 
 namespace pnr {
 
-DesignState::DesignState(const ChipDB *chipdb_, const Package &package_, Design *d_)
+DesignState::DesignState(const ChipDB *chipdb_, const Package &package_,
+  netlist::Design *d_)
   : chipdb(chipdb_),
     package(package_),
     d(d_),
@@ -29,7 +30,7 @@ DesignState::DesignState(const ChipDB *chipdb_, const Package &package_, Design 
 }
 
 bool
-DesignState::is_dual_pll(Instance *inst) const
+DesignState::is_dual_pll(netlist::Instance *inst) const
 {
   assert(models.is_pllX(inst));
   if (inst->instance_of()->name() == "SB_PLL40_2F_CORE"
@@ -45,7 +46,7 @@ DesignState::is_dual_pll(Instance *inst) const
 }
 
 std::vector<int>
-DesignState::pll_out_io_cells(Instance *inst, int cell) const
+DesignState::pll_out_io_cells(netlist::Instance *inst, int cell) const
 {
   assert(models.is_pllX(inst)
          && chipdb->cell_type[cell] == CellType::PLL);

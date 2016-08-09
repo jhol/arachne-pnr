@@ -18,10 +18,13 @@
 
 namespace pnr {
 
-class Design;
 class ChipDB;
 
-void realize_constants(const ChipDB *chipdb, Design *d);
+namespace netlist {
+class Design;
+}
+
+void realize_constants(const ChipDB *chipdb, netlist::Design *d);
 
 }
 

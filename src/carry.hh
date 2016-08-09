@@ -20,12 +20,14 @@
 
 namespace pnr {
 
+namespace netlist {
 class Instance;
+}
 
 class CarryChains
 {
 public:
-  std::vector<std::vector<Instance *>> chains;
+  std::vector<std::vector<netlist::Instance *>> chains;
   
 public:
   CarryChains() {}

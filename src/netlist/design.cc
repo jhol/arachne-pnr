@@ -20,6 +20,7 @@
 #include <cassert>
 
 namespace pnr {
+namespace netlist {
 
 void
 Design::set_top(Model *t)
@@ -452,4 +453,5 @@ Design::dump() const
   write_blif(*logs);
 }
 
+}
 }

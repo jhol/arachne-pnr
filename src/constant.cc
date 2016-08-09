@@ -16,19 +16,21 @@
 #include "constant.hh"
 
 #include "chipdb.hh"
-#include "design.hh"
-#include "models.hh"
-#include "net.hh"
-#include "port.hh"
-#include "value.hh"
+#include "netlist/design.hh"
+#include "netlist/models.hh"
+#include "netlist/net.hh"
+#include "netlist/port.hh"
+#include "netlist/value.hh"
 
 #include <cassert>
 
 namespace pnr {
 
 void
-realize_constants(const ChipDB *chipdb, Design *d)
+realize_constants(const ChipDB *chipdb, netlist::Design *d)
 {
+  using namespace netlist;
+
   Models models(d);
   Model *top = d->top();
   

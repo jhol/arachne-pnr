@@ -13,8 +13,8 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_INSTANCE_HH
-#define PNR_INSTANCE_HH
+#ifndef PNR_NETLIST_INSTANCE_HH
+#define PNR_NETLIST_INSTANCE_HH
 
 #include "const.hh"
 #include "port.hh"
@@ -24,6 +24,7 @@
 #include <string>
 
 namespace pnr {
+namespace netlist {
 
 class Model;
 
@@ -81,6 +82,7 @@ public:
                      const std::string &inst_name) const;
 };
 
+}
 }
 
 #endif

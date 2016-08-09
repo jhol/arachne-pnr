@@ -13,8 +13,8 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_NODE_HH
-#define PNR_NODE_HH
+#ifndef PNR_NETLIST_NODE_HH
+#define PNR_NETLIST_NODE_HH
 
 #include "direction.hh"
 #include "identified.hh"
@@ -25,6 +25,7 @@
 #include <map>
 
 namespace pnr {
+namespace netlist {
 
 class Port;
 
@@ -62,6 +63,7 @@ protected:
   static void write_verilog_name(std::ostream &s, const std::string &name);
 };
 
+}
 }
 
 #endif

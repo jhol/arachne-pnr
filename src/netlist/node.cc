@@ -19,6 +19,7 @@
 #include "ullmanset.hh"
 
 namespace pnr {
+namespace netlist {
 
 Node::~Node()
 {
@@ -85,4 +86,5 @@ Node::write_verilog_name(std::ostream &s, const std::string &name)
     s << ' ';
 }
 
+}
 }
