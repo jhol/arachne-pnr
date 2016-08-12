@@ -36,6 +36,7 @@
 #include <cstring>
 #include <fstream>
 #include <iostream>
+#include <memory>
 
 const char *program_name;
 
@@ -319,10 +320,11 @@ main(int argc, const char **argv)
       package_name = "ct256";
     }
   
-  std::ostream *null_ostream = nullptr;
-  if (quiet)
-    logs = null_ostream = new std::ostream(new null_streambuf);
-  else
+  std::unique_ptr<std::ostream> null_ostream;
+  if (quiet) {
+    null_ostream.reset(new std::ostream(new null_streambuf));
+    logs = null_ostream.get();
+  } else
     logs = &std::cerr;
   
   unsigned seed = 0;
@@ -398,7 +400,8 @@ main(int argc, const char **argv)
                      + ".bin");
 #endif
   *logs << "read_chipdb " << chipdb_file_s << "...\n";
-  const chipdb::ChipDB *chipdb = chipdb::read_chipdb(chipdb_file_s);
+  const std::unique_ptr<chipdb::ChipDB> chipdb(
+    chipdb::read_chipdb(chipdb_file_s));
   
   if (binary_chipdb)
     {
@@ -411,17 +414,6 @@ main(int argc, const char **argv)
                   << strerror(errno)));
       obstream obs(ofs);
       chipdb->bwrite(obs);
-      
-      // clean up
-      if (chipdb)
-        delete chipdb;
-      
-      logs = nullptr;
-      if (null_ostream)
-        {
-          delete null_ostream;
-          null_ostream = nullptr;
-        }
       
       return 0;
     }
@@ -453,16 +445,16 @@ main(int argc, const char **argv)
   while (__AFL_LOOP(1000)) {
   */
   
-  netlist::Design *d;
+  std::unique_ptr<netlist::Design> d;
   if (input_file)
     {
       *logs << "read_blif " << input_file << "...\n";
-      d = parse::read_blif(input_file);
+      d.reset(parse::read_blif(input_file));
     }
   else
     {
       *logs << "read_blif <stdin>...\n";
-      d = parse::read_blif("<stdin>", std::cin);
+      d.reset(parse::read_blif("<stdin>", std::cin));
     }
   // d->dump();
   
@@ -474,7 +466,7 @@ main(int argc, const char **argv)
   // d->dump();
   
   {
-    DesignState ds(chipdb, package, d);
+    DesignState ds(chipdb.get(), package, d.get());
     
     if (route_only)
       {
@@ -496,7 +488,7 @@ main(int argc, const char **argv)
           }
         
         *logs << "instantiate_io...\n";
-        instantiate_io(d);
+        instantiate_io(d.get());
 #ifndef NDEBUG
         d->check();
 #endif
@@ -548,7 +540,7 @@ main(int argc, const char **argv)
         // d->dump();
         
         *logs << "realize_constants...\n";
-        realize_constants(chipdb, d);
+        realize_constants(chipdb.get(), d.get());
 #ifndef NDEBUG
         d->check();
 #endif
@@ -628,31 +620,20 @@ main(int argc, const char **argv)
         if (fs.fail())
           fatal(fmt("write_txt: failed to open `" << expanded << "': "
                     << strerror(errno)));
-        ds.conf.write_txt(fs, chipdb, d, ds.placement, ds.cnet_net);
+        ds.conf.write_txt(fs, chipdb.get(), d.get(),
+                          ds.placement, ds.cnet_net);
       }
     else
       {
         *logs << "write_txt <stdout>...\n";
-        ds.conf.write_txt(std::cout, chipdb, d, ds.placement, ds.cnet_net);
+        ds.conf.write_txt(std::cout, chipdb.get(), d.get(),
+                          ds.placement, ds.cnet_net);
       }
   }
-  
-  if (d)
-    delete d;
-  
+
   /*
   }
   */
-  
-  if (chipdb)
-    delete chipdb;
-  
-  logs = nullptr;
-  if (null_ostream)
-    {
-      delete null_ostream;
-      null_ostream = nullptr;
-    }
-  
+
   return 0;
 }
