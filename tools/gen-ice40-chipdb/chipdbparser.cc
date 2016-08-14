@@ -13,8 +13,7 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#include "chipdb.hh"
-
+#include "chipdb/chipdb.hh"
 #include "line_parser.hh"
 #include "util.hh"
 
@@ -22,14 +21,14 @@
 #include <cstring>
 #include <iostream>
 
-namespace pnr {
-namespace chipdb {
+using namespace pnr::chipdb;
+namespace c = pnr::configuration;
 
-class ChipDBParser : public LineParser
+class ChipDBParser : public pnr::LineParser
 {
   ChipDB *chipdb;
   
-  configuration::Bit parse_cbit(int tile, const std::string &s);
+  c::Bit parse_cbit(int tile, const std::string &s);
   
   void parse_cmd_device();
   void parse_cmd_pins();
@@ -47,13 +46,13 @@ class ChipDBParser : public LineParser
   
 public:
   ChipDBParser(const std::string &f, std::istream &s_)
-    : LineParser(f, s_), chipdb(nullptr)
+    : pnr::LineParser(f, s_), chipdb(nullptr)
   {}
   
   ChipDB *parse();
 };
 
-configuration::Bit
+c::Bit
 ChipDBParser::parse_cbit(int t, const std::string &s_)
 {
   std::size_t lbr = s_.find('['),
@@ -70,7 +69,7 @@ ChipDBParser::parse_cbit(int t, const std::string &s_)
   int r = std::stoi(rows),
     c = std::stoi(cols);
   
-  return configuration::Bit(t, r, c);
+  return c::Bit(t, r, c);
 }
 
 void
@@ -230,7 +229,7 @@ ChipDBParser::parse_cmd_tile_bits()
       
       const std::string &func = words[0];
       
-      std::vector<configuration::Bit> cbits(words.size() - 1);
+      std::vector<c::Bit> cbits(words.size() - 1);
       for (unsigned i = 1; i < words.size(); ++i)
         cbits[i - 1] = parse_cbit(0, words[i]);
       
@@ -297,7 +296,7 @@ ChipDBParser::parse_cmd_buffer_routing()
   if (n < 0)
     fatal("invalid net index");
   
-  std::vector<configuration::Bit> cbits(words.size() - 4);
+  std::vector<c::Bit> cbits(words.size() - 4);
   for (unsigned i = 4; i < words.size(); i ++)
     cbits[i - 4] = parse_cbit(t, words[i]);
   
@@ -549,7 +548,4 @@ ChipDBParser::parse()
   
   chipdb->finalize();
   return chipdb;
-}
-
-}
 }

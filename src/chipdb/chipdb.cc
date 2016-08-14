@@ -15,7 +15,6 @@
 
 #include "chipdb.hh"
 
-#include "chipdbparser.hh"
 #include "util.hh"
 
 #include <cassert>
@@ -366,18 +365,10 @@ read_chipdb(const std::string &filename)
   if (ifs.fail())
     fatal(fmt("read_chipdb: failed to open `" << expanded << "': "
               << strerror(errno)));
-  ChipDB *chipdb;
-  if (is_suffix(expanded, ".bin"))
-    {
-      chipdb = new ChipDB;
-      pnr::ibstream ibs(ifs);
-      chipdb->bread(ibs);
-    }
-  else
-    {
-      ChipDBParser parser(filename, ifs);
-      chipdb = parser.parse();
-    }
+
+  ChipDB *const chipdb = new ChipDB;
+  pnr::ibstream ibs(ifs);
+  chipdb->bread(ibs);
   return chipdb;
 }
 

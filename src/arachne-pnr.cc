@@ -79,9 +79,6 @@ usage()
     "        Default: +/share/arachne-pnr/chipdb-<device>.bin\n" <<
 #endif
     "\n"
-    "    --write-binary-chipdb <file>\n"
-    "        Write binary chipdb to <file>.\n"
-    "\n"
     "    -l, --no-promote-globals\n"
     "        Don't promote nets to globals.\n"
     "\n"
@@ -155,8 +152,7 @@ main(int argc, const char **argv)
     *place_blif = nullptr,
     *output_file = nullptr,
     *seed_str = nullptr,
-    *max_passes_str = nullptr,
-    *binary_chipdb = nullptr;
+    *max_passes_str = nullptr;
   
   for (int i = 1; i < argc; ++i)
     {
@@ -185,14 +181,6 @@ main(int argc, const char **argv)
               
               ++i;
               chipdb_file = argv[i];
-            }
-          else if (!strcmp(argv[i], "--write-binary-chipdb"))
-            {
-              if (i + 1 >= argc)
-                fatal(fmt(argv[i] << ": expected argument"));
-              
-              ++i;
-              binary_chipdb = argv[i];
             }
           else if (!strcmp(argv[i], "-l")
                    || !strcmp(argv[i], "--no-promote-globals"))
@@ -402,21 +390,6 @@ main(int argc, const char **argv)
   *logs << "read_chipdb " << chipdb_file_s << "...\n";
   const std::unique_ptr<chipdb::ChipDB> chipdb(
     chipdb::read_chipdb(chipdb_file_s));
-  
-  if (binary_chipdb)
-    {
-      *logs << "write_binary_chipdb " << binary_chipdb << "\n";
-      
-      std::string expanded = expand_filename(binary_chipdb);
-      std::ofstream ofs(expanded, std::ofstream::out | std::ofstream::binary);
-      if (ofs.fail())
-        fatal(fmt("write_binary_chidpb: failed to open `" << expanded << "': "
-                  << strerror(errno)));
-      obstream obs(ofs);
-      chipdb->bwrite(obs);
-      
-      return 0;
-    }
   
   *logs << "  supported packages: ";
   bool first = true;

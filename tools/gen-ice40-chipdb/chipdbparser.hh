@@ -13,8 +13,8 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_CHIPDB_CHIPDBPARSER_HH
-#define PNR_CHIPDB_CHIPDBPARSER_HH
+#ifndef CHIPDBPARSER_HH
+#define CHIPDBPARSER_HH
 
 #include "configuration/bit.hh"
 #include "line_parser.hh"
@@ -23,14 +23,15 @@
 
 namespace pnr {
 namespace chipdb {
-
 class ChipDB;
+}
+}
 
-class ChipDBParser : public LineParser
+class ChipDBParser : public pnr::LineParser
 {
-  ChipDB *chipdb;
+  pnr::chipdb::ChipDB *chipdb;
   
-  configuration::Bit parse_cbit(int tile, const std::string &s);
+  pnr::configuration::Bit parse_cbit(int tile, const std::string &s);
   
   void parse_cmd_device();
   void parse_cmd_pins();
@@ -51,10 +52,7 @@ public:
     : LineParser(f, s_), chipdb(nullptr)
   {}
   
-  ChipDB *parse();
+  pnr::chipdb::ChipDB *parse();
 };
-
-}
-}
 
 #endif

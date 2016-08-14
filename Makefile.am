@@ -20,14 +20,16 @@ AM_CXXFLAGS = -I$(abs_top_srcdir)/src -std=c++11 -MD -Wall -Wshadow \
 	-Wsign-compare -Werror
 
 bin_PROGRAMS = bin/arachne-pnr
-noinst_PROGRAMS = tests/test_bv tests/test_us
+noinst_PROGRAMS = \
+	tools/gen-ice40-chipdb/gen-ice40-chipdb \
+	tests/test_bv \
+	tests/test_us
 
 bin_arachne_pnr_SOURCES = \
 	src/configuration/configuration.cc \
 	src/configuration/bit.cc \
 	src/configuration/bitval.cc \
 	src/chipdb/chipdb.cc \
-	src/chipdb/chipdbparser.cc \
 	src/chipdb/location.cc \
 	src/chipdb/switch.cc \
 	src/chipdb/tiletype.cc \
@@ -54,6 +56,31 @@ bin_arachne_pnr_SOURCES = \
 	src/line_parser.cc \
 	src/util.cc
 
+tools_gen_ice40_chipdb_gen_ice40_chipdb_SOURCES = \
+	src/chipdb/chipdb.cc \
+	src/chipdb/switch.cc \
+	src/configuration/bit.cc \
+	src/lexical_position.cc \
+	src/line_parser.cc \
+	src/util.cc \
+	tools/gen-ice40-chipdb/chipdbparser.cc \
+	tools/gen-ice40-chipdb/gen-ice40-chipdb.cc
+
+
+CXXLINK_FOR_BUILD = $(CXX_FOR_BUILD) $(CXXFLAGS_FOR_BUILD) \
+	$(CPPFLAGS_FOR_BUILD) $(LDFLAGS_FOR_BUILD) $(TARGET_ARCH_FOR_BUILD)
+
+tools_gen_ice40_chipdb_gen_ice40_chipdb$(BUILD_EXEEXT) : \
+	$(tools_gen_ice40_chipdb_gen_ice40_chipdb_OBJECTS)
+	$(CXXLINK_FOR_BUILD) $^ $(LOADLIBS_FOR_BUILD) $(LDLIBS_FOR_BUILD) -o $@
+
+$(tools_gen_ice40_chipdb_gen_ice40_chipdb_OBJECTS) : \
+	CXX=$(CXX_FOR_BUILD)
+$(tools_gen_ice40_chipdb_gen_ice40_chipdb_OBJECTS) : \
+	CXXFLAGS=$(CXXFLAGS_FOR_BUILD)
+$(tools_gen_ice40_chipdb_gen_ice40_chipdb_OBJECTS) : \
+	CPPFLAGS=$(CPPFLAGS_FOR_BUILD)
+
 tests_test_bv_SOURCES = tests/test_bv.cc
 tests_test_us_SOURCES = tests/test_us.cc
 
@@ -62,13 +89,15 @@ arachne_pnr_data_DATA = \
 	share/arachne-pnr/chipdb-1k.bin \
 	share/arachne-pnr/chipdb-8k.bin
 
-share/arachne-pnr/chipdb-1k.bin: $(ICEBOX_DIR)/chipdb-1k.txt ./bin/arachne-pnr
+share/arachne-pnr/chipdb-1k.bin: $(ICEBOX_DIR)/chipdb-1k.txt \
+	./tools/gen-ice40-chipdb/gen-ice40-chipdb
 	@$(MKDIR_P) share/arachne-pnr
-	$(AM_V_GEN)./bin/arachne-pnr -q -d 1k -c $< --write-binary-chipdb $@
+	$(AM_V_GEN)./tools/gen-ice40-chipdb/gen-ice40-chipdb $< $@
 
-share/arachne-pnr/chipdb-8k.bin: $(ICEBOX_DIR)/chipdb-8k.txt ./bin/arachne-pnr
+share/arachne-pnr/chipdb-8k.bin: $(ICEBOX_DIR)/chipdb-8k.txt \
+	./tools/gen-ice40-chipdb/gen-ice40-chipdb
 	@$(MKDIR_P) share/arachne-pnr
-	$(AM_V_GEN)./bin/arachne-pnr -q -d 8k -c $< --write-binary-chipdb $@
+	$(AM_V_GEN)./tools/gen-ice40-chipdb/gen-ice40-chipdb $< $@
 
 if ENABLE_TESTS
 
