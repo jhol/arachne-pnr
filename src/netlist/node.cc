@@ -60,7 +60,7 @@ Node::add_port(const std::string &n, Direction dir, Value u)
 }
 
 Port *
-Node::find_port(const std::string &n)
+Node::find_port(const std::string &n) const
 {
   return lookup_or_default(m_ports, n, nullptr);
 }
