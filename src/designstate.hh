@@ -29,7 +29,7 @@ class DesignState
 public:
   const chipdb::ChipDB *const chipdb;
   const chipdb::Package &package;
-  netlist::Design *d;
+  netlist::Design *const d;
   const netlist::Models models;
   netlist::Model *const top;
   Constraints constraints;

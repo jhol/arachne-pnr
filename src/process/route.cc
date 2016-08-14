@@ -65,7 +65,7 @@ public:
 class Router
 {
   const ChipDB *const chipdb;
-  Design *d;
+  Design *const d;
   const Models &models;
   const std::map<Instance *, int, IdLess> &placement;
   std::vector<Net *> &cnet_net;

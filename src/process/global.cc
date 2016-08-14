@@ -39,7 +39,7 @@ class Promoter
   
   DesignState &ds;
   const chipdb::ChipDB *const chipdb;
-  Design *d;
+  Design *const d;
   Model *const top;
   const Models &models;
   std::map<Instance *, uint8_t, IdLess> &gb_inst_gc;
