@@ -27,7 +27,7 @@ namespace pnr {
 class DesignState
 {
 public:
-  const chipdb::ChipDB *chipdb;
+  const chipdb::ChipDB *const chipdb;
   const chipdb::Package &package;
   netlist::Design *d;
   netlist::Models models;

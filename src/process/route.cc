@@ -64,7 +64,7 @@ public:
 
 class Router
 {
-  const ChipDB *chipdb;
+  const ChipDB *const chipdb;
   Design *d;
   Models &models;
   const std::map<Instance *, int, IdLess> &placement;

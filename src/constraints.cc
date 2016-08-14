@@ -24,7 +24,7 @@ namespace pnr {
 class ConstraintsPlacer
 {
   DesignState &ds;
-  const chipdb::ChipDB *chipdb;
+  const chipdb::ChipDB *const chipdb;
   const Models &models;
   Model *top;
   const Constraints &constraints;

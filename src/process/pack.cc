@@ -35,7 +35,7 @@ namespace process {
 
 class Packer
 {
-  const chipdb::ChipDB *chipdb;
+  const chipdb::ChipDB *const chipdb;
   const chipdb::Package &package;
   Design *d;
   Models &models;

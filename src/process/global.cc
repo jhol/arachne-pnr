@@ -38,7 +38,7 @@ class Promoter
   static const char *global_class_name(uint8_t gc);
   
   DesignState &ds;
-  const chipdb::ChipDB *chipdb;
+  const chipdb::ChipDB *const chipdb;
   Design *d;
   Model *top;
   const Models &models;
