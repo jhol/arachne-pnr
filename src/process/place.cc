@@ -55,7 +55,7 @@ public:
   const Package &package;
   Design *d;
   const Models &models;
-  Model *top;
+  Model *const top;
   const CarryChains &chains;
   const Constraints &constraints;
   const std::map<Instance *, uint8_t, IdLess> &gb_inst_gc;

@@ -26,7 +26,7 @@ class ConstraintsPlacer
   DesignState &ds;
   const chipdb::ChipDB *const chipdb;
   const Models &models;
-  Model *top;
+  const Model *const top;
   const Constraints &constraints;
   
   BasedVector<Instance *, 1> cell_gate;

@@ -31,7 +31,7 @@ public:
   const chipdb::Package &package;
   netlist::Design *d;
   const netlist::Models models;
-  netlist::Model *top;
+  netlist::Model *const top;
   Constraints constraints;
   CarryChains chains;
   std::set<netlist::Instance *, netlist::IdLess> locked;

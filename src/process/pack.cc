@@ -39,7 +39,7 @@ class Packer
   const chipdb::Package &package;
   Design *d;
   const Models &models;
-  Model *top;
+  Model *const top;
   CarryChains &chains;
   
   int n_dff_pass_through,
