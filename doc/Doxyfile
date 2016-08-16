@@ -1,0 +1,19 @@
+# Doxyfile 1.8.11
+
+DOXYFILE_ENCODING      = UTF-8
+PROJECT_NAME           = "arachne-pnr"
+TAB_SIZE               = 2
+BUILTIN_STL_SUPPORT    = YES
+
+EXTRACT_ALL            = YES
+
+QUIET                  = YES
+
+INPUT                  = ../src/
+RECURSIVE              = YES
+
+GENERATE_HTML          = YES
+
+GENERATE_LATEX         = NO
+
+CLASS_DIAGRAMS         = YES
