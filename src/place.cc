@@ -17,7 +17,7 @@
 #include "carry.hh"
 #include "casting.hh"
 #include "chipdb.hh"
-#include "configuration.hh"
+#include "configuration/configuration.hh"
 #include "designstate.hh"
 #include "global.hh"
 #include "hashmap.hh"
@@ -39,6 +39,7 @@
 #include <vector>
 
 using namespace pnr::netlist;
+namespace c = pnr::configuration;
 
 namespace pnr {
 
@@ -57,7 +58,7 @@ public:
   const Constraints &constraints;
   const std::map<Instance *, uint8_t, IdLess> &gb_inst_gc;
   std::map<Instance *, int, IdLess> &placement;
-  Configuration &conf;
+  c::Configuration &conf;
   
   std::vector<int> logic_columns;
   std::vector<int> logic_tiles,
@@ -1204,14 +1205,14 @@ Placer::configure_io(const Location &loc,
                      bool pullup)
 {
   const auto &func_cbits = chipdb->tile_nonrouting_cbits.at(TileType::IO);
-  const CBit &ie_0 = func_cbits.at("IoCtrl.IE_0")[0],
+  const c::Bit &ie_0 = func_cbits.at("IoCtrl.IE_0")[0],
     &ie_1 = func_cbits.at("IoCtrl.IE_1")[0],
     &ren_0 = func_cbits.at("IoCtrl.REN_0")[0],
     &ren_1 = func_cbits.at("IoCtrl.REN_1")[0];
   
   if (loc.pos() == 0)
     {
-      conf.set_cbit(CBit(loc.tile(),
+      conf.set_cbit(c::Bit(loc.tile(),
                          ren_0.row,
                          ren_0.col),
                     !pullup);  // active low
@@ -1219,14 +1220,14 @@ Placer::configure_io(const Location &loc,
   else
     {
       assert(loc.pos() == 1);
-      conf.set_cbit(CBit(loc.tile(),
+      conf.set_cbit(c::Bit(loc.tile(),
                          ren_1.row,
                          ren_1.col),
                     !pullup);  // active low
     }
   if (loc.pos() == 0)
     {
-      conf.set_cbit(CBit(loc.tile(),
+      conf.set_cbit(c::Bit(loc.tile(),
                          ie_0.row,
                          ie_0.col),
                     // active low 1k, active high 8k
@@ -1237,7 +1238,7 @@ Placer::configure_io(const Location &loc,
   else
     {
       assert(loc.pos() == 1);
-      conf.set_cbit(CBit(loc.tile(),
+      conf.set_cbit(c::Bit(loc.tile(),
                          ie_1.row,
                          ie_1.col),
                     // active low 1k, active high 8k
@@ -1276,7 +1277,7 @@ Placer::configure()
           
           const auto &cbits = func_cbits.at(fmt("LC_" << loc.pos()));
           for (int i = 0; i < 16; ++i)
-            conf.set_cbit(CBit(t,
+            conf.set_cbit(c::Bit(t,
                                cbits[lut_perm[i]].row,
                                cbits[lut_perm[i]].col),
                           lut_init[i]);
@@ -1284,7 +1285,7 @@ Placer::configure()
           bool carry_enable = inst->get_param("CARRY_ENABLE").get_bit(0);
           if (carry_enable)
             {
-              conf.set_cbit(CBit(t,
+              conf.set_cbit(c::Bit(t,
                                  cbits[8].row,
                                  cbits[8].col), (bool)carry_enable);
               if (loc.pos() == 0)
@@ -1292,8 +1293,8 @@ Placer::configure()
                   Net *n = inst->find_port("CIN")->connection();
                   if (n && n->is_constant())
                     {
-                      const CBit &carryinset_cbit = func_cbits.at("CarryInSet")[0];
-                      conf.set_cbit(CBit(t,
+                      const c::Bit &carryinset_cbit = func_cbits.at("CarryInSet")[0];
+                      conf.set_cbit(c::Bit(t,
                                          carryinset_cbit.row,
                                          carryinset_cbit.col), 
                                     n->constant() == Value::ONE);
@@ -1302,26 +1303,26 @@ Placer::configure()
             }
           
           bool dff_enable = inst->get_param("DFF_ENABLE").get_bit(0);
-          conf.set_cbit(CBit(t,
+          conf.set_cbit(c::Bit(t,
                              cbits[9].row,
                              cbits[9].col), dff_enable);
           
           if (dff_enable)
             {
               bool neg_clk = inst->get_param("NEG_CLK").get_bit(0);
-              const CBit &neg_clk_cbit = func_cbits.at("NegClk")[0];
-              conf.set_cbit(CBit(t,
+              const c::Bit &neg_clk_cbit = func_cbits.at("NegClk")[0];
+              conf.set_cbit(c::Bit(t,
                                  neg_clk_cbit.row,
                                  neg_clk_cbit.col),
                             (bool)neg_clk);
               
               bool set_noreset = inst->get_param("SET_NORESET").get_bit(0);
-              conf.set_cbit(CBit(t,
+              conf.set_cbit(c::Bit(t,
                                  cbits[18].row,
                                  cbits[18].col), (bool)set_noreset);
               
               bool async_sr = inst->get_param("ASYNC_SR").get_bit(0);
-              conf.set_cbit(CBit(t,
+              conf.set_cbit(c::Bit(t,
                                  cbits[19].row,
                                  cbits[19].col), (bool)async_sr);
             }
@@ -1333,8 +1334,8 @@ Placer::configure()
           const BitVector &pin_type = inst->get_param("PIN_TYPE").as_bits();
           for (int i = 0; i < 6; ++i)
             {
-              const CBit &cbit = func_cbits.at(fmt("IOB_" << loc.pos() << ".PINTYPE_" << i))[0];
-              conf.set_cbit(CBit(t, 
+              const c::Bit &cbit = func_cbits.at(fmt("IOB_" << loc.pos() << ".PINTYPE_" << i))[0];
+              conf.set_cbit(c::Bit(t,
                                  cbit.row, 
                                  cbit.col),
                             pin_type[i]);
@@ -1343,7 +1344,7 @@ Placer::configure()
           const auto &negclk_cbits = func_cbits.at("NegClk");
           bool neg_trigger = inst->get_param("NEG_TRIGGER").get_bit(0);
           for (int i = 0; i <= 1; ++i)
-            conf.set_cbit(CBit(t,
+            conf.set_cbit(c::Bit(t,
                                negclk_cbits[i].row,
                                negclk_cbits[i].col),
                           neg_trigger);
@@ -1368,40 +1369,40 @@ Placer::configure()
           
           // powerup active low, don't set
           const auto &ramb_func_cbits = chipdb->tile_nonrouting_cbits.at(TileType::RAMB);
-          const CBit &cbit0 = func_cbits.at("RamConfig.CBIT_0")[0],
+          const c::Bit &cbit0 = func_cbits.at("RamConfig.CBIT_0")[0],
             &cbit1 = func_cbits.at("RamConfig.CBIT_1")[0],
             &cbit2 = func_cbits.at("RamConfig.CBIT_2")[0],
             &cbit3 = func_cbits.at("RamConfig.CBIT_3")[0],
             &negclk = func_cbits.at("NegClk")[0],
             &ramb_negclk = ramb_func_cbits.at("NegClk")[0];
           
-          conf.set_cbit(CBit(t,
+          conf.set_cbit(c::Bit(t,
                              cbit0.row,
                              cbit0.col),
                         wm[0]);
-          conf.set_cbit(CBit(t,
+          conf.set_cbit(c::Bit(t,
                              cbit1.row,
                              cbit1.col),
                         wm[1]);
-          conf.set_cbit(CBit(t,
+          conf.set_cbit(c::Bit(t,
                              cbit2.row,
                              cbit2.col),
                         rm[0]);
-          conf.set_cbit(CBit(t,
+          conf.set_cbit(c::Bit(t,
                              cbit3.row,
                              cbit3.col),
                         rm[1]);
           
           if (models.is_ramnr(inst)
               || models.is_ramnrnw(inst))
-            conf.set_cbit(CBit(t,
+            conf.set_cbit(c::Bit(t,
                                negclk.row,
                                negclk.col),
                           true);
           
           if (models.is_ramnw(inst)
               || models.is_ramnrnw(inst))
-            conf.set_cbit(CBit(chipdb->ramt_ramb_tile(t),
+            conf.set_cbit(c::Bit(chipdb->ramt_ramb_tile(t),
                                ramb_negclk.row,
                                ramb_negclk.col),
                           true);
@@ -1426,19 +1427,19 @@ Placer::configure()
 	  // avoid "variable ‘found’ set but not used" in NDEBUG builds
 	  if (found) { }
           
-          const CBit &cbit_pt0 = func_cbits.at(fmt("IOB_" << io_loc.pos() << ".PINTYPE_0"))[0],
+          const c::Bit &cbit_pt0 = func_cbits.at(fmt("IOB_" << io_loc.pos() << ".PINTYPE_0"))[0],
             &cbit_pt1 = func_cbits.at(fmt("IOB_" << io_loc.pos() << ".PINTYPE_1"))[0];
           
-          conf.set_cbit(CBit(t, 
+          conf.set_cbit(c::Bit(t,
                              cbit_pt0.row, 
                              cbit_pt0.col),
                         true);
-          conf.set_cbit(CBit(t, 
+          conf.set_cbit(c::Bit(t,
                              cbit_pt1.row, 
                              cbit_pt1.col),
                         false);
           
-          CBit delay_adjmode_fb_cb = chipdb->extra_cell_cbit(cell, "DELAY_ADJMODE_FB");
+          c::Bit delay_adjmode_fb_cb = chipdb->extra_cell_cbit(cell, "DELAY_ADJMODE_FB");
           
           std::string delay_adjmode_fb = inst->get_param("DELAY_ADJUSTMENT_MODE_FEEDBACK").as_string();
           if (delay_adjmode_fb == "FIXED")
@@ -1448,7 +1449,7 @@ Placer::configure()
           else
             fatal(fmt("unknown DELAY_ADJUSTMENT_MODE_FEEDBACK value: " << delay_adjmode_fb));
           
-          CBit delay_adjmode_rel_cb = chipdb->extra_cell_cbit(cell, "DELAY_ADJMODE_REL");
+          c::Bit delay_adjmode_rel_cb = chipdb->extra_cell_cbit(cell, "DELAY_ADJMODE_REL");
           
           std::string delay_adjmode_rel = inst->get_param("DELAY_ADJUSTMENT_MODE_RELATIVE").as_string();
           if (delay_adjmode_rel == "FIXED")
@@ -1462,7 +1463,7 @@ Placer::configure()
           divf.resize(7);
           for (int i = 0; i < (int)divf.size(); ++i)
             {
-              CBit divf_i_cb = chipdb->extra_cell_cbit(cell, fmt("DIVF_" << i));
+              c::Bit divf_i_cb = chipdb->extra_cell_cbit(cell, fmt("DIVF_" << i));
               conf.set_cbit(divf_i_cb, divf[i]);
             }
           
@@ -1470,7 +1471,7 @@ Placer::configure()
           divq.resize(3);
           for (int i = 0; i < (int)divq.size(); ++i)
             {
-              CBit divq_i_cb = chipdb->extra_cell_cbit(cell, fmt("DIVQ_" << i));
+              c::Bit divq_i_cb = chipdb->extra_cell_cbit(cell, fmt("DIVQ_" << i));
               conf.set_cbit(divq_i_cb, divq[i]);
             }
           
@@ -1478,7 +1479,7 @@ Placer::configure()
           divr.resize(4);
           for (int i = 0; i < (int)divr.size(); ++i)
             {
-              CBit divr_i_cb = chipdb->extra_cell_cbit(cell, fmt("DIVR_" << i));
+              c::Bit divr_i_cb = chipdb->extra_cell_cbit(cell, fmt("DIVR_" << i));
               conf.set_cbit(divr_i_cb, divr[i]);
             }
           
@@ -1486,7 +1487,7 @@ Placer::configure()
           fda_feedback.resize(4);
           for (int i = 0; i < (int)fda_feedback.size(); ++i)
             {
-              CBit fda_feedback_i_cb = chipdb->extra_cell_cbit(cell, fmt("FDA_FEEDBACK_" << i));
+              c::Bit fda_feedback_i_cb = chipdb->extra_cell_cbit(cell, fmt("FDA_FEEDBACK_" << i));
               conf.set_cbit(fda_feedback_i_cb, fda_feedback[i]);
             }
           
@@ -1494,7 +1495,7 @@ Placer::configure()
           fda_relative.resize(4);
           for (int i = 0; i < (int)fda_relative.size(); ++i)
             {
-              CBit fda_relative_i_cb = chipdb->extra_cell_cbit(cell, fmt("FDA_RELATIVE_" << i));
+              c::Bit fda_relative_i_cb = chipdb->extra_cell_cbit(cell, fmt("FDA_RELATIVE_" << i));
               conf.set_cbit(fda_relative_i_cb, fda_relative[i]);
             }
           
@@ -1516,7 +1517,7 @@ Placer::configure()
           BitVector feedback_path(3, feedback_path_value);
           for (int i = 0; i < (int)feedback_path.size(); ++i)
             {
-              CBit feedback_path_i_cb = chipdb->extra_cell_cbit(cell, fmt("FEEDBACK_PATH_" << i));
+              c::Bit feedback_path_i_cb = chipdb->extra_cell_cbit(cell, fmt("FEEDBACK_PATH_" << i));
               conf.set_cbit(feedback_path_i_cb, feedback_path[i]);
             }
           
@@ -1524,7 +1525,7 @@ Placer::configure()
           filter_range.resize(3);
           for (int i = 0; i < (int)filter_range.size(); ++i)
             {
-              CBit filter_range_i_cb = chipdb->extra_cell_cbit(cell, fmt("FILTER_RANGE_" << i));
+              c::Bit filter_range_i_cb = chipdb->extra_cell_cbit(cell, fmt("FILTER_RANGE_" << i));
               conf.set_cbit(filter_range_i_cb, filter_range[i]);
             }
           
@@ -1551,7 +1552,7 @@ Placer::configure()
           BitVector pllout_select_porta(2, pllout_select_porta_value);
           for (int i = 0; i < (int)pllout_select_porta.size(); ++i)
             {
-              CBit pllout_select_porta_i_cb = chipdb->extra_cell_cbit(cell, fmt("PLLOUT_SELECT_A_" << i));
+              c::Bit pllout_select_porta_i_cb = chipdb->extra_cell_cbit(cell, fmt("PLLOUT_SELECT_A_" << i));
               conf.set_cbit(pllout_select_porta_i_cb, pllout_select_porta[i]);
             }
           
@@ -1578,7 +1579,7 @@ Placer::configure()
           BitVector pllout_select_portb(2, pllout_select_portb_value);
           for (int i = 0; i < (int)pllout_select_portb.size(); ++i)
             {
-              CBit pllout_select_portb_i_cb = chipdb->extra_cell_cbit(cell, fmt("PLLOUT_SELECT_B_" << i));
+              c::Bit pllout_select_portb_i_cb = chipdb->extra_cell_cbit(cell, fmt("PLLOUT_SELECT_B_" << i));
               conf.set_cbit(pllout_select_portb_i_cb, pllout_select_portb[i]);
             }
           
@@ -1599,12 +1600,12 @@ Placer::configure()
           BitVector pll_type(3, pll_type_value);
           for (int i = 0; i < (int)pll_type.size(); ++i)
             {
-              CBit pll_type_i_cb = chipdb->extra_cell_cbit(cell, fmt("PLLTYPE_" << i));
+              c::Bit pll_type_i_cb = chipdb->extra_cell_cbit(cell, fmt("PLLTYPE_" << i));
               conf.set_cbit(pll_type_i_cb, pll_type[i]);
             }
           
           BitVector shiftreg_div_mode = inst->get_param("SHIFTREG_DIV_MODE").as_bits();
-          CBit shiftreg_div_mode_cb = chipdb->extra_cell_cbit(cell, "SHIFTREG_DIV_MODE");
+          c::Bit shiftreg_div_mode_cb = chipdb->extra_cell_cbit(cell, "SHIFTREG_DIV_MODE");
           conf.set_cbit(shiftreg_div_mode_cb, shiftreg_div_mode[0]);
           
           Port *a = inst->find_port("PLLOUTGLOBAL");
@@ -1639,7 +1640,7 @@ Placer::configure()
   // set IoCtrl configuration bits
   {
     const auto &func_cbits = chipdb->tile_nonrouting_cbits.at(TileType::IO);
-    const CBit &lvds_cbit = func_cbits.at("IoCtrl.LVDS")[0];
+    const c::Bit &lvds_cbit = func_cbits.at("IoCtrl.LVDS")[0];
     
     std::map<Location, int> loc_pll;
     int pll_idx = cell_type_idx(CellType::PLL);
@@ -1709,7 +1710,7 @@ Placer::configure()
                   enable_input = true;
                 pullup = inst->get_param("PULLUP").get_bit(0);
                 is_lvds = inst->get_param("IO_STANDARD").as_string() == "SB_LVDS_INPUT";
-                conf.set_cbit(CBit(loc.tile(), lvds_cbit.row, lvds_cbit.col), is_lvds);
+                conf.set_cbit(c::Bit(loc.tile(), lvds_cbit.row, lvds_cbit.col), is_lvds);
               }
           }
 
@@ -1756,7 +1757,7 @@ Placer::configure()
   
   // set RamConfig.PowerUp configuration bit
   {
-    const CBit &powerup = (chipdb->tile_nonrouting_cbits.at(TileType::RAMB)
+    const c::Bit &powerup = (chipdb->tile_nonrouting_cbits.at(TileType::RAMB)
                            .at("RamConfig.PowerUp")
                            [0]);
     for (int t : ramt_tiles)
@@ -1766,7 +1767,7 @@ Placer::configure()
         int cell = chipdb->loc_cell(loc);
         int g = cell_gate[cell];
         assert(!g || models.is_ramX(gates[g]));
-        conf.set_cbit(CBit(chipdb->ramt_ramb_tile(loc.tile()), // PowerUp on ramb tile
+        conf.set_cbit(c::Bit(chipdb->ramt_ramb_tile(loc.tile()), // PowerUp on ramb tile
                            powerup.row,
                            powerup.col),
                       // active low

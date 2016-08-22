@@ -16,7 +16,7 @@
 #ifndef PNR_CHIPDBPARSER_HH
 #define PNR_CHIPDBPARSER_HH
 
-#include "cbit.hh"
+#include "configuration/bit.hh"
 #include "line_parser.hh"
 
 #include <string>
@@ -29,7 +29,7 @@ class ChipDBParser : public LineParser
 {
   ChipDB *chipdb;
   
-  CBit parse_cbit(int tile, const std::string &s);
+  configuration::Bit parse_cbit(int tile, const std::string &s);
   
   void parse_cmd_device();
   void parse_cmd_pins();

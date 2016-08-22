@@ -25,13 +25,14 @@
 #include <iostream>
 
 namespace pnr {
+namespace configuration {
 
 Configuration::Configuration()
 {
 }
 
 void
-Configuration::set_cbit(const CBit &value_cbit, bool value)
+Configuration::set_cbit(const Bit &value_cbit, bool value)
 {
   assert(!contains_key(cbits, value_cbit)
          || cbits.at(value_cbit) == value);
@@ -40,7 +41,7 @@ Configuration::set_cbit(const CBit &value_cbit, bool value)
 }
 
 void
-Configuration::set_cbits(const std::vector<CBit> &value_cbits,
+Configuration::set_cbits(const std::vector<Bit> &value_cbits,
                          unsigned value)
 {
   for (unsigned i = 0; i < value_cbits.size(); ++i)
@@ -81,7 +82,7 @@ Configuration::write_txt(std::ostream &s,
         {
           for (int c = 0; c < bw; c ++)
             {
-              auto i = cbits.find(CBit(t, r, c));
+              auto i = cbits.find(Bit(t, r, c));
               if (i != cbits.end())
                 {
                   if (i->second)
@@ -143,4 +144,5 @@ Configuration::write_txt(std::ostream &s,
     }
 }
 
+}
 }

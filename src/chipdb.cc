@@ -138,7 +138,7 @@ ChipDB::dump(std::ostream &s) const
       
       s << (sw.bidir ? ".routing" : ".buffer")
         << " " << tile_x(sw.tile) << " " << tile_y(sw.tile) << " " << sw.out;
-      for (const CBit &cb : sw.cbits)
+      for (const configuration::Bit &cb : sw.cbits)
         s << " B" << cb.row << "[" << cb.col << "]";
       s << "\n";
       
@@ -395,13 +395,13 @@ cell_type_name(CellType ct)
     }
 }
 
-CBit
+configuration::Bit
 ChipDB::extra_cell_cbit(int c, const std::string &name) const
 {
   const auto &p = cell_mfvs.at(c).at(name);
   const auto &cbits = tile_nonrouting_cbits.at(tile_type[p.first]).at(std::string("PLL.") + p.second);
   assert(cbits.size() == 1);
-  const CBit &cbit0 = cbits[0];
+  const configuration::Bit &cbit0 = cbits[0];
   return cbit0.with_tile(p.first);
 }
 

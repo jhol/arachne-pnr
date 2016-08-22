@@ -16,7 +16,7 @@
 #include "bitvector.hh"
 #include "casting.hh"
 #include "chipdb.hh"
-#include "configuration.hh"
+#include "configuration/configuration.hh"
 #include "designstate.hh"
 #include "location.hh"
 #include "netlist/design.hh"
@@ -66,7 +66,7 @@ class Router
   Models &models;
   const std::map<Instance *, int, IdLess> &placement;
   std::vector<Net *> &cnet_net;
-  Configuration &conf;
+  configuration::Configuration &conf;
   
   BitVector cnet_global,
     cnet_local;
@@ -888,11 +888,11 @@ Router::route()
                 assert(chipdb->tile_type[cb_t] == TileType::RAMB);
               }
             
-            const CBit &colbuf_cbit = (chipdb->tile_nonrouting_cbits
+            const configuration::Bit &colbuf_cbit = (chipdb->tile_nonrouting_cbits
                                        .at(chipdb->tile_type[cb_t])
                                        .at(fmt("ColBufCtrl.glb_netwk_" << g))
                                        [0]);
-            conf.set_cbit(CBit(cb_t,
+            conf.set_cbit(configuration::Bit(cb_t,
                                colbuf_cbit.row,
                                colbuf_cbit.col),
                           1);

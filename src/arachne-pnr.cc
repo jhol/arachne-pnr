@@ -17,7 +17,7 @@
 #include "carry.hh"
 #include "casting.hh"
 #include "chipdb.hh"
-#include "configuration.hh"
+#include "configuration/configuration.hh"
 #include "constant.hh"
 #include "designstate.hh"
 #include "global.hh"

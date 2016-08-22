@@ -24,7 +24,7 @@ obstream &operator<<(obstream &obs, const Switch &sw)
       << sw.tile
       << sw.out
       << sw.cbits.size();
-  for (const CBit &cbit : sw.cbits)
+  for (const configuration::Bit &cbit : sw.cbits)
     {
       assert(cbit.tile == sw.tile);
       obs << cbit.row << cbit.col;
@@ -45,7 +45,7 @@ ibstream &operator>>(ibstream &ibs, Switch &sw)
     {
       int row, col;
       ibs >> row >> col;
-      sw.cbits[i] = CBit(sw.tile, row, col);
+      sw.cbits[i] = configuration::Bit(sw.tile, row, col);
     }
   ibs >> sw.in_val;
   return ibs;

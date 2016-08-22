@@ -16,8 +16,8 @@
 #ifndef PNR_CHIPDB_HH
 #define PNR_CHIPDB_HH
 
-#include "cbit.hh"
-#include "cbitval.hh"
+#include "configuration/bit.hh"
+#include "configuration/bitval.hh"
 #include "switch.hh"
 #include "celltype.hh"
 #include "tiletype.hh"
@@ -64,10 +64,10 @@ public:
   std::vector<std::map<std::string, int>> tile_nets;
   
   std::map<TileType,
-          std::map<std::string, std::vector<CBit>>>
+          std::map<std::string, std::vector<configuration::Bit>>>
     tile_nonrouting_cbits;
   
-  CBit extra_cell_cbit(int ec, const std::string &name) const;
+  configuration::Bit extra_cell_cbit(int ec, const std::string &name) const;
   
   int n_cells;
   BasedVector<CellType, 1> cell_type;

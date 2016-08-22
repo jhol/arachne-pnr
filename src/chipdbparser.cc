@@ -23,7 +23,7 @@
 
 namespace pnr {
 
-CBit
+configuration::Bit
 ChipDBParser::parse_cbit(int t, const std::string &s_)
 {
   std::size_t lbr = s_.find('['),
@@ -40,7 +40,7 @@ ChipDBParser::parse_cbit(int t, const std::string &s_)
   int r = std::stoi(rows),
     c = std::stoi(cols);
   
-  return CBit(t, r, c);
+  return configuration::Bit(t, r, c);
 }
 
 void
@@ -200,7 +200,7 @@ ChipDBParser::parse_cmd_tile_bits()
       
       const std::string &func = words[0];
       
-      std::vector<CBit> cbits(words.size() - 1);
+      std::vector<configuration::Bit> cbits(words.size() - 1);
       for (unsigned i = 1; i < words.size(); ++i)
         cbits[i - 1] = parse_cbit(0, words[i]);
       
@@ -267,7 +267,7 @@ ChipDBParser::parse_cmd_buffer_routing()
   if (n < 0)
     fatal("invalid net index");
   
-  std::vector<CBit> cbits(words.size() - 4);
+  std::vector<configuration::Bit> cbits(words.size() - 4);
   for (unsigned i = 4; i < words.size(); i ++)
     cbits[i - 4] = parse_cbit(t, words[i]);
   

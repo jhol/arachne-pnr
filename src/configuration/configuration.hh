@@ -13,9 +13,10 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_CONFIGURATION_HH
-#define PNR_CONFIGURATION_HH
+#ifndef PNR_CONFIGURATION_CONFIGURATION_HH
+#define PNR_CONFIGURATION_CONFIGURATION_HH
 
+#include "bit.hh"
 #include "chipdb.hh"
 
 #include <ostream>
@@ -29,17 +30,19 @@ class Net;
 class IdLess;
 }
 
+namespace configuration {
+
 class Configuration
 {
 private:
-  std::map<CBit, bool> cbits;
+  std::map<Bit, bool> cbits;
   std::set<std::tuple<int, int, int>> extra_cbits;
   
 public:
   Configuration();
   
-  void set_cbit(const CBit &cbit, bool value);
-  void set_cbits(const std::vector<CBit> &value_cbits,
+  void set_cbit(const Bit &cbit, bool value);
+  void set_cbits(const std::vector<Bit> &value_cbits,
                  unsigned value);
   void set_extra_cbit(const std::tuple<int, int, int> &t);
   
@@ -51,6 +54,7 @@ public:
                  const std::vector<netlist::Net *> &cnet_net);
 };
 
+}
 }
 
 #endif

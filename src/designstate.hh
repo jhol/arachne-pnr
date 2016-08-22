@@ -18,7 +18,7 @@
 
 #include "carry.hh"
 #include "chipdb.hh"
-#include "configuration.hh"
+#include "configuration/configuration.hh"
 #include "constraints.hh"
 #include "netlist/models.hh"
 
@@ -38,7 +38,7 @@ public:
   std::map<netlist::Instance *, int, netlist::IdLess> placement;
   std::map<netlist::Instance *, uint8_t, netlist::IdLess> gb_inst_gc;
   std::vector<netlist::Net *> cnet_net;
-  Configuration conf;
+  configuration::Configuration conf;
   
 public:
   DesignState(const ChipDB *chipdb_, const Package &package_,

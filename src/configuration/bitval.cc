@@ -13,12 +13,13 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#include "cbitval.hh"
+#include "bitval.hh"
 
 namespace pnr {
+namespace configuration {
 
 std::ostream &
-operator<<(std::ostream &s, const CBitVal &cv)
+operator<<(std::ostream &s, const BitVal &cv)
 {
   for (const auto &p : cv.cbit_val)
     {
@@ -32,10 +33,11 @@ operator<<(std::ostream &s, const CBitVal &cv)
   return s;
 }
 
-std::set<CBit>
-CBitVal::cbits() const
+std::set<Bit>
+BitVal::cbits() const
 {
   return keys(cbit_val);
 }
 
+}
 }

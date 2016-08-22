@@ -16,7 +16,7 @@
 #ifndef PNR_SWITCH_HH
 #define PNR_SWITCH_HH
 
-#include "cbit.hh"
+#include "configuration/bit.hh"
 
 #include <map>
 #include <vector>
@@ -36,7 +36,7 @@ public:
   int tile;
   int out;
   std::map<int, unsigned> in_val;
-  std::vector<CBit> cbits;
+  std::vector<configuration::Bit> cbits;
   
 public:
   Switch() {}
@@ -44,7 +44,7 @@ public:
          int t,
          int o,
          const std::map<int, unsigned> &iv,
-         const std::vector<CBit> &cb)
+         const std::vector<configuration::Bit> &cb)
     : bidir(bi),
       tile(t),
       out(o),

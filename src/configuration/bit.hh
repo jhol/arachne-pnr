@@ -13,21 +13,22 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_CBIT_HH
-#define PNR_CBIT_HH
+#ifndef PNR_CONFIGURATION_BIT_HH
+#define PNR_CONFIGURATION_BIT_HH
 
 #include "bstream.hh"
 
 #include <ostream>
 
 namespace pnr {
+namespace configuration {
 
-class CBit
+class Bit
 {
 public:
-  friend std::ostream &operator<<(std::ostream &s, const CBit &cbit);
-  friend obstream &operator<<(obstream &obs, const CBit &cbit);
-  friend ibstream &operator>>(ibstream &ibs, CBit &cbit);
+  friend std::ostream &operator<<(std::ostream &s, const Bit &cbit);
+  friend pnr::obstream &operator<<(pnr::obstream &obs, const Bit &cbit);
+  friend pnr::ibstream &operator>>(pnr::ibstream &ibs, Bit &cbit);
   template<typename T> friend struct std::hash;
   
   int tile;
@@ -35,40 +36,41 @@ public:
   int col;
   
 public:
-  CBit()
+  Bit()
     : tile(0), row(0), col(0)
   {}
-  CBit(int tile_, int r, int c)
+  Bit(int tile_, int r, int c)
     : tile(tile_), row(r), col(c)
   {}
   
-  CBit with_tile(int new_t) const { return CBit(new_t, row, col); }
+  Bit with_tile(int new_t) const { return Bit(new_t, row, col); }
   
-  bool operator==(const CBit &rhs) const;
-  bool operator!=(const CBit &rhs) const { return !operator==(rhs); }
+  bool operator==(const Bit &rhs) const;
+  bool operator!=(const Bit &rhs) const { return !operator==(rhs); }
   
-  bool operator<(const CBit &rhs) const;
+  bool operator<(const Bit &rhs) const;
 };
 
-inline obstream &operator<<(obstream &obs, const CBit &cbit)
+inline pnr::obstream &operator<<(pnr::obstream &obs, const Bit &cbit)
 {
   return obs << cbit.tile << cbit.row << cbit.col;
 }
 
-inline ibstream &operator>>(ibstream &ibs, CBit &cbit)
+inline pnr::ibstream &operator>>(pnr::ibstream &ibs, Bit &cbit)
 {
   return ibs >> cbit.tile >> cbit.row >> cbit.col;
 }
 
 }
+}
 
 namespace std {
 
 template<>
-struct hash<pnr::CBit>
+struct hash<pnr::configuration::Bit>
 {
 public:
-  size_t operator() (const pnr::CBit &cbit) const
+  size_t operator() (const pnr::configuration::Bit &cbit) const
   {
     std::hash<int> hasher;
     size_t h = hasher(cbit.tile);

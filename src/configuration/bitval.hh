@@ -13,38 +13,35 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#include "cbit.hh"
+#ifndef PNR_CONFIGURATION_BITVAL_HH
+#define PNR_CONFIGURATION_BITVAL_HH
+
+#include "bit.hh"
+
+#include <ostream>
+#include <map>
+#include <set>
 
 namespace pnr {
+namespace configuration {
 
-std::ostream &
-operator<<(std::ostream &s, const CBit &cbit)
+class BitVal
 {
-  return s << cbit.tile << " B" << cbit.row << "[" << cbit.col << "]";
-}
-
-bool
-CBit::operator==(const CBit &rhs) const
-{
-  return tile == rhs.tile
-    && row == rhs.row
-    && col == rhs.col;
-}
-
-bool
-CBit::operator<(const CBit &rhs) const
-{
-  if (tile < rhs.tile)
-    return true;
-  if (tile > rhs.tile)
-    return false;
-
-  if (row < rhs.row)
-    return true;
-  if (row > rhs.row)
-    return false;
+public:
+  friend std::ostream &operator<<(std::ostream &s, const BitVal &cbits);
   
-  return col < rhs.col;
-}
+  std::map<Bit, bool> cbit_val;
+  
+public:
+  BitVal() {}
+  BitVal(const std::map<Bit, bool> &cbv)
+    : cbit_val(cbv)
+  {}
+  
+  std::set<Bit> cbits() const;
+};
 
 }
+}
+
+#endif
