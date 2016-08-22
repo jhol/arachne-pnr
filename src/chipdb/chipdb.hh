@@ -134,14 +134,13 @@ public:
   void finalize();
   
 public:
-  ChipDB();
+  explicit ChipDB();
+  ChipDB(const std::string &device_);
   
   void dump(std::ostream &s) const;
   void bwrite(pnr::obstream &obs) const;
   void bread(pnr::ibstream &ibs);
 };
-
-ChipDB *read_chipdb(const std::string &filename);
 
 }
 }

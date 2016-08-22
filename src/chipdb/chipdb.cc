@@ -33,6 +33,28 @@ ChipDB::ChipDB()
 {
 }
 
+ChipDB::ChipDB(const std::string &device_)
+  : ChipDB()
+{
+  using std::string;
+
+#ifdef _WIN32
+  const string filename = string("+/chipdb-") + device + ".bin";
+#else
+  const string filename =
+    string("+/share/arachne-pnr/chipdb-") + device + ".bin";
+#endif
+  *logs << "read_chipdb " << filename << "...\n";
+  string expanded = expand_filename(filename);
+  std::ifstream ifs(expanded, std::ifstream::in | std::ifstream::binary);
+  if (ifs.fail())
+    fatal(fmt("read_chipdb: failed to open `" << expanded << "': "
+              << strerror(errno)));
+
+  pnr::ibstream ibs(ifs);
+  bread(ibs);
+}
+
 int
 ChipDB::add_cell(CellType type, const Location &loc)
 {
@@ -355,21 +377,6 @@ ChipDB::bread(pnr::ibstream &ibs)
     }
   
   finalize();
-}
-
-ChipDB *
-read_chipdb(const std::string &filename)
-{
-  std::string expanded = expand_filename(filename);
-  std::ifstream ifs(expanded, std::ifstream::in | std::ifstream::binary);
-  if (ifs.fail())
-    fatal(fmt("read_chipdb: failed to open `" << expanded << "': "
-              << strerror(errno)));
-
-  ChipDB *const chipdb = new ChipDB;
-  pnr::ibstream ibs(ifs);
-  chipdb->bread(ibs);
-  return chipdb;
 }
 
 std::string

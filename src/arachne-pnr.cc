@@ -71,14 +71,6 @@ usage()
     "          8k - Lattice Semiconductor iCE40LP/HX8K\n"
     "        Default: 1k\n"
     "\n"
-    "    -c <file>, --chipdb <chipdb-file>\n"
-    "        Read chip database from <chipdb-file>.\n"
-#ifdef _WIN32
-    "        Default: +/chipdb-<device>.bin\n" <<
-#else
-    "        Default: +/share/arachne-pnr/chipdb-<device>.bin\n" <<
-#endif
-    "\n"
     "    -l, --no-promote-globals\n"
     "        Don't promote nets to globals.\n"
     "\n"
@@ -142,8 +134,7 @@ main(int argc, const char **argv)
     route_only = false,
     randomize_seed = false;
   std::string device = "1k";
-  const char *chipdb_file = nullptr,
-    *input_file = nullptr,
+  const char *input_file = nullptr,
     *package_name_cp = nullptr,
     *pcf_file = nullptr,
     *post_place_pcf = nullptr,
@@ -172,15 +163,6 @@ main(int argc, const char **argv)
               
               ++i;
               device = argv[i];
-            }
-          else if (!strcmp(argv[i], "-c")
-                   || !strcmp(argv[i], "--chipdb"))
-            {
-              if (i + 1 >= argc)
-                fatal(fmt(argv[i] << ": expected argument"));
-              
-              ++i;
-              chipdb_file = argv[i];
             }
           else if (!strcmp(argv[i], "-l")
                    || !strcmp(argv[i], "--no-promote-globals"))
@@ -374,22 +356,7 @@ main(int argc, const char **argv)
   random_generator rg(seed);
   
   *logs << "device: " << device << "\n";
-  std::string chipdb_file_s;
-  if (chipdb_file)
-    chipdb_file_s = chipdb_file;
-  else
-#ifdef _WIN32
-    chipdb_file_s = (std::string("+/chipdb-")
-                     + device
-                     + ".bin");
-#else
-    chipdb_file_s = (std::string("+/share/arachne-pnr/chipdb-")
-                     + device 
-                     + ".bin");
-#endif
-  *logs << "read_chipdb " << chipdb_file_s << "...\n";
-  const std::unique_ptr<chipdb::ChipDB> chipdb(
-    chipdb::read_chipdb(chipdb_file_s));
+  const std::unique_ptr<chipdb::ChipDB> chipdb(new chipdb::ChipDB(device));
   
   *logs << "  supported packages: ";
   bool first = true;
