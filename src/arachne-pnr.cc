@@ -130,7 +130,7 @@ main(int argc, const char **argv)
   
   bool help = false,
     quiet = false,
-    do_promote_globals = true,
+    promote_globals = true,
     route_only = false,
     randomize_seed = false;
   std::string device = "1k";
@@ -138,9 +138,9 @@ main(int argc, const char **argv)
     *package_name_cp = nullptr,
     *pcf_file = nullptr,
     *post_place_pcf = nullptr,
-    *pack_blif = nullptr,
-    *pack_verilog = nullptr,
-    *place_blif = nullptr,
+    *post_pack_blif = nullptr,
+    *post_pack_verilog = nullptr,
+    *post_place_blif = nullptr,
     *output_file = nullptr,
     *seed_str = nullptr,
     *max_passes_str = nullptr;
@@ -166,7 +166,7 @@ main(int argc, const char **argv)
             }
           else if (!strcmp(argv[i], "-l")
                    || !strcmp(argv[i], "--no-promote-globals"))
-            do_promote_globals = false;
+            promote_globals = false;
           else if (!strcmp(argv[i], "-B")
               || !strcmp(argv[i], "--post-pack-blif"))
             {
@@ -174,7 +174,7 @@ main(int argc, const char **argv)
                 fatal(fmt(argv[i] << ": expected argument"));
               
               ++i;
-              pack_blif = argv[i];
+              post_pack_blif = argv[i];
             }
           else if (!strcmp(argv[i], "-V")
               || !strcmp(argv[i], "--post-pack-verilog"))
@@ -183,7 +183,7 @@ main(int argc, const char **argv)
                 fatal(fmt(argv[i] << ": expected argument"));
               
               ++i;
-              pack_verilog = argv[i];
+              post_pack_verilog = argv[i];
             }
           else if (!strcmp(argv[i], "--post-place-blif"))
             {
@@ -191,7 +191,7 @@ main(int argc, const char **argv)
                 fatal(fmt(argv[i] << ": expected argument"));
               
               ++i;
-              place_blif = argv[i];
+              post_place_blif = argv[i];
             }
           else if (!strcmp(argv[i], "--route-only"))
             route_only = true;
@@ -434,10 +434,10 @@ main(int argc, const char **argv)
 #endif
         // d.dump();
         
-        if (pack_blif)
+        if (post_pack_blif)
           {
-            *logs << "write_blif " << pack_blif << "\n";
-            std::string expanded = expand_filename(pack_blif);
+            *logs << "write_blif " << post_pack_blif << "\n";
+            std::string expanded = expand_filename(post_pack_blif);
             std::ofstream fs(expanded);
             if (fs.fail())
               fatal(fmt("write_blif: failed to open `" << expanded << "': "
@@ -445,10 +445,10 @@ main(int argc, const char **argv)
             fs << "# " << PACKAGE_NAME " " PNR_PACKAGE_VERSION_STRING << "\n";
             d.write_blif(fs);
           }
-        if (pack_verilog)
+        if (post_pack_verilog)
           {
-            *logs << "write_verilog " << pack_verilog << "\n";
-            std::string expanded = expand_filename(pack_verilog);
+            *logs << "write_verilog " << post_pack_verilog << "\n";
+            std::string expanded = expand_filename(post_pack_verilog);
             std::ofstream fs(expanded);
             if (fs.fail())
               fatal(fmt("write_verilog: failed to open `" << expanded << "': "
@@ -466,7 +466,7 @@ main(int argc, const char **argv)
         // d.dump();
         
         *logs << "promote_globals...\n";
-        promote_globals(ds, do_promote_globals);
+        process::promote_globals(ds, promote_globals);
 #ifndef NDEBUG
         d.check();
 #endif
@@ -512,7 +512,7 @@ main(int argc, const char **argv)
               }
           }
         
-        if (place_blif)
+        if (post_place_blif)
           {
             for (const auto &p : ds.placement)
               {
@@ -526,8 +526,8 @@ main(int argc, const char **argv)
                                       << "/" << pos));
               }
             
-            *logs << "write_blif " << place_blif << "\n";
-            std::string expanded = expand_filename(place_blif);
+            *logs << "write_blif " << post_place_blif << "\n";
+            std::string expanded = expand_filename(post_place_blif);
             std::ofstream fs(expanded);
             if (fs.fail())
               fatal(fmt("write_blif: failed to open `" << expanded << "': "
