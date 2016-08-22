@@ -49,6 +49,7 @@ bin_arachne_pnr_SOURCES = \
 	src/process/pack.cc \
 	src/process/place.cc \
 	src/process/route.cc \
+	src/process/process.cc \
 	src/arachne-pnr.cc \
 	src/constraints.cc \
 	src/designstate.cc \
