@@ -28,6 +28,7 @@ bin_arachne_pnr_SOURCES = \
 	src/cbit.cc \
 	src/cbitval.cc \
 	src/chipdb.cc \
+	src/chipdbparser.cc \
 	src/configuration.cc \
 	src/constant.cc \
 	src/constraints.cc \
