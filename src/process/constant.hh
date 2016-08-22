@@ -13,14 +13,24 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_PACK_HH
-#define PNR_PACK_HH
+#ifndef PNR_PROCESS_CONSTANT_HH
+#define PNR_PROCESS_CONSTANT_HH
 
 namespace pnr {
 
-class DesignState;
+namespace chipdb {
+class ChipDB;
+}
 
-void pack(DesignState &ds);
+namespace netlist {
+class Design;
+}
+
+namespace process {
+
+void realize_constants(const chipdb::ChipDB *chipdb, netlist::Design *d);
+
+}
 
 }
 

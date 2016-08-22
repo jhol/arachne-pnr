@@ -39,19 +39,19 @@ bin_arachne_pnr_SOURCES = \
 	src/netlist/net.cc \
 	src/netlist/node.cc \
 	src/netlist/port.cc \
+	src/process/constant.cc \
+	src/process/global.cc \
+	src/process/io.cc \
+	src/process/pack.cc \
+	src/process/place.cc \
+	src/process/route.cc \
 	src/arachne-pnr.cc \
 	src/blif.cc \
-	src/constant.cc \
 	src/constraints.cc \
 	src/designstate.cc \
-	src/global.cc \
-	src/io.cc \
 	src/lexical_position.cc \
 	src/line_parser.cc \
-	src/pack.cc \
 	src/pcf.cc \
-	src/place.cc \
-	src/route.cc \
 	src/util.cc
 
 tests_test_bv_SOURCES = tests/test_bv.cc

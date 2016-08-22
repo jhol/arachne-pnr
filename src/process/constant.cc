@@ -25,6 +25,7 @@
 #include <cassert>
 
 namespace pnr {
+namespace process {
 
 void
 realize_constants(const chipdb::ChipDB *chipdb, netlist::Design *d)
@@ -134,4 +135,5 @@ realize_constants(const chipdb::ChipDB *chipdb, netlist::Design *d)
         *logs << "  realized 1\n";
 }
 
+}
 }

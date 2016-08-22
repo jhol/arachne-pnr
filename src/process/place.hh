@@ -13,31 +13,20 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_GLOBAL_HH
-#define PNR_GLOBAL_HH
+#ifndef PNR_PROCESS_PLACE_HH
+#define PNR_PROCESS_PLACE_HH
 
-#include <cstdint>
-#include <vector>
+class random_generator;
 
 namespace pnr {
 
 class DesignState;
 
-static const uint8_t gc_clk = 0xff;
-static const uint8_t gc_cen = 0xaa; // 1357
-static const uint8_t gc_rclke = 0x8a; // 137, 5 missing
-static const uint8_t gc_sr = 0x55;  // 0246
-static const uint8_t gc_re = 0x54; // 246, 0 missing
+namespace process {
 
-static const uint8_t gc_wclke = gc_cen;
-static const uint8_t gc_we = gc_sr;
+void place(random_generator &rg, DesignState &ds);
 
-const char *global_class_name(uint8_t gc);
-
-extern std::vector<uint8_t> global_classes;
-
-void
-promote_globals(DesignState &ds, bool do_promote);
+}
 
 }
 

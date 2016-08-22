@@ -43,6 +43,7 @@ using namespace pnr::netlist;
 namespace c = pnr::configuration;
 
 namespace pnr {
+namespace process {
 
 class Placer
 {
@@ -2026,4 +2027,5 @@ place(random_generator &rg, DesignState &ds)
         << (double)(end - start) / (double)CLOCKS_PER_SEC << "s\n";
 }
 
+}
 }

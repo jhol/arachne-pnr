@@ -44,6 +44,8 @@ namespace netlist {
 class Models;
 }
 
+namespace process {
+
 class Router;
 
 class Comp
@@ -923,4 +925,5 @@ route(DesignState &ds, int max_passes)
         << (double)(end - start) / (double)CLOCKS_PER_SEC << "s\n";
 }
 
+}
 }

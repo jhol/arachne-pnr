@@ -13,16 +13,18 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_PLACE_HH
-#define PNR_PLACE_HH
-
-class random_generator;
+#ifndef PNR_PROCESS_ROUTE_HH
+#define PNR_PROCESS_ROUTE_HH
 
 namespace pnr {
 
 class DesignState;
 
-void place(random_generator &rg, DesignState &ds);
+namespace process {
+
+void route(DesignState &ds, int max_passes);
+
+}
 
 }
 

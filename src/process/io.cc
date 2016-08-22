@@ -23,6 +23,7 @@
 #include <cassert>
 
 namespace pnr {
+namespace process {
 
 void
 instantiate_io(netlist::Design *d)
@@ -132,4 +133,5 @@ instantiate_io(netlist::Design *d)
   d->prune();
 }
 
+}
 }

@@ -18,16 +18,16 @@
 #include "casting.hh"
 #include "chipdb/chipdb.hh"
 #include "configuration/configuration.hh"
-#include "constant.hh"
 #include "designstate.hh"
-#include "global.hh"
-#include "io.hh"
 #include "netlist/design.hh"
 #include "netlist/port.hh"
-#include "pack.hh"
+#include "process/constant.hh"
+#include "process/global.hh"
+#include "process/io.hh"
+#include "process/pack.hh"
+#include "process/place.hh"
+#include "process/route.hh"
 #include "pcf.hh"
-#include "place.hh"
-#include "route.hh"
 #include "util.hh"
 
 #include "config.h"
@@ -134,6 +134,7 @@ int
 main(int argc, const char **argv)
 {
   using namespace pnr;
+  using namespace pnr::process;
 	
   program_name = argv[0];
   

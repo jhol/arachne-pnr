@@ -30,6 +30,7 @@
 using namespace pnr::netlist;
 
 namespace pnr {
+namespace process {
 
 class Promoter
 {
@@ -481,4 +482,5 @@ promote_globals(DesignState &ds, bool do_promote)
   promoter.promote(do_promote);
 }
 
+}
 }

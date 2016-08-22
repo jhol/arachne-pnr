@@ -13,14 +13,20 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_ROUTE_HH
-#define PNR_ROUTE_HH
+#ifndef PNR_PROCESS_IO_HH
+#define PNR_PROCESS_IO_HH
 
 namespace pnr {
 
-class DesignState;
+namespace netlist {
+class Design;
+}
 
-void route(DesignState &ds, int max_passes);
+namespace process {
+
+void instantiate_io(netlist::Design *d);
+
+}
 
 }
 

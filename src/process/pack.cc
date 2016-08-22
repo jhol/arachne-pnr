@@ -31,6 +31,7 @@ namespace netlist {
 class Models;
 }
 
+namespace process {
 
 class Packer
 {
@@ -694,4 +695,5 @@ pack(DesignState &ds)
   packer.pack();
 }
 
+}
 }
