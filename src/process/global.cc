@@ -38,7 +38,7 @@ class Promoter
   static const char *global_class_name(uint8_t gc);
   
   DesignState &ds;
-  const chipdb::ChipDB *const chipdb;
+  const chipdb::ChipDB &chipdb;
   Design *const d;
   Model *const top;
   const Models &models;
@@ -181,8 +181,8 @@ Promoter::pll_pass_through(Instance *inst, int cell, const char *p_name)
   pass_inst->set_param("LUT_INIT", BitVector(2, 2));
   pass_inst->find_port("O")->connect(n);
   
-  const auto &p2 = chipdb->cell_mfvs.at(cell).at(p_name);
-  int pass_cell = chipdb->loc_cell(chipdb::Location(p2.first, 0));
+  const auto &p2 = chipdb.cell_mfvs.at(cell).at(p_name);
+  int pass_cell = chipdb.loc_cell(chipdb::Location(p2.first, 0));
   
   extend(ds.placement, pass_inst, pass_cell);
 }
@@ -247,7 +247,7 @@ Promoter::promote(bool do_promote)
           Port *out = inst->find_port("GLOBAL_BUFFER_OUTPUT");
           if (out->connected())
             {
-              int g = chipdb->loc_pin_glb_num.at(chipdb->cell_location[c]);
+              int g = chipdb.loc_pin_glb_num.at(chipdb.cell_location[c]);
               for (uint8_t gc : global_classes)
                 {
                   if (gc & (1 << g))
@@ -266,9 +266,9 @@ Promoter::promote(bool do_promote)
           assert(a);
           if (a->connected())
             {
-              const auto &p2 = chipdb->cell_mfvs.at(c).at("PLLOUT_A");
+              const auto &p2 = chipdb.cell_mfvs.at(c).at("PLLOUT_A");
               chipdb::Location loc(p2.first, std::stoi(p2.second));
-              int g = chipdb->loc_pin_glb_num.at(loc);
+              int g = chipdb.loc_pin_glb_num.at(loc);
               for (uint8_t gc : global_classes)
                 {
                   if (gc & (1 << g))
@@ -280,9 +280,9 @@ Promoter::promote(bool do_promote)
           Port *b = inst->find_port("PLLOUTGLOBALB");
           if (b && b->connected())
             {
-              const auto &p2 = chipdb->cell_mfvs.at(c).at("PLLOUT_B");
+              const auto &p2 = chipdb.cell_mfvs.at(c).at("PLLOUT_B");
               chipdb::Location loc(p2.first, std::stoi(p2.second));
-              int g = chipdb->loc_pin_glb_num.at(loc);
+              int g = chipdb.loc_pin_glb_num.at(loc);
               for (uint8_t gc : global_classes)
                 {
                   if (gc & (1 << g))

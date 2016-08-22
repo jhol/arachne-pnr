@@ -35,7 +35,7 @@ namespace process {
 
 class Packer
 {
-  const chipdb::ChipDB *const chipdb;
+  const chipdb::ChipDB &chipdb;
   const chipdb::Package &package;
   Design *const d;
   const Models &models;
@@ -376,7 +376,7 @@ Packer::find_carry_lc(Instance *c)
 void
 Packer::pack_carries_from(Instance *f)
 {
-  unsigned max_chain_length = (chipdb->height - 2)*8;
+  unsigned max_chain_length = (chipdb.height - 2)*8;
   
   std::vector<Instance *> chain;
   
@@ -604,9 +604,9 @@ Packer::pack()
   // d->dump();
   
   int n_ramt_tiles = 0;
-  for (int i = 0; i < chipdb->n_tiles; ++i)
+  for (int i = 0; i < chipdb.n_tiles; ++i)
     {
-      if (chipdb->tile_type[i] == TileType::RAMT)
+      if (chipdb.tile_type[i] == TileType::RAMT)
         ++n_ramt_tiles;
     }
   
@@ -659,23 +659,23 @@ Packer::pack()
     }
   
   int n_logic_tiles = 0;
-  for (int i = 0; i < chipdb->n_tiles; ++i)
+  for (int i = 0; i < chipdb.n_tiles; ++i)
     {
-      if (chipdb->tile_type[i] == TileType::LOGIC)
+      if (chipdb.tile_type[i] == TileType::LOGIC)
         ++n_logic_tiles;
     }
   
   int n_warmboot_cells = 0;
-  for (int i = 0; i < chipdb->n_cells; ++i)
+  for (int i = 0; i < chipdb.n_cells; ++i)
     {
-      if (chipdb->cell_type[i+1] == CellType::WARMBOOT)
+      if (chipdb.cell_type[i+1] == CellType::WARMBOOT)
         ++n_warmboot_cells;
     }
   
   *logs << "\nAfter packing:\n"
         << "IOs          " << n_io << " / " << package.pin_loc.size() << "\n"
-        << "GBs          " << n_gb << " / " << chipdb->n_global_nets << "\n"
-        << "  GB_IOs     " << n_gb_io << " / " << chipdb->n_global_nets << "\n"
+        << "GBs          " << n_gb << " / " << chipdb.n_global_nets << "\n"
+        << "  GB_IOs     " << n_gb_io << " / " << chipdb.n_global_nets << "\n"
         << "LCs          " << n_lc << " / " << n_logic_tiles*8 << "\n"
         << "  DFF        " << n_lc_dff << "\n"
         << "  CARRY      " << n_lc_carry << "\n"
@@ -685,7 +685,7 @@ Packer::pack()
         << "BRAMs        " << n_bram << " / " << n_ramt_tiles << "\n"
         << "WARMBOOTs    " << n_warmboot << " / " << n_warmboot_cells << "\n"
         << "PLLs         " << n_pll << " / " 
-        << chipdb->cell_type_cells[cell_type_idx(CellType::PLL)].size() << "\n\n";
+        << chipdb.cell_type_cells[cell_type_idx(CellType::PLL)].size() << "\n\n";
 }
 
 void

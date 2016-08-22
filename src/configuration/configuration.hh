@@ -47,7 +47,7 @@ public:
   void set_extra_cbit(const std::tuple<int, int, int> &t);
   
   void write_txt(std::ostream &s,
-                 const chipdb::ChipDB *chipdb,
+                 const chipdb::ChipDB &chipdb,
                  netlist::Design *d,
                  const std::map<netlist::Instance *, int, netlist::IdLess>
 		   &placement,

@@ -27,7 +27,7 @@ namespace pnr {
 class DesignState
 {
 public:
-  const chipdb::ChipDB *const chipdb;
+  const chipdb::ChipDB &chipdb;
   const chipdb::Package &package;
   netlist::Design *const d;
   const netlist::Models models;
@@ -41,7 +41,7 @@ public:
   configuration::Configuration conf;
   
 public:
-  DesignState(const chipdb::ChipDB *chipdb_, const chipdb::Package &package_,
+  DesignState(const chipdb::ChipDB &chipdb_, const chipdb::Package &package_,
               netlist::Design *d_);
   
   bool is_dual_pll(netlist::Instance *inst) const;

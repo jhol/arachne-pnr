@@ -356,11 +356,11 @@ main(int argc, const char **argv)
   random_generator rg(seed);
   
   *logs << "device: " << device << "\n";
-  const std::unique_ptr<chipdb::ChipDB> chipdb(new chipdb::ChipDB(device));
+  const chipdb::ChipDB chipdb(device);
   
   *logs << "  supported packages: ";
   bool first = true;
-  for (const auto &p : chipdb->packages)
+  for (const auto &p : chipdb.packages)
     {
       if (first)
         first = false;
@@ -370,10 +370,10 @@ main(int argc, const char **argv)
     }
   *logs << "\n";
   
-  // chipdb->dump(std::cout);
+  // chipdb.dump(std::cout);
   
-  auto package_i = chipdb->packages.find(package_name);
-  if (package_i == chipdb->packages.end())
+  auto package_i = chipdb.packages.find(package_name);
+  if (package_i == chipdb.packages.end())
     fatal(fmt("unknown package `" << package_name << "'"));
   const chipdb::Package &package = package_i->second;
   
@@ -406,7 +406,7 @@ main(int argc, const char **argv)
   // d->dump();
   
   {
-    DesignState ds(chipdb.get(), package, d.get());
+    DesignState ds(chipdb, package, d.get());
     
     if (route_only)
       {
@@ -480,7 +480,7 @@ main(int argc, const char **argv)
         // d->dump();
         
         *logs << "realize_constants...\n";
-        realize_constants(chipdb.get(), d.get());
+        realize_constants(chipdb, d.get());
 #ifndef NDEBUG
         d->check();
 #endif
@@ -507,7 +507,7 @@ main(int argc, const char **argv)
                 if (ds.models.is_io(p.first))
                   {
                     const chipdb::Location &loc =
-                       chipdb->cell_location[p.second];
+                       chipdb.cell_location[p.second];
                     std::string pin = package.loc_pin.at(loc);
 		    netlist::Port *top_port = p.first->find_port(
                       "PACKAGE_PIN")->connection_other_port();
@@ -524,12 +524,12 @@ main(int argc, const char **argv)
             for (const auto &p : ds.placement)
               {
                 // p.first->set_attr("loc", fmt(p.second));
-                const chipdb::Location &loc = chipdb->cell_location[p.second];
+                const chipdb::Location &loc = chipdb.cell_location[p.second];
                 int t = loc.tile();
                 int pos = loc.pos();
                 p.first->set_attr("loc",
-                                  fmt(chipdb->tile_x(t)
-                                      << "," << chipdb->tile_y(t)
+                                  fmt(chipdb.tile_x(t)
+                                      << "," << chipdb.tile_y(t)
                                       << "/" << pos));
               }
             
@@ -560,13 +560,13 @@ main(int argc, const char **argv)
         if (fs.fail())
           fatal(fmt("write_txt: failed to open `" << expanded << "': "
                     << strerror(errno)));
-        ds.conf.write_txt(fs, chipdb.get(), d.get(),
+        ds.conf.write_txt(fs, chipdb, d.get(),
                           ds.placement, ds.cnet_net);
       }
     else
       {
         *logs << "write_txt <stdout>...\n";
-        ds.conf.write_txt(std::cout, chipdb.get(), d.get(),
+        ds.conf.write_txt(std::cout, chipdb, d.get(),
                           ds.placement, ds.cnet_net);
       }
   }

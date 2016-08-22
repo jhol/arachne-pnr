@@ -28,7 +28,7 @@ class Design;
 
 namespace process {
 
-void realize_constants(const chipdb::ChipDB *chipdb, netlist::Design *d);
+void realize_constants(const chipdb::ChipDB &chipdb, netlist::Design *d);
 
 }
 

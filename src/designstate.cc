@@ -19,7 +19,7 @@
 
 namespace pnr {
 
-DesignState::DesignState(const chipdb::ChipDB *chipdb_,
+DesignState::DesignState(const chipdb::ChipDB &chipdb_,
   const chipdb::Package &package_, netlist::Design *d_)
   : chipdb(chipdb_),
     package(package_),
@@ -49,22 +49,22 @@ std::vector<int>
 DesignState::pll_out_io_cells(netlist::Instance *inst, int cell) const
 {
   assert(models.is_pllX(inst)
-         && chipdb->cell_type[cell] == chipdb::CellType::PLL);
+         && chipdb.cell_type[cell] == chipdb::CellType::PLL);
   
   bool dual = is_dual_pll(inst);
   
-  const auto &p_a = chipdb->cell_mfvs.at(cell).at("PLLOUT_A");
+  const auto &p_a = chipdb.cell_mfvs.at(cell).at("PLLOUT_A");
   chipdb::Location io_loc_a(p_a.first, std::stoi(p_a.second));
-  int io_cell_a = chipdb->loc_cell(io_loc_a);
+  int io_cell_a = chipdb.loc_cell(io_loc_a);
   
   std::vector<int> r;
   r.push_back(io_cell_a);
   
   if (dual)
     {
-      const auto &p_b = chipdb->cell_mfvs.at(cell).at("PLLOUT_B");
+      const auto &p_b = chipdb.cell_mfvs.at(cell).at("PLLOUT_B");
       chipdb::Location io_loc_b(p_b.first, std::stoi(p_b.second));
-      int io_cell_b = chipdb->loc_cell(io_loc_b);
+      int io_cell_b = chipdb.loc_cell(io_loc_b);
       r.push_back(io_cell_b);
     }
   

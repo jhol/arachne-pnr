@@ -56,7 +56,7 @@ Configuration::set_extra_cbit(const std::tuple<int, int, int> &t)
 
 void
 Configuration::write_txt(std::ostream &s,
-                         const chipdb::ChipDB *chipdb,
+                         const chipdb::ChipDB &chipdb,
                          netlist::Design *d,
                          const std::map<netlist::Instance *, int,
 			   netlist::IdLess> &placement,
@@ -66,19 +66,19 @@ Configuration::write_txt(std::ostream &s,
 
   s << ".comment " << PACKAGE_NAME " " PNR_PACKAGE_VERSION_STRING << "\n";
   
-  s << ".device " << chipdb->device << "\n";
-  for (int t = 0; t < chipdb->n_tiles; ++t)
+  s << ".device " << chipdb.device << "\n";
+  for (int t = 0; t < chipdb.n_tiles; ++t)
     {
-      TileType ty = chipdb->tile_type[t];
+      TileType ty = chipdb.tile_type[t];
       if (ty == TileType::EMPTY)
         continue;
 
-      int  x = chipdb->tile_x(t),
-        y = chipdb->tile_y(t);
+      int  x = chipdb.tile_x(t),
+        y = chipdb.tile_y(t);
       s << "." << tile_type_name(ty) << " " << x << " " << y << "\n";
       
       int bw, bh;
-      std::tie(bw, bh) = chipdb->tile_cbits_block_size.at(ty);
+      std::tie(bw, bh) = chipdb.tile_cbits_block_size.at(ty);
       
       for (int r = 0; r < bh; r ++)
         {
@@ -112,13 +112,13 @@ Configuration::write_txt(std::ostream &s,
       if (models.is_ramX(p.first))
         {
           int cell = p.second;
-          const chipdb::Location &loc = chipdb->cell_location[cell];
+          const chipdb::Location &loc = chipdb.cell_location[cell];
           
           int t = loc.tile();
-          assert(chipdb->tile_type[t] == TileType::RAMT);
+          assert(chipdb.tile_type[t] == TileType::RAMT);
           
-          int x = chipdb->tile_x(t),
-            y = chipdb->tile_y(t);
+          int x = chipdb.tile_x(t),
+            y = chipdb.tile_y(t);
           
           s << ".ram_data " << x << " " << (y-1) << "\n";
           for (int i = 0; i < 16; ++i)
@@ -138,7 +138,7 @@ Configuration::write_txt(std::ostream &s,
         }
     }
   
-  for (int i = 0; i < chipdb->n_nets; ++i)
+  for (int i = 0; i < chipdb.n_nets; ++i)
     {
       netlist::Net *n = cnet_net[i];
       if (n)

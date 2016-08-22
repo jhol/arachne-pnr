@@ -24,7 +24,7 @@ namespace pnr {
 class ConstraintsPlacer
 {
   DesignState &ds;
-  const chipdb::ChipDB *const chipdb;
+  const chipdb::ChipDB &chipdb;
   const Models &models;
   const Model *const top;
   const Constraints &constraints;
@@ -60,7 +60,7 @@ ConstraintsPlacer::ConstraintsPlacer(DesignState &ds_)
     models(ds.models),
     top(ds.top),
     constraints(ds.constraints),
-    cell_gate(chipdb->n_cells, nullptr)
+    cell_gate(chipdb.n_cells, nullptr)
 {
   assert(ds.placement.empty());
 }
@@ -79,8 +79,8 @@ ConstraintsPlacer::place()
       
       const Location &loc = p.second;
       int t = loc.tile();
-      assert(chipdb->tile_type[t] == TileType::IO);
-      int b = chipdb->tile_bank(t);
+      assert(chipdb.tile_type[t] == TileType::IO);
+      int b = chipdb.tile_bank(t);
       
       int c = 0;
       if (models.is_ioX(inst))
@@ -103,14 +103,14 @@ ConstraintsPlacer::place()
           
           Location loc_other(t,
                              loc.pos() ? 0 : 1);
-          int cell_other = chipdb->loc_cell(loc_other);
+          int cell_other = chipdb.loc_cell(loc_other);
           if (cell_other)
             {
               Instance *inst_other = cell_gate[cell_other];
               if (inst_other)
                 {
-                  int x = chipdb->tile_x(t),
-                    y = chipdb->tile_y(t);
+                  int x = chipdb.tile_x(t),
+                    y = chipdb.tile_y(t);
                   
                   if (inst->get_param("NEG_TRIGGER").get_bit(0)
                       != inst_other->get_param("NEG_TRIGGER").get_bit(0))
@@ -137,7 +137,7 @@ ConstraintsPlacer::place()
                 }
             }
           
-          c = chipdb->loc_cell(loc);
+          c = chipdb.loc_cell(loc);
         }
       else
         {
@@ -145,9 +145,9 @@ ConstraintsPlacer::place()
           
           Location pll_loc(loc.tile(), 3);
           
-          c = chipdb->loc_cell(pll_loc);
+          c = chipdb.loc_cell(pll_loc);
           if (!c
-              || chipdb->cell_type[c] != CellType::PLL)
+              || chipdb.cell_type[c] != CellType::PLL)
             fatal(fmt("bad constraint on `"
                       << p.first << "': no PLL at pin "
                       << ds.package.loc_pin.at(loc)));
@@ -157,7 +157,7 @@ ConstraintsPlacer::place()
       extend(ds.placement, inst, c);
     }
   
-  for (int c : chipdb->cell_type_cells[cell_type_idx(CellType::PLL)])
+  for (int c : chipdb.cell_type_cells[cell_type_idx(CellType::PLL)])
     {
       Instance *pll = cell_gate[c];
       if (!pll)
@@ -175,10 +175,10 @@ ConstraintsPlacer::place()
               || !pin_type[0]
               || pin_type[1])
             {
-              const Location &pll_loc = chipdb->cell_location[c];
-              const std::string &io_pin = ds.package.loc_pin.at(chipdb->cell_location[io_cell]);
-              fatal(fmt("PLL at `" << chipdb->tile_x(pll_loc.tile())
-                        << " " << chipdb->tile_y(pll_loc.tile())
+              const Location &pll_loc = chipdb.cell_location[c];
+              const std::string &io_pin = ds.package.loc_pin.at(chipdb.cell_location[io_cell]);
+              fatal(fmt("PLL at `" << chipdb.tile_x(pll_loc.tile())
+                        << " " << chipdb.tile_y(pll_loc.tile())
                         << "' conflicts with pin " << io_pin << " input path"));
             }
         }
@@ -199,7 +199,7 @@ ConstraintsPlacer::place()
           ++n_pll;
           
           bool good = false;
-          for (int c : chipdb->cell_type_cells[cell_type_idx(CellType::PLL)])
+          for (int c : chipdb.cell_type_cells[cell_type_idx(CellType::PLL)])
             {
               if (cell_gate[c])
                 continue;
@@ -232,7 +232,7 @@ ConstraintsPlacer::place()
           if (!good)
             fatal(fmt("failed to place: placed " << n_pll_placed
                       << " PLLs of " << n_pll
-                      << " / " << chipdb->cell_type_cells[cell_type_idx(CellType::PLL)].size()));
+                      << " / " << chipdb.cell_type_cells[cell_type_idx(CellType::PLL)].size()));
         }
     }
 }
