@@ -30,7 +30,7 @@ public:
   const chipdb::ChipDB *const chipdb;
   const chipdb::Package &package;
   netlist::Design *d;
-  netlist::Models models;
+  const netlist::Models models;
   netlist::Model *top;
   Constraints constraints;
   CarryChains chains;

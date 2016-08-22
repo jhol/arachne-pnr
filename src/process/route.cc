@@ -66,7 +66,7 @@ class Router
 {
   const ChipDB *const chipdb;
   Design *d;
-  Models &models;
+  const Models &models;
   const std::map<Instance *, int, IdLess> &placement;
   std::vector<Net *> &cnet_net;
   configuration::Configuration &conf;

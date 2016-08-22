@@ -54,7 +54,7 @@ public:
   const ChipDB *chipdb;
   const Package &package;
   Design *d;
-  Models &models;
+  const Models &models;
   Model *top;
   const CarryChains &chains;
   const Constraints &constraints;

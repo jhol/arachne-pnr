@@ -38,7 +38,7 @@ class Packer
   const chipdb::ChipDB *const chipdb;
   const chipdb::Package &package;
   Design *d;
-  Models &models;
+  const Models &models;
   Model *top;
   CarryChains &chains;
   
