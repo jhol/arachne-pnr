@@ -65,7 +65,7 @@ public:
 class Router
 {
   const ChipDB &chipdb;
-  Design *const d;
+  Design &d;
   const Models &models;
   const std::map<Instance *, int, IdLess> &placement;
   std::vector<Net *> &cnet_net;
@@ -597,9 +597,9 @@ Router::traceback(int net, int target)
 void
 Router::route()
 {
-  // d->dump();
+  // d.dump();
   
-  Model *top = d->top();
+  Model *top = d.top();
   
   std::set<Net *, IdLess> boundary_nets = top->boundary_nets(d);
   for (const auto &p : top->nets())

@@ -53,7 +53,7 @@ public:
   DesignState &ds;
   const ChipDB &chipdb;
   const Package &package;
-  Design *const d;
+  Design &d;
   const Models &models;
   Model *const top;
   const CarryChains &chains;

@@ -48,7 +48,7 @@ public:
   
   void write_txt(std::ostream &s,
                  const chipdb::ChipDB &chipdb,
-                 netlist::Design *d,
+                 netlist::Design &d,
                  const std::map<netlist::Instance *, int, netlist::IdLess>
 		   &placement,
                  const std::vector<netlist::Net *> &cnet_net);

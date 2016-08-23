@@ -385,28 +385,21 @@ main(int argc, const char **argv)
   while (__AFL_LOOP(1000)) {
   */
   
-  std::unique_ptr<netlist::Design> d;
-  if (input_file)
-    {
-      *logs << "read_blif " << input_file << "...\n";
-      d.reset(parse::read_blif(input_file));
-    }
-  else
-    {
-      *logs << "read_blif <stdin>...\n";
-      d.reset(parse::read_blif("<stdin>", std::cin));
-    }
-  // d->dump();
+  *logs << "read_blif " << (input_file ? input_file : "<stdin>") << "...\n";
+  netlist::Design d = input_file ? parse::read_blif(input_file) :
+    parse::read_blif("<stdin>", std::cin);
+
+  // d.dump();
   
   *logs << "prune...\n";
-  d->prune();
+  d.prune();
 #ifndef NDEBUG
-  d->check();
+  d.check();
 #endif
-  // d->dump();
+  // d.dump();
   
   {
-    DesignState ds(chipdb, package, d.get());
+    DesignState ds(chipdb, package, d);
     
     if (route_only)
       {
@@ -428,18 +421,18 @@ main(int argc, const char **argv)
           }
         
         *logs << "instantiate_io...\n";
-        instantiate_io(d.get());
+        instantiate_io(d);
 #ifndef NDEBUG
-        d->check();
+        d.check();
 #endif
-        // d->dump();
+        // d.dump();
         
         *logs << "pack...\n";
         pack(ds);
 #ifndef NDEBUG
-        d->check();
+        d.check();
 #endif
-        // d->dump();
+        // d.dump();
         
         if (pack_blif)
           {
@@ -450,7 +443,7 @@ main(int argc, const char **argv)
               fatal(fmt("write_blif: failed to open `" << expanded << "': "
                         << strerror(errno)));
             fs << "# " << PACKAGE_NAME " " PNR_PACKAGE_VERSION_STRING << "\n";
-            d->write_blif(fs);
+            d.write_blif(fs);
           }
         if (pack_verilog)
           {
@@ -461,37 +454,37 @@ main(int argc, const char **argv)
               fatal(fmt("write_verilog: failed to open `" << expanded << "': "
                         << strerror(errno)));
             fs << "/* " << PACKAGE_NAME " " PNR_PACKAGE_VERSION_STRING << " */\n";
-            d->write_verilog(fs);
+            d.write_verilog(fs);
           }
         
         *logs << "place_constraints...\n";
         place_constraints(ds);
 #ifndef NDEBUG
-        d->check();
+        d.check();
 #endif
         
-        // d->dump();
+        // d.dump();
         
         *logs << "promote_globals...\n";
         promote_globals(ds, do_promote_globals);
 #ifndef NDEBUG
-        d->check();
+        d.check();
 #endif
-        // d->dump();
+        // d.dump();
         
         *logs << "realize_constants...\n";
-        realize_constants(chipdb, d.get());
+        realize_constants(chipdb, d);
 #ifndef NDEBUG
-        d->check();
+        d.check();
 #endif
 	
         *logs << "place...\n";
-        // d->dump();
+        // d.dump();
         place(rg, ds);
 #ifndef NDEBUG
-        d->check();
+        d.check();
 #endif
-        // d->dump();
+        // d.dump();
         
         if (post_place_pcf)
           {
@@ -540,16 +533,16 @@ main(int argc, const char **argv)
               fatal(fmt("write_blif: failed to open `" << expanded << "': "
                         << strerror(errno)));
             fs << "# " << PACKAGE_NAME " " PNR_PACKAGE_VERSION_STRING << "\n";
-            d->write_blif(fs);
+            d.write_blif(fs);
           }
       }
     
-    // d->dump();
+    // d.dump();
     
     *logs << "route...\n";
     route(ds, max_passes);
 #ifndef NDEBUG
-    d->check();
+    d.check();
 #endif
     
     if (output_file)
@@ -560,13 +553,13 @@ main(int argc, const char **argv)
         if (fs.fail())
           fatal(fmt("write_txt: failed to open `" << expanded << "': "
                     << strerror(errno)));
-        ds.conf.write_txt(fs, chipdb, d.get(),
+        ds.conf.write_txt(fs, chipdb, d,
                           ds.placement, ds.cnet_net);
       }
     else
       {
         *logs << "write_txt <stdout>...\n";
-        ds.conf.write_txt(std::cout, chipdb, d.get(),
+        ds.conf.write_txt(std::cout, chipdb, d,
                           ds.placement, ds.cnet_net);
       }
   }

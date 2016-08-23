@@ -41,7 +41,7 @@ public:
     : LineParser(f, s_)
   {}
   
-  netlist::Design *parse();
+  netlist::Design parse();
 };
 
 BitVector
@@ -65,15 +65,15 @@ BlifParser::stobv(const std::string &s_)
   return bv;
 }
 
-netlist::Design *
+netlist::Design
 BlifParser::parse()
 {
   using namespace netlist;
 
-  Design *d = new Design;
-  d->create_standard_models();
+  Design d;
+  d.create_standard_models();
   
-  Model *io_model = d->find_model("SB_IO");
+  Model *io_model = d.find_model("SB_IO");
   
   Model *top = nullptr;
   
@@ -102,7 +102,7 @@ BlifParser::parse()
                 fatal("definition of multiple models is not supported");
 
               top = new Model(d, words[1]);
-              d->set_top(top);
+              d.set_top(top);
             }
           else if (cmd == ".inputs")
             {
@@ -219,7 +219,7 @@ BlifParser::parse()
                 fatal("invalid .gate directive, missing name");
               
               const std::string &n = words[1];
-              Model *inst_of = d->find_model(n);
+              Model *inst_of = d.find_model(n);
               if (!inst_of)
                 fatal(fmt("unknown model `" << n << "'"));
               
@@ -398,7 +398,7 @@ BlifParser::parse()
   return d;
 }
 
-netlist::Design *
+netlist::Design
 read_blif(const std::string &filename)
 {
   std::string expanded = expand_filename(filename);
@@ -410,7 +410,7 @@ read_blif(const std::string &filename)
   return parser.parse();
 }
 
-netlist::Design *
+netlist::Design
 read_blif(const std::string &filename, std::istream &s)
 {
   BlifParser parser(filename, s);

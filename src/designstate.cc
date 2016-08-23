@@ -20,12 +20,12 @@
 namespace pnr {
 
 DesignState::DesignState(const chipdb::ChipDB &chipdb_,
-  const chipdb::Package &package_, netlist::Design *d_)
+  const chipdb::Package &package_, netlist::Design &d_)
   : chipdb(chipdb_),
     package(package_),
     d(d_),
     models(d_),
-    top(d_->top())
+    top(d_.top())
 {
 }
 

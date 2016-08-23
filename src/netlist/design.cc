@@ -44,7 +44,7 @@ Design::~Design()
 void
 Design::create_standard_models()
 {
-  Model *lc = new Model(this, "ICESTORM_LC");
+  Model *lc = new Model(*this, "ICESTORM_LC");
   lc->add_port("I0", Direction::IN, Value::ZERO);
   lc->add_port("I1", Direction::IN, Value::ZERO);
   lc->add_port("I2", Direction::IN, Value::ZERO);
@@ -65,7 +65,7 @@ Design::create_standard_models()
   lc->set_param("SET_ASYNC", BitVector(1, 0));
   lc->set_param("ASYNC_SR", BitVector(1, 0));
   
-  Model *io = new Model(this, "SB_IO");
+  Model *io = new Model(*this, "SB_IO");
   io->add_port("PACKAGE_PIN", Direction::INOUT);
   io->add_port("LATCH_INPUT_VALUE", Direction::IN, Value::ZERO);
   io->add_port("CLOCK_ENABLE", Direction::IN, Value::ONE);
@@ -82,11 +82,11 @@ Design::create_standard_models()
   io->set_param("NEG_TRIGGER", BitVector(1, 0));
   io->set_param("IO_STANDARD", "SB_LVCMOS");
   
-  Model *gb = new Model(this, "SB_GB");
+  Model *gb = new Model(*this, "SB_GB");
   gb->add_port("USER_SIGNAL_TO_GLOBAL_BUFFER", Direction::IN);
   gb->add_port("GLOBAL_BUFFER_OUTPUT", Direction::OUT);
   
-  Model *gb_io = new Model(this, "SB_GB_IO");
+  Model *gb_io = new Model(*this, "SB_GB_IO");
   gb_io->add_port("PACKAGE_PIN", Direction::INOUT);
   gb_io->add_port("GLOBAL_BUFFER_OUTPUT", Direction::OUT);
   gb_io->add_port("LATCH_INPUT_VALUE", Direction::IN, Value::ZERO);
@@ -104,7 +104,7 @@ Design::create_standard_models()
   gb_io->set_param("NEG_TRIGGER", BitVector(1, 0));
   gb_io->set_param("IO_STANDARD", "SB_LVCMOS");
   
-  Model *lut = new Model(this, "SB_LUT4");
+  Model *lut = new Model(*this, "SB_LUT4");
   lut->add_port("O", Direction::OUT);
   lut->add_port("I0", Direction::IN, Value::ZERO);
   lut->add_port("I1", Direction::IN, Value::ZERO);
@@ -113,7 +113,7 @@ Design::create_standard_models()
   
   lut->set_param("LUT_INIT", BitVector(1, 0));
   
-  Model *carry = new Model(this, "SB_CARRY");
+  Model *carry = new Model(*this, "SB_CARRY");
   carry->add_port("CO", Direction::OUT);
   carry->add_port("I0", Direction::IN, Value::ZERO);
   carry->add_port("I1", Direction::IN, Value::ZERO);
@@ -147,7 +147,7 @@ Design::create_standard_models()
               abort();
             }
         
-          Model *dff = new Model(this, name);
+          Model *dff = new Model(*this, name);
           dff->add_port("Q", Direction::OUT);
           dff->add_port("C", Direction::IN, Value::ZERO);
           if (cen)
@@ -178,7 +178,7 @@ Design::create_standard_models()
           name.append("NR");
         if (nw)
           name.append("NW");
-        Model *bram = new Model(this, name);
+        Model *bram = new Model(*this, name);
         
         for (int i = 0; i <= 15; ++i)
           bram->add_port(fmt("RDATA[" << i << "]"), Direction::OUT);
@@ -213,7 +213,7 @@ Design::create_standard_models()
         bram->set_param("WRITE_MODE", BitVector(2, 0));
       }
 
-  Model *pll_core = new Model(this, "SB_PLL40_CORE");
+  Model *pll_core = new Model(*this, "SB_PLL40_CORE");
   pll_core->add_port("REFERENCECLK", Direction::IN, Value::ZERO);
   pll_core->add_port("RESETB", Direction::IN, Value::ZERO);
   pll_core->add_port("BYPASS", Direction::IN, Value::ZERO);
@@ -248,7 +248,7 @@ Design::create_standard_models()
   pll_core->set_param("EXTERNAL_DIVIDE_FACTOR", BitVector(32, 1));
   pll_core->set_param("ENABLE_ICEGATE", BitVector(1, 0));
   
-  Model *pll_pad = new Model(this, "SB_PLL40_PAD");
+  Model *pll_pad = new Model(*this, "SB_PLL40_PAD");
   pll_pad->add_port("PACKAGEPIN", Direction::IN);
   pll_pad->add_port("RESETB", Direction::IN, Value::ZERO);
   pll_pad->add_port("BYPASS", Direction::IN, Value::ZERO);
@@ -283,7 +283,7 @@ Design::create_standard_models()
   pll_pad->set_param("EXTERNAL_DIVIDE_FACTOR", BitVector(32, 1));
   pll_pad->set_param("ENABLE_ICEGATE", BitVector(1, 0));
 
-  Model *pll_2_pad = new Model(this, "SB_PLL40_2_PAD");
+  Model *pll_2_pad = new Model(*this, "SB_PLL40_2_PAD");
   pll_2_pad->add_port("PACKAGEPIN", Direction::IN);
   pll_2_pad->add_port("RESETB", Direction::IN, Value::ZERO);
   pll_2_pad->add_port("BYPASS", Direction::IN, Value::ZERO);
@@ -322,7 +322,7 @@ Design::create_standard_models()
   pll_2_pad->set_param("ENABLE_ICEGATE_PORTA", BitVector(1, 0));
   pll_2_pad->set_param("ENABLE_ICEGATE_PORTB", BitVector(1, 0));
 
-  Model *pll_2f_core = new Model(this, "SB_PLL40_2F_CORE");
+  Model *pll_2f_core = new Model(*this, "SB_PLL40_2F_CORE");
   pll_2f_core->add_port("REFERENCECLK", Direction::IN, Value::ZERO);
   pll_2f_core->add_port("RESETB", Direction::IN, Value::ZERO);
   pll_2f_core->add_port("BYPASS", Direction::IN, Value::ZERO);
@@ -361,7 +361,7 @@ Design::create_standard_models()
   pll_2f_core->set_param("ENABLE_ICEGATE_PORTA", BitVector(1, 0));
   pll_2f_core->set_param("ENABLE_ICEGATE_PORTB", BitVector(1, 0));
 
-  Model *pll_2f_pad = new Model(this, "SB_PLL40_2F_PAD");
+  Model *pll_2f_pad = new Model(*this, "SB_PLL40_2F_PAD");
   pll_2f_pad->add_port("PACKAGEPIN", Direction::IN);
   pll_2f_pad->add_port("RESETB", Direction::IN, Value::ZERO);
   pll_2f_pad->add_port("BYPASS", Direction::IN, Value::ZERO);
@@ -400,12 +400,12 @@ Design::create_standard_models()
   pll_2f_pad->set_param("ENABLE_ICEGATE_PORTA", BitVector(1, 0));
   pll_2f_pad->set_param("ENABLE_ICEGATE_PORTB", BitVector(1, 0));
 
-  Model *warmboot = new Model(this, "SB_WARMBOOT");
+  Model *warmboot = new Model(*this, "SB_WARMBOOT");
   warmboot->add_port("BOOT", Direction::IN, Value::ZERO);
   warmboot->add_port("S1", Direction::IN, Value::ZERO);
   warmboot->add_port("S0", Direction::IN, Value::ZERO);
   
-  Model *tbuf = new Model(this, "$_TBUF_");
+  Model *tbuf = new Model(*this, "$_TBUF_");
   tbuf->add_port("A", Direction::IN);
   tbuf->add_port("E", Direction::IN);
   tbuf->add_port("Y", Direction::OUT);
@@ -429,7 +429,7 @@ void
 Design::check() const
 {
   for (const auto &p : m_models)
-    p.second->check(this);
+    p.second->check(*this);
 }
 #endif
 

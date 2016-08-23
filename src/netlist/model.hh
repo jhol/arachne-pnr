@@ -52,7 +52,7 @@ public:
   const std::map<std::string, Net *> &nets() const { return m_nets; }
   const std::map<std::string, Const> &params() const { return m_params; }
   
-  Model(Design *d, const std::string &n);
+  Model(Design &d, const std::string &n);
   ~Model();
   
   Net *find_net(const std::string &n);
@@ -83,11 +83,11 @@ public:
   
   bool has_param(const std::string &pn) { return contains_key(m_params, pn); }
   
-  std::set<Net *, IdLess> boundary_nets(const Design *d) const;
+  std::set<Net *, IdLess> boundary_nets(const Design &d) const;
   std::pair<std::vector<Net *>, std::map<Net *, int, IdLess>>
     index_nets() const;
   std::pair<std::vector<Net *>, std::map<Net *, int, IdLess>>
-    index_internal_nets(const Design *d) const;
+    index_internal_nets(const Design &d) const;
   
   std::pair<BasedVector<Instance *, 1>, std::map<Instance *, int, IdLess>>
     index_instances() const;
@@ -101,7 +101,7 @@ public:
   void write_blif(std::ostream &s) const;
   void rename_net(Net *n, const std::string &new_name);
 #ifndef NDEBUG
-  void check(const Design *d) const;
+  void check(const Design &d) const;
 #endif
 };
 

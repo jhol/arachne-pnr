@@ -26,16 +26,16 @@ namespace netlist {
 
 int Model::counter = 0;
 
-Model::Model(Design *d, const std::string &n)
+Model::Model(Design &d, const std::string &n)
   : Node(Node::Kind::model),
     m_name(n)
 {
-  if (contains(d->m_models, n)) {
+  if (contains(d.m_models, n)) {
     std::ostringstream s;
     s << "model name \"" << n << "\" conflicts with another defined model";
     fatal(s.str());
   }
-  extend(d->m_models, n, this);
+  extend(d.m_models, n, this);
 }
 
 Model::~Model()
@@ -114,7 +114,7 @@ Model::add_instance(Model *inst_of)
 }
 
 std::set<Net *, IdLess>
-Model::boundary_nets(const Design *d) const
+Model::boundary_nets(const Design &d) const
 {
   Models models(d);
   std::set<Net *, IdLess> bnets;
@@ -155,7 +155,7 @@ Model::index_nets() const
 }
 
 std::pair<std::vector<Net *>, std::map<Net *, int, IdLess>>
-Model::index_internal_nets(const Design *d) const
+Model::index_internal_nets(const Design &d) const
 {
   std::set<Net *, IdLess> bnets = boundary_nets(d);
   
@@ -261,7 +261,7 @@ Model::rename_net(Net *n, const std::string &new_name)
 
 #ifndef NDEBUG
 void
-Model::check(const Design *d) const
+Model::check(const Design &d) const
 {
   Models models(d);
   

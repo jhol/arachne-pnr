@@ -39,7 +39,7 @@ class Promoter
   
   DesignState &ds;
   const chipdb::ChipDB &chipdb;
-  Design *const d;
+  Design &d;
   Model *const top;
   const Models &models;
   std::map<Instance *, uint8_t, IdLess> &gb_inst_gc;
@@ -472,7 +472,7 @@ Promoter::promote(bool do_promote)
         *logs << "    " << p.second << " " << global_class_name(p.first) << "\n";
     }
   
-  d->prune();
+  d.prune();
 }
 
 void

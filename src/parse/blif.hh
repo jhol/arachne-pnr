@@ -27,8 +27,8 @@ class Design;
 
 namespace parse {
 
-netlist::Design *read_blif(const std::string &filename);
-netlist::Design *read_blif(const std::string &filename, std::istream &s);
+netlist::Design read_blif(const std::string &filename);
+netlist::Design read_blif(const std::string &filename, std::istream &s);
 
 }
 

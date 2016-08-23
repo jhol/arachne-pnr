@@ -20,20 +20,20 @@
 namespace pnr {
 namespace netlist {
 
-Models::Models(const Design *d)
+Models::Models(const Design &d)
 {
-  lut4 = d->find_model("SB_LUT4");
-  carry = d->find_model("SB_CARRY");
-  lc = d->find_model("ICESTORM_LC");
-  io = d->find_model("SB_IO");
-  gb = d->find_model("SB_GB");
-  gb_io = d->find_model("SB_GB_IO");
-  ram = d->find_model("SB_RAM40_4K");
-  ramnr = d->find_model("SB_RAM40_4KNR");
-  ramnw = d->find_model("SB_RAM40_4KNW");
-  ramnrnw = d->find_model("SB_RAM40_4KNRNW");
-  warmboot = d->find_model("SB_WARMBOOT");
-  tbuf = d->find_model("$_TBUF_");
+  lut4 = d.find_model("SB_LUT4");
+  carry = d.find_model("SB_CARRY");
+  lc = d.find_model("ICESTORM_LC");
+  io = d.find_model("SB_IO");
+  gb = d.find_model("SB_GB");
+  gb_io = d.find_model("SB_GB_IO");
+  ram = d.find_model("SB_RAM40_4K");
+  ramnr = d.find_model("SB_RAM40_4KNR");
+  ramnw = d.find_model("SB_RAM40_4KNW");
+  ramnrnw = d.find_model("SB_RAM40_4KNRNW");
+  warmboot = d.find_model("SB_WARMBOOT");
+  tbuf = d.find_model("$_TBUF_");
 }
 
 }

@@ -26,15 +26,15 @@ namespace pnr {
 namespace process {
 
 void
-instantiate_io(netlist::Design *d)
+instantiate_io(netlist::Design &d)
 {
   using namespace netlist;
 
   Models models(d);
   
-  Model *top = d->top();
-  Model *io_model = d->find_model("SB_IO");
-  Model *tbuf_model = d->find_model("$_TBUF_");
+  Model *top = d.top();
+  Model *io_model = d.find_model("SB_IO");
+  Model *tbuf_model = d.find_model("$_TBUF_");
   
   for (Instance *inst : top->instances())
     {
@@ -130,7 +130,7 @@ instantiate_io(netlist::Design *d)
         }
     }
   
-  d->prune();
+  d.prune();
 }
 
 }

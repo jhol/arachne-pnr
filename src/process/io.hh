@@ -24,7 +24,7 @@ class Design;
 
 namespace process {
 
-void instantiate_io(netlist::Design *d);
+void instantiate_io(netlist::Design &d);
 
 }
 

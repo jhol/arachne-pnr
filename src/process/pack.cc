@@ -37,7 +37,7 @@ class Packer
 {
   const chipdb::ChipDB &chipdb;
   const chipdb::Package &package;
-  Design *const d;
+  Design &d;
   const Models &models;
   Model *const top;
   CarryChains &chains;
@@ -600,8 +600,8 @@ Packer::pack()
   pack_luts();
   pack_carries();
   
-  d->prune();
-  // d->dump();
+  d.prune();
+  // d.dump();
   
   int n_ramt_tiles = 0;
   for (int i = 0; i < chipdb.n_tiles; ++i)

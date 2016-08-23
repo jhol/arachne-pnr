@@ -41,7 +41,7 @@ public:
     *tbuf;
   
 public:
-  Models(const Design *d);
+  Models(const Design &d);
   
   bool is_dff(Instance *inst) const
   {
