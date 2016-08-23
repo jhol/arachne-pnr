@@ -13,20 +13,20 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_BLIF_HH
-#define PNR_BLIF_HH
+#ifndef PNR_PARSE_PCF_HH
+#define PNR_PARSE_PCF_HH
 
-#include <istream>
 #include <string>
 
 namespace pnr {
 
-namespace netlist {
-class Design;
-}
+class DesignState;
 
-netlist::Design *read_blif(const std::string &filename);
-netlist::Design *read_blif(const std::string &filename, std::istream &s);
+namespace parse {
+
+void read_pcf(const std::string &filename, DesignState &ds);
+
+}
 
 }
 

@@ -13,7 +13,6 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#include "blif.hh"
 #include "carry.hh"
 #include "casting.hh"
 #include "chipdb/chipdb.hh"
@@ -21,13 +20,14 @@
 #include "designstate.hh"
 #include "netlist/design.hh"
 #include "netlist/port.hh"
+#include "parse/blif.hh"
+#include "parse/pcf.hh"
 #include "process/constant.hh"
 #include "process/global.hh"
 #include "process/io.hh"
 #include "process/pack.hh"
 #include "process/place.hh"
 #include "process/route.hh"
-#include "pcf.hh"
 #include "util.hh"
 
 #include "config.h"
@@ -457,12 +457,12 @@ main(int argc, const char **argv)
   if (input_file)
     {
       *logs << "read_blif " << input_file << "...\n";
-      d = read_blif(input_file);
+      d = parse::read_blif(input_file);
     }
   else
     {
       *logs << "read_blif <stdin>...\n";
-      d = read_blif("<stdin>", std::cin);
+      d = parse::read_blif("<stdin>", std::cin);
     }
   // d->dump();
   
@@ -492,7 +492,7 @@ main(int argc, const char **argv)
         if (pcf_file)
           {
             *logs << "read_pcf " << pcf_file << "...\n";
-            read_pcf(pcf_file, ds);
+	    parse::read_pcf(pcf_file, ds);
           }
         
         *logs << "instantiate_io...\n";

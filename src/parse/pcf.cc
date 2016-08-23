@@ -19,6 +19,7 @@
 #include <fstream>
 
 namespace pnr {
+namespace parse {
 
 class PCFParser : public LineParser
 {
@@ -130,4 +131,5 @@ read_pcf(const std::string &filename, DesignState &ds)
   return parser.parse();
 }
 
+}
 }

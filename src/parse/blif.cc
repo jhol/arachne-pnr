@@ -30,6 +30,7 @@
 #include <string>
 
 namespace pnr {
+namespace parse {
 
 class BlifParser : public LineParser
 {
@@ -416,4 +417,5 @@ read_blif(const std::string &filename, std::istream &s)
   return parser.parse();
 }
 
+}
 }
