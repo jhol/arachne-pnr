@@ -43,9 +43,6 @@ public:
 public:
   DesignState(const chipdb::ChipDB &chipdb_, const chipdb::Package &package_,
               netlist::Design &d_);
-  
-  bool is_dual_pll(netlist::Instance *inst) const;
-  std::vector<int> pll_out_io_cells(netlist::Instance *inst, int cell) const;
 };
 
 }

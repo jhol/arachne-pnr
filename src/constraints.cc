@@ -37,6 +37,10 @@ public:
   ConstraintsPlacer(DesignState &ds_);
   
   void place();
+
+private:
+  bool is_dual_pll(netlist::Instance *inst) const;
+  std::vector<int> pll_out_io_cells(netlist::Instance *inst, int cell) const;
 };
 
 Instance *
@@ -163,7 +167,7 @@ ConstraintsPlacer::place()
       if (!pll)
         continue;
       assert(models.is_pllX(pll));
-      for (int io_cell : ds.pll_out_io_cells(pll, c))
+      for (int io_cell : pll_out_io_cells(pll, c))
         {
           Instance *io = cell_gate[io_cell];
           if (!io)
@@ -205,7 +209,7 @@ ConstraintsPlacer::place()
                 continue;
               
               good = true;
-              for (int io_cell : ds.pll_out_io_cells(inst, c))
+              for (int io_cell : pll_out_io_cells(inst, c))
                 {
                   Instance *io = cell_gate[io_cell];
                   if (io)
@@ -235,6 +239,48 @@ ConstraintsPlacer::place()
                       << " / " << chipdb.cell_type_cells[cell_type_idx(CellType::PLL)].size()));
         }
     }
+}
+
+bool
+ConstraintsPlacer::is_dual_pll(netlist::Instance *inst) const
+{
+  assert(models.is_pllX(inst));
+  if (inst->instance_of()->name() == "SB_PLL40_2F_CORE"
+      || inst->instance_of()->name() == "SB_PLL40_2_PAD"
+      || inst->instance_of()->name() == "SB_PLL40_2F_PAD")
+    return true;
+  else
+    {
+      assert(inst->instance_of()->name() == "SB_PLL40_PAD"
+             || inst->instance_of()->name() == "SB_PLL40_CORE");
+      return false;
+    }
+}
+
+std::vector<int>
+ConstraintsPlacer::pll_out_io_cells(netlist::Instance *inst, int cell) const
+{
+  assert(models.is_pllX(inst)
+         && chipdb.cell_type[cell] == chipdb::CellType::PLL);
+
+  bool dual = is_dual_pll(inst);
+
+  const auto &p_a = chipdb.cell_mfvs.at(cell).at("PLLOUT_A");
+  chipdb::Location io_loc_a(p_a.first, std::stoi(p_a.second));
+  int io_cell_a = chipdb.loc_cell(io_loc_a);
+
+  std::vector<int> r;
+  r.push_back(io_cell_a);
+
+  if (dual)
+    {
+      const auto &p_b = chipdb.cell_mfvs.at(cell).at("PLLOUT_B");
+      chipdb::Location io_loc_b(p_b.first, std::stoi(p_b.second));
+      int io_cell_b = chipdb.loc_cell(io_loc_b);
+      r.push_back(io_cell_b);
+    }
+
+  return r;
 }
 
 void
