@@ -573,7 +573,8 @@ main(int argc, const char **argv)
               {
                 if (ds.models.is_io(p.first))
                   {
-                    const Location &loc = chipdb->cell_location[p.second];
+                    const chipdb::Location &loc =
+                       chipdb->cell_location[p.second];
                     std::string pin = package.loc_pin.at(loc);
 		    netlist::Port *top_port = p.first->find_port(
                       "PACKAGE_PIN")->connection_other_port();
@@ -590,7 +591,7 @@ main(int argc, const char **argv)
             for (const auto &p : ds.placement)
               {
                 // p.first->set_attr("loc", fmt(p.second));
-                const Location &loc = chipdb->cell_location[p.second];
+                const chipdb::Location &loc = chipdb->cell_location[p.second];
                 int t = loc.tile();
                 int pos = loc.pos();
                 p.first->set_attr("loc",

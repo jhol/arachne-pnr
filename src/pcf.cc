@@ -40,8 +40,8 @@ public:
 void
 PCFParser::parse()
 {
-  std::map<std::string, Location> net_pin_loc;
-  std::map<Location, std::string> pin_loc_net;
+  std::map<std::string, chipdb::Location> net_pin_loc;
+  std::map<chipdb::Location, std::string> pin_loc_net;
   
   for (;;)
     {
@@ -104,7 +104,7 @@ PCFParser::parse()
           if (contains(net_pin_loc, net_name))
             fatal(fmt("duplicate pin constraints for net `" << net_name << "'"));
           
-          const Location &loc = i->second;
+          const chipdb::Location &loc = i->second;
           if (contains(pin_loc_net, loc))
             fatal(fmt("duplicate pin constraints for pin `" << pin_name <<"'"));
           

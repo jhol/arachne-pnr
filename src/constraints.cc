@@ -69,6 +69,7 @@ void
 ConstraintsPlacer::place()
 {
   using chipdb::CellType;
+  using chipdb::Location;
   using chipdb::TileType;
 
   std::vector<Net *> bank_latch(4, nullptr);

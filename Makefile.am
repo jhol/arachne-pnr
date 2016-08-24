@@ -28,6 +28,7 @@ bin_arachne_pnr_SOURCES = \
 	src/configuration/bitval.cc \
 	src/chipdb/chipdb.cc \
 	src/chipdb/chipdbparser.cc \
+	src/chipdb/location.cc \
 	src/chipdb/switch.cc \
 	src/chipdb/tiletype.cc \
 	src/netlist/const.cc \
@@ -47,7 +48,6 @@ bin_arachne_pnr_SOURCES = \
 	src/io.cc \
 	src/lexical_position.cc \
 	src/line_parser.cc \
-	src/location.cc \
 	src/pack.cc \
 	src/pcf.cc \
 	src/place.cc \

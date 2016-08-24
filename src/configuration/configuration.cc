@@ -112,7 +112,7 @@ Configuration::write_txt(std::ostream &s,
       if (models.is_ramX(p.first))
         {
           int cell = p.second;
-          const Location &loc = chipdb->cell_location[cell];
+          const chipdb::Location &loc = chipdb->cell_location[cell];
           
           int t = loc.tile();
           assert(chipdb->tile_type[t] == TileType::RAMT);

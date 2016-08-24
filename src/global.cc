@@ -181,7 +181,7 @@ Promoter::pll_pass_through(Instance *inst, int cell, const char *p_name)
   pass_inst->find_port("O")->connect(n);
   
   const auto &p2 = chipdb->cell_mfvs.at(cell).at(p_name);
-  int pass_cell = chipdb->loc_cell(Location(p2.first, 0));
+  int pass_cell = chipdb->loc_cell(chipdb::Location(p2.first, 0));
   
   extend(ds.placement, pass_inst, pass_cell);
 }
@@ -266,7 +266,7 @@ Promoter::promote(bool do_promote)
           if (a->connected())
             {
               const auto &p2 = chipdb->cell_mfvs.at(c).at("PLLOUT_A");
-              Location loc(p2.first, std::stoi(p2.second));
+              chipdb::Location loc(p2.first, std::stoi(p2.second));
               int g = chipdb->loc_pin_glb_num.at(loc);
               for (uint8_t gc : global_classes)
                 {
@@ -280,7 +280,7 @@ Promoter::promote(bool do_promote)
           if (b && b->connected())
             {
               const auto &p2 = chipdb->cell_mfvs.at(c).at("PLLOUT_B");
-              Location loc(p2.first, std::stoi(p2.second));
+              chipdb::Location loc(p2.first, std::stoi(p2.second));
               int g = chipdb->loc_pin_glb_num.at(loc);
               for (uint8_t gc : global_classes)
                 {

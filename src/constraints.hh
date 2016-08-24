@@ -26,11 +26,11 @@ class DesignState;
 class Constraints
 {
 public:
-  std::map<std::string, Location> net_pin_loc;
+  std::map<std::string, chipdb::Location> net_pin_loc;
   
 public:
   Constraints() {}
-  Constraints(const std::map<std::string, Location> &np)
+  Constraints(const std::map<std::string, chipdb::Location> &np)
     : net_pin_loc(np)
   {}
 };

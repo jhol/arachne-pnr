@@ -13,8 +13,8 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef PNR_LOCATION_HH
-#define PNR_LOCATION_HH
+#ifndef PNR_CHIPDB_LOCATION_HH
+#define PNR_CHIPDB_LOCATION_HH
 
 #include "bstream.hh"
 #include "util.hh"
@@ -22,6 +22,7 @@
 #include <ostream>
 
 namespace pnr {
+namespace chipdb {
 
 class Location
 {
@@ -73,14 +74,15 @@ inline ibstream &operator>>(ibstream &ibs, Location &loc)
 }
 
 }
+}
 
 namespace std {
 
 template<>
-struct hash<pnr::Location>
+struct hash<pnr::chipdb::Location>
 {
 public:
-  size_t operator()(const pnr::Location &loc) const
+  size_t operator()(const pnr::chipdb::Location &loc) const
   {
     std::hash<int> hasher;
     size_t h = hasher(loc.m_tile);

@@ -16,6 +16,7 @@
 #include "location.hh"
 
 namespace pnr {
+namespace chipdb {
 
 std::ostream &
 operator<<(std::ostream &s, const Location &loc)
@@ -23,4 +24,5 @@ operator<<(std::ostream &s, const Location &loc)
   return s << loc.m_tile << "/" << loc.m_pos;
 }
 
+}
 }
